@@ -1,0 +1,28 @@
+\curl -L https://get.rvm.io | bash
+~/.bash_login
+(adding line: source ~/.profile)
+rvm reload
+rvm list known
+rvm install 1.9.3
+rvm --default use 1.9.3
+
+
+gem install rails
+
+rails new prototyp1 -m https://raw.github.com/RailsApps/rails-composer/master/composer.rb -T
+
+===> error http://railsapps.github.io/rails-error-you-have-already-activated.html
+
+gem uninstall i18n -v 0.6.1
+gem install i18n
+
+REPEAT: 
+rails new prototyp1 -m https://raw.github.com/RailsApps/rails-composer/master/composer.rb -T
+
+gem uninstall rake -v 1.7.1
+gem install rake
+
+REPEAT:
+rails new prototyp1 -m https://raw.github.com/RailsApps/rails-composer/master/composer.rb -T
+
+
