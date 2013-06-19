@@ -221,6 +221,15 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
 
+  require "omniauth-facebook"
+  config.omniauth :facebook, "134694313396855", "5dcd0a644303fab5c19276dcdf383d06",
+                  #for heroku necessary (development env. works as well)
+                  {:strategy_class => OmniAuth::Strategies::Facebook,
+                   :scope => 'email, offline_access',
+                   :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
+
+
+
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
   # change the failure app, you can configure them inside the config.warden block.

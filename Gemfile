@@ -34,3 +34,9 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-twitter'
 gem 'omniauth-linkedin'
+
+#could not find multipart-post-1.2.0 in any of the sources: multipart-post-1.2.0
+gem "multipart-post", ">= 1.2.0"
+
+#for rspec
+gem "webrat", :group => [:development, :test]
