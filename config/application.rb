@@ -75,7 +75,7 @@ module Prototyp1
 
 
     #####kg: mentioned here: https://github.com/RailsApps/rails3-bootstrap-devise-cancan
-    config.assets.initialize_on_precompile=false
+    ####config.assets.initialize_on_precompile=false        #dont know whether its needed.....
 
     # Enable the asset pipeline
     config.assets.enabled = true
