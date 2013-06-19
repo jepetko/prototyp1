@@ -73,6 +73,10 @@ module Prototyp1
     # parameters by using an attr_accessible or attr_protected declaration.
     config.active_record.whitelist_attributes = true
 
+
+    #####kg: mentioned here: https://github.com/RailsApps/rails3-bootstrap-devise-cancan
+    config.assets.initialize_on_precompile=false
+
     # Enable the asset pipeline
     config.assets.enabled = true
 
