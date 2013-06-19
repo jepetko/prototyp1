@@ -50,6 +50,10 @@ Prototyp1::Application.configure do
 
   config.assets.precompile += %w(application.css bootstrap_and_overrides.css home.css)
 
+  #####kg: mentioned here: https://github.com/RailsApps/rails3-bootstrap-devise-cancan
+  ##### OTHERWISE: heroku doesn't use manifest.yaml
+  config.assets.initialize_on_precompile = false
+
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
 
