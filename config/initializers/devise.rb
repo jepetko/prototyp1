@@ -222,13 +222,15 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
 
   require "omniauth-facebook"
+  require "omniauth-linkedin"
+
   config.omniauth :facebook, "134694313396855", "5dcd0a644303fab5c19276dcdf383d06",
                   #for heroku necessary (development env. works as well)
                   {:strategy_class => OmniAuth::Strategies::Facebook,
                    :scope => 'email, offline_access',
                    :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 
-
+  config.omniauth :linkedin, 'h3nwwahkeb3f', 'Fy69pqKXBnX1DKlC', :scope => "r_basicprofile r_emailaddress"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

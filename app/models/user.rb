@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   attr_accessible :provider, :uid
 
   #facebook integration
-  devise :omniauthable, :omniauth_providers => [:facebook]
+  devise :omniauthable, :omniauth_providers => [:facebook, :linkedin]
 
 =begin
    2.) 2nd step: when coming back from the provider, the object auth is filled with lots of data, e.g.
@@ -78,15 +78,44 @@ class User < ActiveRecord::Base
     user
   end
 
+  def self.find_for_linkedin_oauth(auth, signed_in_resource=nil)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    unless user
+      user = User.create(name:auth.extra.raw_info.name,
+                         provider:auth.provider,
+                         uid:auth.uid,
+                         email:auth.info.email,
+                         password:Devise.friendly_token[0,20]
+      )
+    end
+    user
+  end
+
   #### 1.) first step: lookup whether there are data stored in the session. If not DEVISE will redirect the user
   #### to the provider.
+=begin
+  def self.new_with_session(params, session)
+    super.tap do |user|
+      supported_providers = User.omniauth_providers
+      supported_providers.each do |provider|
+        if data = session["devise.#{provider}_data"] && session["devise.#{provider}_data"]["extra"]["raw_info"]
+          user.email = data["email"] if user.email.blank?
+          break
+        end
+      end
+    end
+  end
+  ##################################
+=end
+
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"] if user.email.blank?
       end
+      if data = session["devise.linkedin_data"] && session["devise.linkedin_data"]["extra"]["raw_info"]
+        user.email = data["email"] if user.email.blank?
+      end
     end
   end
-  ##################################
-
 end
