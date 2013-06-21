@@ -1,0 +1,22 @@
+defaults: &defaults
+  facebook:
+    api_key: "134694313396855"
+    api_secret: "5dcd0a644303fab5c19276dcdf383d06"
+  linkedin:
+    api_key: "h3nwwahkeb3f"
+    api_secret: "Fy69pqKXBnX1DKlC"
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+#TODO: define
+production:
+  twitter:
+    api_key: "KEY2"
+    api_secret: "SECRET2"
+  facebook:
+    api_key: "KEY2"
+    api_secret: "SECRET2"

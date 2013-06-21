@@ -109,11 +109,6 @@ class User < ActiveRecord::Base
           user.email = data["email"] if user.email.blank?
         end
       end
-
-
-      #if data = session["devise.linkedin_data"] && session["devise.linkedin_data"]["extra"]["raw_info"]
-      #  user.email = data["email"] if user.email.blank?
-      #end
     end
   end
 end

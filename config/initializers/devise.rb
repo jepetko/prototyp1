@@ -224,13 +224,16 @@ Devise.setup do |config|
   require "omniauth-facebook"
   require "omniauth-linkedin"
 
-  config.omniauth :facebook, "134694313396855", "5dcd0a644303fab5c19276dcdf383d06",
+  #load API keys
+  API_KEYS = YAML::load_file("#{Rails.root}/config/api_keys.yml")[Rails.env]
+
+  config.omniauth :facebook, API_KEYS['facebook']['api_key'], API_KEYS['facebook']['api_secret'],
                   #for heroku necessary (development env. works as well)
                   {:strategy_class => OmniAuth::Strategies::Facebook,
                    :scope => 'email, offline_access',
                    :client_options => {:ssl => {:ca_file => '/usr/lib/ssl/certs/ca-certificates.crt'}}}
 
-  config.omniauth :linkedin, 'h3nwwahkeb3f', 'Fy69pqKXBnX1DKlC', :scope => "r_basicprofile r_emailaddress"
+  config.omniauth :linkedin, API_KEYS['linkedin']['api_key'], API_KEYS['linkedin']['api_secret'], :scope => "r_basicprofile r_emailaddress"
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
