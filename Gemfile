@@ -46,3 +46,6 @@ gem "webrat", :group => [:development, :test]
 #debugging
 gem "ruby-debug-base19x", :group => [:development, :test]
 gem "ruby-debug-ide", :group => [:development, :test]
+
+#for simple_form
+gem "country_select"
