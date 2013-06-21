@@ -15,14 +15,14 @@ class User < ActiveRecord::Base
   attr_accessible :provider, :uid
 
   #facebook integration
-  providers = [:facebook, :linkedin]
+  providers = [:facebook, :linkedin, :xing]
   devise :omniauthable, :omniauth_providers => providers
 
    ## traverse al available providers
   providers.each do |provider|
     p = provider.to_s
     method_name = "find_for_#{p}_oauth"
-    self.define_singleton_method method_name.to_s do |auth, signed_in_resource=nil|
+    self.define_singleton_method method_name.to_sym do |auth, signed_in_resource=nil|
       return self.find_for_any_auth(auth, signed_in_resource)
     end
   end
@@ -76,7 +76,13 @@ class User < ActiveRecord::Base
     updated_time: '2013-06-19T08:32:20+0000'
 =end
   def self.get_name_from_raw_info(raw_info)
-    raw_info.name || ( raw_info.firstName + " " + raw_info.lastName )
+    if raw_info.name
+      raw_info.name
+    elsif raw_info.firstName
+      raw_info.firstName + ' ' + raw_info.lastName
+    elsif raw_info.first_name
+      raw_info.first_name + ' ' + raw_info.last_name
+    end
   end
 
   def self.find_for_any_auth(auth, signed_in_resource=nil)

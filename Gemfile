@@ -34,8 +34,8 @@ gem "hub", ">= 1.10.2", :require => nil, :group => [:development]
 #facebook integration
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'omniauth-twitter'
 gem 'omniauth-linkedin'
+gem 'omniauth-xing'
 
 #could not find multipart-post-1.2.0 in any of the sources: multipart-post-1.2.0
 gem "multipart-post", ">= 1.2.0"

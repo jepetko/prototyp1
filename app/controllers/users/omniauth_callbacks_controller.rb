@@ -1,4 +1,5 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+
   def facebook
     auth "Facebook"
   end
@@ -6,6 +7,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def linkedin
     auth "LinkedIn"
   end
+
+  def xing
+    auth "Xing"
+  end
+
+
+  #########################################
 
   def failure
     flash[:error] = 'Error while authentication.'
