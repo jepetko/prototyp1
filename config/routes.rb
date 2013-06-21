@@ -5,4 +5,9 @@ Prototyp1::Application.routes.draw do
   root :to => "home#index"
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
   resources :users
+
+  #for unknown error catchment
+  devise_scope :user do
+    get "/users/auth/failure" => "users/omniauth_callbacks#failure"
+  end
 end
