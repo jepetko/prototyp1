@@ -17,7 +17,8 @@ group :development, :test do
   gem "rspec-core"
   gem "rspec-rails", ">= 2.12.2"
   gem "webrat"
-  gem "cucumber-rails", ">= 1.3.1", :group => :test, :require => false
+  gem "cucumber", ">= 1.3.2"
+  gem "cucumber-rails", ">= 1.3.1"
 end
 
 

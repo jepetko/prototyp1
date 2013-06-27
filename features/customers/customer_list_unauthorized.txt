@@ -1,0 +1,9 @@
+# language: de
+
+Funktionalität: Auflisten von Kunden durch einen nicht-authentifizierten Kunden
+  Als nicht eingeloggter User
+  Kann ich nicht die Kunden sehen
+
+  Szenario: Weiterleitung zu Log-In
+    Wenn ich die Kunden-Liste aufrufe
+    Dann werde ich zu Log-In-Seite weitergeleitet

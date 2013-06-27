@@ -13,7 +13,7 @@ module OmniAuthFacebookIntegration
                                                                 })
 end
 
-=begin
+
 module LoginLogoutHelpers
 
   def test_log_in(user)
@@ -28,6 +28,5 @@ module LoginLogoutHelpers
 end
 
 RSpec.configure do |config|
-  config.include LoginLogoutHelpers #, :type => :controller
+  config.include LoginLogoutHelpers, :type => :controller
 end
-=end

@@ -54,7 +54,7 @@ RSpec.configure do |config|
   ####### test log-in and log-out
 
   #unless Rails.env.production?
-
+=begin
     def test_log_in(user)
       raise 'You (' + user.email + ') are not authorized!' if not user.valid_password?(user.password)
       controller.sign_in(:user, user)
@@ -65,4 +65,5 @@ RSpec.configure do |config|
     end
 
   #end
+=end
 end

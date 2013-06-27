@@ -2,12 +2,14 @@
 
 FactoryGirl.define do
 
-  factory :customer do
-    name "MyString"
-    street "MyString"
-    zip "MyString"
-    city "MyString"
-    country "MyString"
+ sequence(:customer_name) {|n| "Customer #{n}"}
+
+ factory :customer do
+    name { FactoryGirl.generate(:customer_name) }
+    street "Funny Street"
+    zip "1111"
+    city "Funny City"
+    country "USA"
   end
 
 end

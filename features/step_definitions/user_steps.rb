@@ -42,6 +42,13 @@ def sign_in
   visit '/users/sign_in'
   fill_in "Email", :with => @visitor[:email]
   fill_in "Password", :with => @visitor[:password]
+
+  puts @visitor[:email]
+  puts @visitor[:password]
+  puts User.all.inspect
+  puts page.body
+
+
   click_button "Sign in"
 end
 
@@ -57,6 +64,8 @@ end
 
 Given /^I exist as a user$/ do
   create_user
+  breakpoint
+  0
 end
 
 Given /^I do not exist as a user$/ do
@@ -70,7 +79,8 @@ end
 
 ### WHEN ###
 When /^I sign in with valid credentials$/ do
-  create_visitor
+  #create_visitor
+  create_user
   sign_in
 end
 
@@ -150,6 +160,8 @@ Then /^I see an unconfirmed account message$/ do
 end
 
 Then /^I see a successful sign in message$/ do
+  puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
+  puts page.body
   page.should have_content "Signed in successfully."
 end
 

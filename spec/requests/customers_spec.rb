@@ -26,9 +26,16 @@ describe "Customers" do
 
     describe "GET /customers" do
 
+      before(:each) do
+        10.times do
+          c = FactoryGirl.create(:customer)
+        end
+      end
+
       it "lists all customers" do
         # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
         get customers_path
+        response.should have_selector('.customer', :count => 10)
         response.status.should be(200)
       end
 
