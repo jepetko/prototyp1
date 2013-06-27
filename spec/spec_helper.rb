@@ -50,4 +50,19 @@ RSpec.configure do |config|
   end
 
   OmniAuth.config.test_mode = true
+
+  ####### test log-in and log-out
+
+  #unless Rails.env.production?
+
+    def test_log_in(user)
+      raise 'You (' + user.email + ') are not authorized!' if not user.valid_password?(user.password)
+      controller.sign_in(:user, user)
+    end
+
+    def test_log_out(user)
+      controller.sign_out(user)
+    end
+
+  #end
 end
