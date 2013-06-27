@@ -35,10 +35,24 @@ describe "Customers" do
       it "lists all customers" do
         # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
         get customers_path
-        response.should have_selector('.customer', :count => 10)
         response.status.should be(200)
+        response.should have_selector('.customer', :count => 10) do |c|
+          c.should have_selector('.pic')
+        end
       end
 
+    end
+
+    describe "GET /customer/N" do
+      before(:each) do
+        @customer = FactoryGirl.create(:customer)
+      end
+
+      it "returns the customer" do
+        get "/customers/#{@customer.id}"
+        response.status.should be(200)
+        response.should contain(@customer.name)
+      end
     end
 
   end

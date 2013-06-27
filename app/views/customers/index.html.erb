@@ -3,7 +3,9 @@
     <ul class="thumbnails">
 
         <% @customers.each do |customer| %>
-            <%= render :partial => 'customers/customer_in_list', :object => customer, :as => :customer %>
+          <li class="span4 customer">
+             <%= render :partial => 'customers/customer_in_list', :object => customer, :as => :customer %>
+          </li>
         <% end %>
 
     </ul>

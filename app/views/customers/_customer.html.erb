@@ -1,0 +1,15 @@
+<div class="pic">
+  <a href="#">
+    <% image_tag customer.avatar.url(:medium) %>
+  </a>
+</div>
+<h3><%= customer.name %></h3>
+<table>
+  <tr>
+    <td colspan="2"><%= customer.street %></td>
+  </tr>
+  <tr>
+    <td><%= customer.zip %></td>
+    <td><%= customer.city %></td>
+  </tr>
+</table>

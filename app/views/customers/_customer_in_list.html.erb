@@ -1,19 +1,17 @@
-<li class="span4 customer">
-  <div class="thumbnail">
-    <div class="pic">
-      <a href="#">
-        <img class="pic" src="img/company.jpg" alt="">
-      </a>
-    </div>
-    <h3><%= customer.name %></h3>
-    <table>
-      <tr>
-        <td colspan="2"><%= customer.street %></td>
-      </tr>
-      <tr>
-        <td><%= customer.zip %></td>
-        <td><%= customer.city %></td>
-      </tr>
-    </table>
+<div class="thumbnail">
+  <div class="pic">
+    <a href="#">
+      <%= image_tag customer.avatar.url(:thumb) %>
+    </a>
   </div>
-</li>
+  <h3><%= customer.name %></h3>
+  <table>
+    <tr>
+      <td colspan="2"><%= customer.street %></td>
+    </tr>
+    <tr>
+      <td><%= customer.zip %></td>
+      <td><%= customer.city %></td>
+    </tr>
+  </table>
+</div>

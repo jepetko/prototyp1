@@ -19,6 +19,7 @@ group :development, :test do
   gem "webrat"
   gem "cucumber", ">= 1.3.2"
   gem "cucumber-rails", ">= 1.3.1"
+  gem "faker"
 end
 
 
@@ -55,3 +56,7 @@ gem "ruby-debug-ide", :group => [:development, :test]
 
 #for simple_form
 gem "country_select"
+
+#picture upload
+gem "paperclip", "~> 3.0"
+
