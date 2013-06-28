@@ -13,4 +13,19 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap
+//= require jquery-fileupload
 //= require_tree .
+
+var ProtoSupport = (function() {
+    return {
+        addCompanyAvatarFileUploadSupport : function() {
+            $(function () {
+                // Initialize the jQuery File Upload widget:
+                $('#fileupload').fileupload({maxNumberOfFiles : 1});
+            });
+        },
+        setCompanyAvatarOnCustomer : function(val) {
+            $('#customer_company_avatar').val(val);
+        }
+    };
+})();

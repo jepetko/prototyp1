@@ -1,4 +1,5 @@
 Prototyp1::Application.routes.draw do
+  resources :company_avatars
   resources :customers
 
   authenticated :user do

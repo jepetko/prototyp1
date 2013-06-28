@@ -1,4 +1,4 @@
-#require 'faker'
+require 'faker'
 
 namespace :db do
   desc "Fill database with sample data"
@@ -38,7 +38,9 @@ def make_customers
     customer = Customer.create!(:name => name, :street => street, :zip => zip, :city => city, :country => 'AUT')
 
     file_name = "#{Rails.root}/lib/assets/images/logo_#{Random.rand(1..25)}.png"
-    customer.avatar = File.new(file_name)
+    customer.company_avatar = CompanyAvatar.new
+    customer.company_avatar.avatar = File.new(file_name)
+
     customer.save!
   end
 end

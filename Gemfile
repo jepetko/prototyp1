@@ -18,8 +18,8 @@ group :development, :test do
   gem "rspec-rails", ">= 2.12.2"
   gem "webrat"
   gem "cucumber", ">= 1.3.2"
-  gem "cucumber-rails", ">= 1.3.1"
-  gem "faker"
+  gem "cucumber-rails", ">= 1.3.1", :require => false
+  gem "faker", :require => false
 end
 
 
@@ -59,4 +59,8 @@ gem "country_select"
 
 #picture upload
 gem "paperclip", "~> 3.0"
+
+# To use Jbuilder templates for JSON
+gem 'jbuilder'
+gem "jquery-fileupload-rails"
 

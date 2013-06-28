@@ -1,13 +1,15 @@
-<div class="row">
-  <div class="span12">
-    <ul class="thumbnails">
+<% i=0 %>
 
-        <% @customers.each do |customer| %>
-          <li class="span4 customer">
-             <%= render :partial => 'customers/customer_in_list', :object => customer, :as => :customer %>
-          </li>
-        <% end %>
+<% @customers.each do |customer| %>
 
-    </ul>
-  </div>
-</div>
+    <% i += 1 %>
+    <%= render :partial => 'customers/customer_in_list_open_row', :locals => { :customers => @customers, :i => i } %>
+
+    <li class="span4 customer">
+      <%= render :partial => 'customers/customer_in_list', :object => customer, :as => :customer %>
+    </li>
+
+    <%= render :partial => 'customers/customer_in_list_close_row', :locals => { :customers => @customers, :i => i } %>
+
+<% end %>
+

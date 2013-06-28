@@ -1,4 +1,4 @@
-<%= simple_form_for(@customer, :html => { :multipart => true }) do |f| %>
+<%= simple_form_for(@customer) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -7,10 +7,11 @@
     <%= f.input :zip %>
     <%= f.input :city %>
     <%= f.input :country %>
-    <%= f.file_field :avatar %>
+    <%= f.hidden_field :company_avatar %>
+
   </div>
 
-  <div class="form-actions">
+    <div class="form-actions">
     <%= f.button :submit %>
   </div>
 <% end %>

@@ -1,8 +1,6 @@
 <div class="thumbnail">
   <div class="pic">
-    <a href="#">
-      <%= image_tag customer.avatar.url(:thumb) %>
-    </a>
+      <%= image_tag customer.company_avatar.avatar.url(:thumb) %>
   </div>
   <h3><%= customer.name %></h3>
   <table>

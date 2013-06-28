@@ -43,7 +43,17 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
-    @customer = Customer.new(params[:customer])
+    customer_params = params[:customer]
+    company_avatar_id = customer_params[:company_avatar]
+
+    if company_avatar_id.empty?
+      customer_params[:company_avatar] = nil
+    else
+      company_avatar = CompanyAvatar.find( company_avatar_id.to_i )
+      customer_params[:company_avatar] = company_avatar
+    end
+
+    @customer = Customer.new(customer_params)
 
     respond_to do |format|
       if @customer.save
