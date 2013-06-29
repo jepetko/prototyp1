@@ -102,6 +102,7 @@
 <script type="text/javascript">
     ProtoSupport.addCompanyAvatarFileUploadSupport();
     <% if flash[:upload] %>
+        ProtoSupport.setCompanyAvatarOnCustomer( <%=flash[:upload]%> );
         ProtoSupport.listExistingUpload( <%=flash[:upload]%> );
     <% end %>
 </script>

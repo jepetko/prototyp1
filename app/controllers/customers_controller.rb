@@ -52,6 +52,9 @@ class CustomersController < ApplicationController
       customer_params[:company_avatar] = nil
     else
       company_avatar = CompanyAvatar.find_by_id( company_avatar_id.to_i )
+      if not company_avatar.nil?
+        remember_temp_upload company_avatar_id.to_i
+      end
       customer_params[:company_avatar] = company_avatar
     end
 
