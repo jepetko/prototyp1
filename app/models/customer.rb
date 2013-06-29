@@ -1,4 +1,5 @@
 class Customer < ActiveRecord::Base
+
   attr_accessible :city, :country, :name, :street, :zip, :company_avatar
 
   validates :name, :presence => true, :uniqueness => true

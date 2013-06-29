@@ -1,6 +1,6 @@
 <div class="thumbnail">
   <div class="pic">
-      <%= image_tag customer.company_avatar.avatar.url(:thumb) %>
+      <%= get_avatar_img(customer,:thumb) %>
   </div>
   <h3><%= customer.name %></h3>
   <table>

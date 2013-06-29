@@ -26,6 +26,23 @@ var ProtoSupport = (function() {
         },
         setCompanyAvatarOnCustomer : function(val) {
             $('#customer_company_avatar').val(val);
+        },
+        listExistingUpload : function(id) {
+            $.getJSON( $('#fileupload').prop('action') + "/" + id, function(files) {
+                if(!files) return;
+                var filesArr = files['files'];
+                var fu = $('#fileupload').data('blueimp-fileupload')
+                        || $('#fileupload').data('fileupload');
+                var template;
+                fu._adjustMaxNumberOfFiles(-filesArr.length);
+                template = fu._renderDownload(filesArr)
+                    .appendTo($('#fileupload .files'));
+                // Force reflow:
+                fu._reflow = fu._transition && template.length &&
+                    template[0].offsetWidth;
+                template.addClass('in');
+                $('#loading').remove();
+            });
         }
     };
 })();

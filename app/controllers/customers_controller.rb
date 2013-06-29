@@ -1,5 +1,7 @@
 class CustomersController < ApplicationController
 
+  include TemporaryUploadSupport
+
   before_filter :authenticate_user!
 
   # GET /customers
@@ -49,7 +51,7 @@ class CustomersController < ApplicationController
     if company_avatar_id.empty?
       customer_params[:company_avatar] = nil
     else
-      company_avatar = CompanyAvatar.find( company_avatar_id.to_i )
+      company_avatar = CompanyAvatar.find_by_id( company_avatar_id.to_i )
       customer_params[:company_avatar] = company_avatar
     end
 
@@ -57,6 +59,11 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.save
+
+        if not @customer.company_avatar.nil?
+          remove_temp_upload
+        end
+
         format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
         format.json { render json: @customer, status: :created, location: @customer }
       else
