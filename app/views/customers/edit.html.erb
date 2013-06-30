@@ -12,7 +12,7 @@
         <%= render :partial => 'company_avatars/form', :locals => { :company_avatar => @customer.company_avatar } %>
       <% end %>
       <!-- contacts -->
-      <%= render :partial => 'contacts/form', :locals => { :customer => @customer, :contact => Contact.new } %>
+      <%= render :partial => 'contacts/form', :locals => { :contact => @customer.contacts.build } %>
     </div>
   </div>
 </div>

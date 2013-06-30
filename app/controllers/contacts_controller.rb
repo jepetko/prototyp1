@@ -33,12 +33,11 @@ class ContactsController < ApplicationController
 
     customer = Customer.find(params[:customer_id])
     @contact = customer.contacts.create( params[:contact] )
-    #@contact = Contact.new(params[:contact])
 
     respond_to do |format|
       if @contact.save
 
-        format.html { redirect_to @contact, notice: 'Contact was successfully created.' }
+        format.html { redirect_to customer_contacts_path(customer), notice: 'Contact was successfully created.' }
         format.json { render json: @contact, status: :created, location: @contact }
       else
         format.html { render action: "new" }

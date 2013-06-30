@@ -1,1 +1,1 @@
-<%= render :partial => 'form', :locals => { :customer => Customer.find(params[:customer_id]), :contact => @contact } %>
+<%= render :partial => 'form', :locals => { :contact => Customer.find(params[:customer_id]).contacts.build } %>
