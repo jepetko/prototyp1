@@ -12,4 +12,7 @@
       <td><%= customer.city %></td>
     </tr>
   </table>
+  <%= link_to "Show", customer, :class => "btn" %>
+  <%= link_to "Edit", edit_customer_path(customer), :class => "btn" %>
+  <%= link_to "Destroy", customer, :confirm => 'Are you sure?', :method => :delete, :class => "btn" %>
 </div>

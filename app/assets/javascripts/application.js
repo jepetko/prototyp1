@@ -28,7 +28,11 @@ var ProtoSupport = (function() {
             $('#customer_company_avatar').val(val);
         },
         listExistingUpload : function(id) {
-            $.getJSON( $('#fileupload').prop('action') + "/" + id, function(files) {
+
+            var action = $('#fileupload').prop('action');
+            if( !/[\d]+$/.test(action) ) action += "/" + id;
+
+            $.getJSON( action, function(files) {
                 if(!files) return;
                 var filesArr = files['files'];
                 var fu = $('#fileupload').data('blueimp-fileupload')

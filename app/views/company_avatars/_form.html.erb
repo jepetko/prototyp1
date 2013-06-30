@@ -1,5 +1,9 @@
-<%= simple_form_for(company_avatar, :html => {:id => "fileupload"}) do |f| %>
-    <%= f.error_notification %>
+<%= simple_form_for( company_avatar,
+                    :html => {:id => "fileupload"},
+                    :url => url_for(:action => 'create', :controller => 'company_avatars'),
+                    :method => :post ) do |f| %>
+
+  <%= f.error_notification %>
 
   <div class="form-inputs">
 
@@ -101,8 +105,11 @@
 
 <script type="text/javascript">
     ProtoSupport.addCompanyAvatarFileUploadSupport();
-    <% if flash[:upload] %>
-        ProtoSupport.setCompanyAvatarOnCustomer( <%=flash[:upload]%> );
-        ProtoSupport.listExistingUpload( <%=flash[:upload]%> );
+    <%
+    company_avatar_id = flash[:upload] || company_avatar.id
+    if company_avatar_id
+    %>
+        ProtoSupport.setCompanyAvatarOnCustomer( <%=company_avatar_id%> );
+        ProtoSupport.listExistingUpload( <%=company_avatar_id%> );
     <% end %>
 </script>

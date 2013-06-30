@@ -46,17 +46,8 @@ class CustomersController < ApplicationController
   # POST /customers.json
   def create
     customer_params = params[:customer]
-    company_avatar_id = customer_params[:company_avatar]
 
-    if company_avatar_id.empty?
-      customer_params[:company_avatar] = nil
-    else
-      company_avatar = CompanyAvatar.find_by_id( company_avatar_id.to_i )
-      if not company_avatar.nil?
-        remember_temp_upload company_avatar_id.to_i
-      end
-      customer_params[:company_avatar] = company_avatar
-    end
+    fill_company_avatar(customer_params)
 
     @customer = Customer.new(customer_params)
 
@@ -79,10 +70,13 @@ class CustomersController < ApplicationController
   # PUT /customers/1
   # PUT /customers/1.json
   def update
+    customer_params = params[:customer]
+    fill_company_avatar(customer_params)
+
     @customer = Customer.find(params[:id])
 
     respond_to do |format|
-      if @customer.update_attributes(params[:customer])
+      if @customer.update_attributes(customer_params)
         format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
         format.json { head :no_content }
       else
@@ -101,6 +95,21 @@ class CustomersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to customers_url }
       format.json { head :no_content }
+    end
+  end
+
+  private
+  def fill_company_avatar(customer_params)
+    company_avatar_id = customer_params[:company_avatar]
+
+    if company_avatar_id.empty?
+      customer_params[:company_avatar] = nil
+    else
+      company_avatar = CompanyAvatar.find_by_id( company_avatar_id.to_i )
+      if not company_avatar.nil?
+        remember_temp_upload company_avatar_id.to_i
+      end
+      customer_params[:company_avatar] = company_avatar
     end
   end
 end

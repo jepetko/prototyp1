@@ -1,6 +1,17 @@
-<h1>Editing customer</h1>
 
-<%= render 'form' %>
-
+<div class="container-fluid">
+  <div class="row-fluid">
+    <div class="span5">
+      <%= render 'form' %>
+    </div>
+    <div class="span4">
+      <% if @customer.company_avatar.nil? %>
+        <%= render :partial => 'company_avatars/form', :locals => { :company_avatar => CompanyAvatar.new } %>
+      <% else %>
+        <%= render :partial => 'company_avatars/form', :locals => { :company_avatar => @customer.company_avatar } %>
+      <% end %>
+    </div>
+  </div>
+</div>
 <%= link_to 'Show', @customer %> |
 <%= link_to 'Back', customers_path %>
