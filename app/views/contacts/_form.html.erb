@@ -1,0 +1,11 @@
+<%= simple_form_for( [customer, contact] ) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :name %>
+      <%= f.input :phone %>
+      <%= f.input :notice, :input_html => { :rows => 5 } %>
+    </div>
+
+      <%= f.button :submit %>
+<% end %>

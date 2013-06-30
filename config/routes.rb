@@ -1,6 +1,13 @@
 Prototyp1::Application.routes.draw do
-  resources :company_avatars
+
+  resources :company_avatars, :only => [:create, :destroy, :show]
+
   resources :customers
+  resources :contacts
+
+  resources :customers do
+    resources :contacts
+  end
 
   authenticated :user do
     root :to => 'home#index'

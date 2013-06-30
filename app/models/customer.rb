@@ -9,6 +9,6 @@ class Customer < ActiveRecord::Base
   validates :country, :presence => true
 
   has_one :company_avatar, :dependent => :destroy, :autosave => true
-  has_many :contact, :dependent => :destroy, :autosave => true
+  has_many :contacts, :dependent => :destroy, :autosave => true
 
 end

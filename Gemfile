@@ -64,3 +64,7 @@ gem "paperclip", "~> 3.0"
 gem 'jbuilder'
 gem "jquery-fileupload-rails"
 
+# for paginate
+gem 'will_paginate'
+
+

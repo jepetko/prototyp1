@@ -3,7 +3,7 @@ class CreateContacts < ActiveRecord::Migration
     create_table :contacts do |t|
       t.string :name
       t.string :phone
-      t.string :notice
+      t.text :notice
 
       t.timestamps
     end
