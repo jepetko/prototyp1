@@ -1,11 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<%= render :partial => 'customers/customer', :object => @customer, :as => :customer %>
-
-<div id="contacts">
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#tab1" data-toggle="tab">Customer</a>
+    </li>
+    <li>
+      <a href="#tab2" data-toggle="tab">Contacts</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+        <%= render :partial => 'customers/customer', :object => @customer, :as => :customer %>
+    </div>
+    <div class="tab-pane" id="tab2">
+      <div id="contacts">
+      </div>
+      <%= javascript_tag "ProtoSupport.fetchCustomersContacts('#{customer_contacts_path(@customer)}');" %>
+      <%= javascript_tag 'ProtoSupport.addAsyncPagination();' %>
+    </div>
+  </div>
 </div>
-<%= javascript_tag "ProtoSupport.fetchCustomersContacts('#{customer_contacts_path(@customer)}');" %>
-<%= javascript_tag 'ProtoSupport.addAsyncPagination();' %>
 
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>

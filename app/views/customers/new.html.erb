@@ -1,10 +1,20 @@
-<div class="container-fluid">
-  <div class="row-fluid">
-    <div class="span5">
-        <%= render 'form' %>
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#tab1" data-toggle="tab">Customer</a>
+    </li>
+    <li>
+      <a href="#tab2" data-toggle="tab">Avatar</a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane active" id="tab1">
+      <!-- customer data -->
+      <%= render 'form' %>
     </div>
-    <div class="span4">
-        <%= render :partial => 'company_avatars/form', :locals => { :company_avatar => CompanyAvatar.new } %>
+    <div class="tab-pane" id="tab2">
+      <!-- company avatar -->
+      <%= render :partial => 'company_avatars/form', :locals => { :company_avatar => CompanyAvatar.new } %>
     </div>
   </div>
 </div>

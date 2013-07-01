@@ -60,6 +60,16 @@ var ProtoSupport = (function() {
                     return false;
                 });
             });
+        },
+        addNewContactSupport : function() {
+            $
+            $('.btn-new-contact').on('click', function() {
+                var form = $('.new_contact');
+                if( form.css('display') == 'none' )
+                    form.fadeIn();
+                else
+                    form.fadeOut();
+            })
         }
     };
 })();
