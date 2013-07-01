@@ -1,0 +1,7 @@
+<% unless contacts.nil? %>
+    <table>
+        <% contacts.each do |c| %>
+            <%= render :partial => 'contacts/contact', :locals => {:contact => c} %>
+        <% end %>
+    </table>
+<%end%>

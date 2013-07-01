@@ -3,10 +3,11 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = Contact.where( :customer_id => params[:customer_id]).paginate(:page => params[:page], :per_page => 5)
+    @contacts = Contact.where( :customer_id => params[:customer_id])
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html { } # index.html.erb
+      format.js { }
       format.json { render json: @contacts }
     end
   end
@@ -14,6 +15,7 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   # GET /contacts/new.json
   def new
+
     @contact = Contact.new
 
     respond_to do |format|
@@ -38,6 +40,7 @@ class ContactsController < ApplicationController
       if @contact.save
 
         format.html { redirect_to customer_contacts_path(customer), notice: 'Contact was successfully created.' }
+        format.js { }
         format.json { render json: @contact, status: :created, location: @contact }
       else
         format.html { render action: "new" }

@@ -3,7 +3,6 @@ Prototyp1::Application.routes.draw do
   resources :company_avatars, :only => [:create, :destroy, :show]
 
   resources :customers
-
   resources :customers do
     resources :contacts
   end

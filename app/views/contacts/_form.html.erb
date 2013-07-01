@@ -1,6 +1,6 @@
 <!-- customer_contacts_path -->
-<%= simple_form_for( [contact.customer, contact] ) do |f| %>
-    <%= f.error_notification %>
+<%= simple_form_for( [contact.customer, contact], remote: true ) do |f| %>
+    <%= f.error_notification%>
 
     <div class="form-inputs">
       <%= f.input :name %>

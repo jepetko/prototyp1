@@ -1,8 +1,1 @@
-<table>
-  <% unless @contacts.nil? %>
-    <% @contacts.each do |c| %>
-        <%= render :partial => 'contacts/contact', :locals => {:contact => c} %>
-    <% end %>
-  <%end%>
-  <%= will_paginate @contacts %>
-</table>
+<%= render @contacts, :locals => { :contacts => @contacts } %>

@@ -65,6 +65,5 @@ gem 'jbuilder'
 gem "jquery-fileupload-rails"
 
 # for paginate
-gem 'will_paginate'
-
+gem "will_paginate-bootstrap"
 

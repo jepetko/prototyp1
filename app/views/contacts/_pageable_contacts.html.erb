@@ -1,0 +1,2 @@
+<%= render(:partial => 'contacts/contacts', :locals => {:contacts => contacts})%>
+<%= will_paginate contacts, remote: true, renderer: BootstrapPagination::Rails %>
