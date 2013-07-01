@@ -1,6 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<div class="tabbable tabs-left">
+<div class="tabbable">
+
+  <!-- link list -->
+  <div class="link-list">
+    <%= link_to raw('<i class="icon-edit"></i>&nbsp;Edit'), edit_customer_path(@customer), :class => 'btn' %>
+    <%= link_to raw('<i class="icon-step-backward"></i>&nbsp;Back'), customers_path, :class => 'btn' %>
+  </div>
+
+  <!-- content -->
   <ul class="nav nav-tabs">
     <li class="active">
       <a href="#tab1" data-toggle="tab">Customer</a>
@@ -21,6 +29,3 @@
     </div>
   </div>
 </div>
-
-<%= link_to 'Edit', edit_customer_path(@customer) %> |
-<%= link_to 'Back', customers_path %>

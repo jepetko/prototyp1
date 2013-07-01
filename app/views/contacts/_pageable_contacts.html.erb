@@ -1,5 +1,9 @@
 <%
     contacts = contacts.to_a.paginate( :page => params[:page] || 1, :per_page => 5 )
 %>
-<%= render(:partial => 'contacts/contacts', :locals => {:contacts => contacts})%>
-<%= will_paginate contacts, renderer: BootstrapPagination::Rails %>
+<% if contacts.empty? %>
+    No contacts. Edit record to add some of them.
+<% else %>
+    <%= render(:partial => 'contacts/contacts', :locals => {:contacts => contacts})%>
+    <%= will_paginate contacts, renderer: BootstrapPagination::Rails %>
+<% end %>
