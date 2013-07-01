@@ -18,4 +18,6 @@ Prototyp1::Application.routes.draw do
   devise_scope :user do
     get "/users/auth/failure" => "users/omniauth_callbacks#failure"
   end
+
+  #match '*a', :to => 'errors#routing'
 end
