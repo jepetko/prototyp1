@@ -1,7 +1,6 @@
 <%
 all = @contact.customer.contacts
-all_pageable = all.to_a.paginate( :page => params[:page] || 1, :per_page => 5 )
 %>
-var html = '<%= escape_javascript render :partial => "contacts/pageable_contacts", :locals => { :contacts => all_pageable }%>';
+var html = '<%= escape_javascript render :partial => "contacts/pageable_contacts", :locals => { :contacts => all }%>';
 $('#contacts').html(html);
 ProtoSupport.addAsyncPagination();
