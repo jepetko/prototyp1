@@ -87,4 +87,10 @@ class ContactsController < ApplicationController
       format.json { render json: @contact }
     end
   end
+
+  def index_paginated
+    @contacts = Contact.where( :customer_id => params[:customer_id])
+
+    render :partial => 'contacts/pageable_contacts', :locals => { :contacts => @contacts }
+  end
 end

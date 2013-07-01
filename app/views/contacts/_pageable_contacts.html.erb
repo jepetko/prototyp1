@@ -2,4 +2,4 @@
     contacts = contacts.to_a.paginate( :page => params[:page] || 1, :per_page => 5 )
 %>
 <%= render(:partial => 'contacts/contacts', :locals => {:contacts => contacts})%>
-<%= will_paginate contacts, remote: true, renderer: BootstrapPagination::Rails %>
+<%= will_paginate contacts, renderer: BootstrapPagination::Rails %>

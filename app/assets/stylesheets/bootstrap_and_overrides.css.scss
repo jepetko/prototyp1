@@ -8,3 +8,14 @@ body { padding-top: 60px; }
   border-width: 0px;
   text-align: right;
 }
+
+.pagination {
+
+  li {
+    font-size: 8pt;
+
+    a {
+      line-height: 10px;
+    }
+  }
+}

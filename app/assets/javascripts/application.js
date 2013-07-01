@@ -48,6 +48,9 @@ var ProtoSupport = (function() {
                 $('#loading').remove();
             });
         },
+        fetchCustomersContacts : function(path) {
+            $.getScript(path);
+        },
         addAsyncPagination : function() {
             $(function() {
                 $(".pagination a").on("click", function() {

@@ -12,11 +12,13 @@
       <%= render :partial => 'company_avatars/form', :locals => { :company_avatar => @customer.company_avatar } %>
       <!-- contacts -->
       <div id="contacts">
-        <%= render :partial => 'contacts/pageable_contacts', :locals => { :contacts => @customer.contacts } %>
       </div>
       <%= render :partial => 'contacts/form', :locals => { :contact => @customer.contacts.build } %>
     </div>
   </div>
 </div>
+
+<%= javascript_tag "ProtoSupport.fetchCustomersContacts('#{customer_contacts_path(@customer)}');" %>
+
 <%= link_to 'Show', @customer %> |
 <%= link_to 'Back', customers_path %>

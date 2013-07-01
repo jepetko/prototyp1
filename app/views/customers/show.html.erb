@@ -2,5 +2,10 @@
 
 <%= render :partial => 'customers/customer', :object => @customer, :as => :customer %>
 
+<div id="contacts">
+</div>
+<%= javascript_tag "ProtoSupport.fetchCustomersContacts('#{customer_contacts_path(@customer)}');" %>
+<%= javascript_tag 'ProtoSupport.addAsyncPagination();' %>
+
 <%= link_to 'Edit', edit_customer_path(@customer) %> |
 <%= link_to 'Back', customers_path %>
