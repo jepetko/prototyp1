@@ -51,6 +51,7 @@ var ProtoSupport = (function() {
         addAsyncPagination : function() {
             $(function() {
                 $(".pagination a").on("click", function() {
+                    if( $(this).attr('href') == '#' ) return false;
                     $(".pagination").html("Page is loading...");
                     $.getScript(this.href);
                     return false;
