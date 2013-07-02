@@ -1,0 +1,23 @@
+<%- if devise_mapping.omniauthable?
+    first = true
+%>
+    <div class="logins-social">
+    <%- resource_class.omniauth_providers.each do |provider| %>
+
+          <% if not first %>
+              <div class="separator">
+                <hr class="left visible-desktop">
+                <span>
+                OR
+                </span>
+                <hr class="right visible-desktop">
+              </div>
+          <% end %>
+
+          <div>
+            <%= link_to raw(image_tag "#{provider}.png", :title => "Sign in with #{provider.to_s.titleize}"), omniauth_authorize_path(resource_name, provider), :class => "login-social" %><br />
+          </div>
+    <% first = false
+       end -%>
+    </div>
+<% end -%>
