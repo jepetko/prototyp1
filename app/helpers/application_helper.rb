@@ -12,4 +12,14 @@ module ApplicationHelper
     html.html_safe
   end
 
+  def get_current_route
+
+    url_for(:only_path => false, :overwrite_params=>nil).gsub(/http[s]?\:\/\/[\w]+[\:]?[\d]+/,'')
+
+  end
+
+  def is_in_edit_mode(controller)
+    edit_url = url_for :controller => controller.class.name.downcase.pluralize, :action => 'edit', :id => controller.id
+    edit_url == get_current_route
+  end
 end

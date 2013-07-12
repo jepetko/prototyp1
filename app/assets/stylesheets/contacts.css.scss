@@ -2,6 +2,36 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@mixin vendor-prefix($name, $value) {
+  #{$name}: #{$value};
+  -webkit-#{$name}: #{$value};
+  -ms-#{$name}: #{$value};
+  -moz-#{$name}: #{$value};
+  -o-#{$name}: #{$value};
+}
+
+
+table.contacts {
+  width: 100%;
+  border: 1px solid lightgrey;
+  border-collapse: separate;
+  @include vendor-prefix(border-top-left-radius,5px);
+  @include vendor-prefix(border-top-right-radius,5px);
+  @include vendor-prefix(border-bottom-left-radius,5px);
+  @include vendor-prefix(border-bottom-right-radius,5px);
+}
+
+table.contacts td {
+  padding: 5px;
+}
+
+table.contacts td:last-child {
+  text-align: right;
+}
+
+table.contacts tr:nth-child(2n+1) {
+  background-color: lightgrey;
+}
 
 .new_contact {
   display: none;

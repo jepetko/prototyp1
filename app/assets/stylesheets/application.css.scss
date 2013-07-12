@@ -62,3 +62,8 @@
   color: #7f8387;
   display: none;
 }
+
+.files .name i[class^="icon-"], i[class*="icon-"] {
+  width: 14px !important;
+  height: 14px !important;
+}
