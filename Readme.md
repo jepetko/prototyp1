@@ -2,7 +2,7 @@ Facebook/Heroku sample app -- Ruby
 ==================================
 
 This is a sample app showing use of the Facebook Graph API, written in Ruby, designed for deployment to [Heroku](http://www.heroku.com/).
-
+...
 Run locally
 -----------
 
