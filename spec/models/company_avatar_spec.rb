@@ -11,13 +11,14 @@ describe CompanyAvatar do
          path: ":rails_root/public/system/:attachment/:id/:style/:filename",
          url: "/system/:attachment/:id/:style/:filename"
      });
-     @attr = {
-         avatar: att
-     }
 
      ### prepare instances
      @customer = FactoryGirl.create(:customer)
      @customer.company_avatar = CompanyAvatar.new(@attr)
+
+     @attr = {
+         avatar: att
+     }
    end
 
   it "responds to methods" do
@@ -25,8 +26,18 @@ describe CompanyAvatar do
     avatar.should respond_to(:customer)
   end
 
+   it "must not be stored when customer is missing" do
+     avatar = CompanyAvatar.new(@attr)
+     avatar.should_not be_valid
+     avatar.errors.messages.each do |key,val|
+       key.should eq(:customer_id)
+       val.should include('must be greater than 0')
+     end
+   end
+
   it "is valid when valid image is uploaded" do
     avatar = CompanyAvatar.new(@attr)
+    avatar.customer = @customer
     avatar.should be_valid
 
     expect {
@@ -36,6 +47,7 @@ describe CompanyAvatar do
 
   it "is valid when image is nil too" do
     avatar = CompanyAvatar.new(@attr.merge(:avatar => nil))
+    avatar.customer = @customer
     avatar.should be_valid
 
     expect {
@@ -46,7 +58,6 @@ describe CompanyAvatar do
   it "destroys avatar when customer is deleted" do
     expect {
       @customer.destroy
-      @customer.should be_frozen
     }.to change(CompanyAvatar,:count).by(-1)
   end
 

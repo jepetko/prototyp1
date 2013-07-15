@@ -8,7 +8,8 @@ class CompanyAvatar < ActiveRecord::Base
                     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
                     :url => "/system/:attachment/:id/:style/:filename"
 
-  belongs_to :customer, :dependent => :destroy
+  belongs_to :customer
+  validates :customer_id, :presence => true, :numericality =>  { :greater_than => 0 }
 
   include Rails.application.routes.url_helpers
 
