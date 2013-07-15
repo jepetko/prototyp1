@@ -1,4 +1,4 @@
 <tr><td><%= contact.id %></td><td><%= contact.name %></td><td><%= contact.phone %></td><td><%= contact.notice %></td>
-<% if is_in_edit_mode(contact.customer) %>
+<% if params[:action] == 'edit_all' %>
 <td><%= link_to "Destroy", [contact.customer, contact], :confirm => "Are you sure?", :method => :delete, :class => "btn" %></td>
 <%end%></tr>

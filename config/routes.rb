@@ -4,8 +4,12 @@ Prototyp1::Application.routes.draw do
 
   resources :customers
   resources :customers do
-    resources :contacts
+
+    resources :contacts, :only => [:new, :create, :destroy, :index, :edit_all, :update]
+
   end
+
+  match '/customers/:customer_id/edit/contacts' => 'contacts#edit_all', :via => :get, :as => 'edit_all_customer_contacts'
 
   authenticated :user do
     root :to => 'home#index'

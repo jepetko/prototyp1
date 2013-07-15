@@ -36,7 +36,7 @@
       </div>
       <button class="btn btn-new-contact">New contact</button>
       <%= render :partial => 'contacts/form', :locals => {:contact => @customer.contacts.build} %>
-      <%= javascript_tag "ProtoSupport.fetchCustomersContacts('#{customer_contacts_path(@customer)}');" %>
+      <%= javascript_tag "ProtoSupport.fetchCustomersContacts('#{edit_all_customer_contacts_path(@customer)}');" %>
       <%= javascript_tag "ProtoSupport.addNewContactSupport();" %>
     </div>
   </div>

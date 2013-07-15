@@ -6,7 +6,6 @@ class ContactsController < ApplicationController
     @contacts = Contact.where( :customer_id => params[:customer_id])
 
     respond_to do |format|
-      format.html { } # index.html.erb
       format.js { }
       format.json { render json: @contacts }
     end
@@ -27,6 +26,16 @@ class ContactsController < ApplicationController
   # GET /contacts/1/edit
   def edit
     @contact = Contact.find(params[:id])
+  end
+
+  # GET /contacts/edit
+  def edit_all
+    @contacts = Contact.where( :customer_id => params[:customer_id])
+
+    respond_to do |format|
+      format.js { }
+      format.json { render json: @contacts }
+    end
   end
 
   # POST /contacts
@@ -72,7 +81,7 @@ class ContactsController < ApplicationController
     @contact.destroy
 
     respond_to do |format|
-      format.html { redirect_to @contact.customer }
+      format.html { redirect_to edit_customer_path(@contact.customer) }
       format.json { head :no_content }
     end
   end
