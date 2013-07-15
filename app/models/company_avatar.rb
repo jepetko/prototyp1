@@ -8,7 +8,7 @@ class CompanyAvatar < ActiveRecord::Base
                     :path => ":rails_root/public/system/:attachment/:id/:style/:filename",
                     :url => "/system/:attachment/:id/:style/:filename"
 
-  belongs_to :customer
+  belongs_to :customer, :dependent => :destroy
 
   include Rails.application.routes.url_helpers
 

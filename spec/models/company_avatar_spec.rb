@@ -4,17 +4,20 @@ require 'paperclip'
 describe CompanyAvatar do
 
    before(:each) do
-     @customer = FactoryGirl.create(:customer)
 
+     #### prepare attachment
      att = Paperclip::Attachment.new(:avatar, @customer, {
          default_url: '/images/:style/missing.png',
          path: ":rails_root/public/system/:attachment/:id/:style/:filename",
          url: "/system/:attachment/:id/:style/:filename"
      });
      @attr = {
-        avatar: att
+         avatar: att
      }
 
+     ### prepare instances
+     @customer = FactoryGirl.create(:customer)
+     @customer.company_avatar = CompanyAvatar.new(@attr)
    end
 
   it "responds to methods" do
@@ -40,5 +43,11 @@ describe CompanyAvatar do
     }.to change(CompanyAvatar,:count).by(1)
   end
 
+  it "destroys avatar when customer is deleted" do
+    expect {
+      @customer.destroy
+      @customer.should be_frozen
+    }.to change(CompanyAvatar,:count).by(-1)
+  end
 
 end
