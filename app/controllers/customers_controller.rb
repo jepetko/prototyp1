@@ -102,7 +102,7 @@ class CustomersController < ApplicationController
   def fill_company_avatar(customer_params)
     company_avatar_id = customer_params[:company_avatar]
 
-    if company_avatar_id.empty?
+    if company_avatar_id.nil? || company_avatar_id.empty?
       customer_params[:company_avatar] = nil
     else
       company_avatar = CompanyAvatar.find_by_id( company_avatar_id.to_i )

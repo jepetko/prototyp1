@@ -3,6 +3,7 @@ ruby '1.9.3'
 
 gem 'rails', '3.2.8'
 gem 'pg'
+#### gem 'activerecord-postgis-adapter'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
