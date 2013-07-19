@@ -1,0 +1,24 @@
+# ruby encoding: utf-8
+
+de:
+  views:
+    company_avatar:
+      flash_messages:
+        created_successfully: Firmenlogo wurde erfolgreich erstellt.
+      upload:
+        max_file_size: Datei ist zu groß
+        min_file_size: Datei ist zu klein
+        accept_file_types: Dateityp ist nicht erlaubt.
+        max_number_of_files: Max. Anzahl der Dateien erreicht.
+        uploaded_bytes: Datenmenge überschreitet die Dateigröße.
+        empty_result: Datei ist leer.
+    contact:
+      index:
+        title: Kontakt-Liste
+      flash_messages:
+        created_successfully: Kontakt wurde erfolgreich erstellt.
+        updated_successfully: Kontakt wurde aktualisiert.
+    company:
+      flash_messages:
+        created_successfully: Kunde wurde erfolgreich erstellt.
+        updated_successfully: Kunde wurde aktualisiert.

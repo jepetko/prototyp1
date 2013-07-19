@@ -35,6 +35,7 @@ describe CustomersController do
       [0..10].each do
         FactoryGirl.create(:customer)
       end
+      @customer = Customer.last
     end
 
     describe "get 'new'" do
@@ -59,11 +60,22 @@ describe CustomersController do
             zip: 11111,
             country: 'USA'
         }
+        @c_attr_failure = {
+            name: 'Test'
+        }
       end
 
       it "is successful" do
         post :create, customer: @c_attr
-        flash[:notice].should be( I18n.t('created'))
+        flash[:notice].should eq( I18n.t('views.company.flash_messages.created_successfully'))
+      end
+
+      it "is failure" do
+        post :create, customer: @c_attr_failure
+        response.should render_template(:new)
+
+        ## TODO: how to get the count of found elements?
+        response.should have_selector( '//*[text()="' + I18n.t('activerecord.errors.messages.blank') + '"]' )
       end
 
 =begin
@@ -84,6 +96,22 @@ describe CustomersController do
 
       end
 =end
+
+    end
+
+    describe "get 'edit'" do
+
+      it "is successful" do
+        get :edit, id: @customer.id
+        response.should be_success
+      end
+
+      it "is failure" do
+        expect {
+          get :edit, id: 1000
+          response.should_not be_success
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
 
     end
 

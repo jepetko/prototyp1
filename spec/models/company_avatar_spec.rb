@@ -26,13 +26,13 @@ describe CompanyAvatar do
     avatar.should respond_to(:customer)
   end
 
-   it "must not be stored when customer is missing" do
+   it "must be stored when customer_id is 0" do
      avatar = CompanyAvatar.new(@attr)
-     avatar.should_not be_valid
-     avatar.errors.messages.each do |key,val|
-       key.should eq(:customer_id)
-       val.should include('must be greater than 0')
-     end
+     avatar.customer_id = 0
+     avatar.should be_valid
+     expect {
+       avatar.save!
+     }.to change(CompanyAvatar, :count).by(1)
    end
 
   it "is valid when valid image is uploaded" do

@@ -9,7 +9,7 @@ class CompanyAvatar < ActiveRecord::Base
                     :url => "/system/:attachment/:id/:style/:filename"
 
   belongs_to :customer
-  validates :customer_id, :presence => true, :numericality =>  { :greater_than => 0 }
+  validates :customer_id, :presence => true, :numericality =>  { :greater_than_or_equal_to => 0 }
 
   include Rails.application.routes.url_helpers
 

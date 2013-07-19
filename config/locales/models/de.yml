@@ -1,0 +1,12 @@
+de:
+  activerecord:
+    must_be_a_number: Bitte, eine Nummer eingeben.
+    models:
+      contact: Kontakt
+      customer: Kunde
+      company_avatar: Firmen-Logo
+    attributes:
+      contact:
+        name: Name
+        phone: Tel.
+        notice: Anmerkung

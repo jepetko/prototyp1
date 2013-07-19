@@ -58,7 +58,7 @@ class CustomersController < ApplicationController
           remove_temp_upload
         end
 
-        format.html { redirect_to @customer, notice: 'Customer was successfully created.' }
+        format.html { redirect_to @customer, notice: I18n.t('views.company.flash_messages.created_successfully') }
         format.json { render json: @customer, status: :created, location: @customer }
       else
         format.html { render action: "new" }
@@ -77,7 +77,7 @@ class CustomersController < ApplicationController
 
     respond_to do |format|
       if @customer.update_attributes(customer_params)
-        format.html { redirect_to @customer, notice: 'Customer was successfully updated.' }
+        format.html { redirect_to @customer, notice: I18n.t('views.company.flash_messages.updated_successfully')  }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

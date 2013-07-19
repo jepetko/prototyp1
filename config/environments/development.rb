@@ -51,4 +51,8 @@ Prototyp1::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  config.i18n.available_locales = [:en, :de]
+  config.i18n.default_locale = :de
+
 end

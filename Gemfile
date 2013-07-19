@@ -5,6 +5,9 @@ gem 'rails', '3.2.8'
 gem 'pg'
 #### gem 'activerecord-postgis-adapter'
 
+#i18n
+gem 'rails-i18n', '~> 3.0.0.pre' # For 3.x
+
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
@@ -52,8 +55,10 @@ gem 'omniauth-xing'
 gem "multipart-post", ">= 1.2.0"
 
 #debugging
-gem "ruby-debug-base19x", :group => [:development, :test]
-gem "ruby-debug-ide", :group => [:development, :test]
+group :development, :test do
+  gem "ruby-debug-base19x", "0.11.30.pre12"
+  gem "ruby-debug-ide", "0.4.17.beta17"
+end
 
 #for simple_form
 gem "country_select"

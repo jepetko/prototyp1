@@ -13,7 +13,7 @@ class CompanyAvatarsController < ApplicationController
         #save in session
         remember_temp_upload(@company_avatar.id)
 
-        format.html { redirect_to @company_avatar, notice: 'Company avatar was successfully created.' }
+        format.html { redirect_to @company_avatar, notice: I18n.t('views.company_avatar.flash_messages.created_successfully') }
         format.json { render json: @company_avatar.to_jq_upload, status: :created, location: @company_avatar }
       else
         format.html { render action: "new" }
