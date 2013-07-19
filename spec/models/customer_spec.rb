@@ -33,7 +33,7 @@ describe Customer do
 
     expect {
       customer.save!
-    }.should raise_error ActiveRecord::RecordInvalid
+    }.to raise_error ActiveRecord::RecordInvalid
   end
 
   it "doesn't store invalid record (duplicate name)" do
@@ -43,7 +43,7 @@ describe Customer do
 
     expect {
       customer.save!
-    }.should raise_error ActiveRecord::RecordInvalid
+    }.to raise_error ActiveRecord::RecordInvalid
   end
 
 end
