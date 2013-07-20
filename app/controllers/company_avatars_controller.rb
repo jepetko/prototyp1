@@ -2,6 +2,8 @@ class CompanyAvatarsController < ApplicationController
 
   include TemporaryUploadSupport
 
+  before_filter :authenticate_user!
+
   # POST /company_avatars
   # POST /company_avatars.json
   def create

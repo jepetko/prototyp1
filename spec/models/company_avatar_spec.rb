@@ -12,13 +12,13 @@ describe CompanyAvatar do
          url: "/system/:attachment/:id/:style/:filename"
      });
 
-     ### prepare instances
-     @customer = FactoryGirl.create(:customer)
-     @customer.company_avatar = CompanyAvatar.new(@attr)
-
      @attr = {
          avatar: att
      }
+
+     ### prepare instances
+     @customer = FactoryGirl.create(:customer)
+     @customer.company_avatar = CompanyAvatar.new(@attr)
    end
 
   it "responds to methods" do

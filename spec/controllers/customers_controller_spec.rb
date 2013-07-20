@@ -7,13 +7,13 @@ describe CustomersController do
   describe "When user is not eligible to see any customers because he is not logged in" do
 
     before(:each) do
-      @user = FactoryGirl.create(:user)
-      test_log_in(@user)
+      @test_user = FactoryGirl.create(:test_user)
+      test_log_in(@test_user)
       [0..10].each do
         FactoryGirl.create(:customer)
       end
       @test_customer_id = Customer.last
-      test_log_out(@user)
+      test_log_out(@test_user)
     end
 
     it "doesn't list any customers" do
@@ -30,8 +30,8 @@ describe CustomersController do
   describe "When user is logged in" do
 
     before(:each) do
-      @user = FactoryGirl.create(:user)
-      test_log_in(@user)
+      @test_user = FactoryGirl.create(:test_user)
+      test_log_in(@test_user)
       [0..10].each do
         FactoryGirl.create(:customer)
       end

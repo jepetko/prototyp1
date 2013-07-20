@@ -66,4 +66,6 @@ RSpec.configure do |config|
 
   #end
 =end
+
+  config.include(LoginSupport)
 end

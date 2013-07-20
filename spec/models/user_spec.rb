@@ -52,15 +52,15 @@ describe User do
   describe "passwords" do
 
     before(:each) do
-      @user = User.new(@attr)
+      @test_user = User.new(@attr)
     end
 
     it "should have a password attribute" do
-      @user.should respond_to(:password)
+      @test_user.should respond_to(:password)
     end
 
     it "should have a password confirmation attribute" do
-      @user.should respond_to(:password_confirmation)
+      @test_user.should respond_to(:password_confirmation)
     end
   end
 
@@ -87,15 +87,15 @@ describe User do
   describe "password encryption" do
 
     before(:each) do
-      @user = User.create!(@attr)
+      @test_user = User.create!(@attr)
     end
 
     it "should have an encrypted password attribute" do
-      @user.should respond_to(:encrypted_password)
+      @test_user.should respond_to(:encrypted_password)
     end
 
     it "should set the encrypted password attribute" do
-      @user.encrypted_password.should_not be_blank
+      @test_user.encrypted_password.should_not be_blank
     end
 
   end

@@ -36,6 +36,13 @@ describe Contact do
     }.to change(Contact,:count).by(1)
   end
 
+  it "is included in customer's contacts" do
+    contact = Contact.new(@attr)
+    contact.customer = @customer
+    contact.save!
+    @customer.contacts.should include(contact)
+  end
+
   it "doesn't store record when passing invalid values" do
 
     [ @attr.merge(:name => nil),

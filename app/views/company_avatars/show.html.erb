@@ -2,5 +2,4 @@
 
 <%= image_tag @company_avatar.avatar.url(:original) %>
 
-<%= link_to 'Edit', edit_customer_path(@company_avatar) %> |
-<%= link_to 'Back', customers_path %>
+<%= link_to t('views.company_avatar.links.back_to_customer'), customer_path( @company_avatar.customer ) %>

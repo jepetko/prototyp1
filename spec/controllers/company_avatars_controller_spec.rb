@@ -20,4 +20,43 @@ require 'spec_helper'
 
 describe CompanyAvatarsController do
 
+  render_views
+
+  describe 'if user is not eligible' do
+
+    before(:each) do
+      login_set_user_seed([:customer, :company_avatar], true)
+    end
+
+    it 'should redirect to login when user requests a specific avatar' do
+      get :show, :customer_id => @test_customer, :id => @test_customer.company_avatar.id
+      response.should redirect_to('/users/sign_in')
+    end
+
+    it 'should redirect to login when user tries to destroy a specific avatar' do
+      delete :destroy, :customer_id => @test_customer, :id => @test_customer.company_avatar.id
+      response.should redirect_to('/users/sign_in')
+    end
+
+  end
+
+  describe 'if user is eligible' do
+
+    before(:each) do
+      login_set_user_seed([:customer,:company_avatar])
+    end
+
+    it 'should show a specific avatar' do
+      get :show, :customer_id => @test_customer, :id => @test_customer.company_avatar.id
+      response.should have_selector('img')
+
+      response.should have_selector('*[role="main"]') do |div|
+        response.should have_selector( "a[@href=\"#{customer_path(@test_customer)}\"]")
+      end
+    end
+
+  end
+
+
+
 end
