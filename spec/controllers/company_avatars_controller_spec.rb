@@ -46,6 +46,30 @@ describe CompanyAvatarsController do
       login_set_user_seed([:customer,:company_avatar])
     end
 
+    describe "routing" do
+
+      it "routes to #create if avatar is created when customer doesn't exist so far" do
+        { :post => '/company_avatars' }.should \
+          route_to(:controller => 'company_avatars', :action => 'create')
+      end
+
+      it "routes to nested #create if avatar is created for an existing customer" do
+        { :post => "/customers/#{@test_customer.id}/company_avatars" }.should \
+          route_to(:controller => 'company_avatars', :action => 'create', :customer_id => @test_customer.id.to_s)
+      end
+
+      it "routes to #show if avatar is associated with a customer" do
+        { :get => "/customers/#{@test_customer.id}/company_avatars/#{@test_customer.company_avatar.id}" }.should \
+          route_to(:controller => 'company_avatars', :action => 'show', :customer_id => @test_customer.id.to_s, :id => @test_customer.company_avatar.id.to_s)
+      end
+
+      it "routes to #destroy if avatar is associate dwith a customer" do
+        { :delete => "/customers/#{@test_customer.id}/company_avatars/#{@test_customer.company_avatar.id}" }.should \
+          route_to(:controller => 'company_avatars', :action => 'destroy', :customer_id => @test_customer.id.to_s, :id => @test_customer.company_avatar.id.to_s)
+      end
+
+    end
+
     it 'shows a specific avatar' do
       get :show, :customer_id => @test_customer, :id => @test_customer.company_avatar.id
       response.should have_selector('img')

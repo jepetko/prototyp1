@@ -1,6 +1,6 @@
 <%= simple_form_for( company_avatar,
                     :html => {:id => "fileupload"},
-                    :url => company_avatar.customer.id==0 ? company_avatars_path : customer_company_avatars_path(company_avatar.customer),
+                    :url => (company_avatar.customer.nil? || company_avatar.customer.id==0) ? company_avatars_path : customer_company_avatars_path(company_avatar.customer),
                     :method => :post ) do |f| %>
 
   <%= f.error_notification %>
