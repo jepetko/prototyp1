@@ -9,6 +9,10 @@ class CompanyAvatarsController < ApplicationController
   def create
     @company_avatar = CompanyAvatar.new(params[:company_avatar])
 
+    if params[:customer_id]
+      @company_avatar.customer_id = params[:customer_id]
+    end
+
     respond_to do |format|
       if @company_avatar.save
 
@@ -16,7 +20,7 @@ class CompanyAvatarsController < ApplicationController
         remember_temp_upload(@company_avatar.id)
 
         format.html { redirect_to @company_avatar, notice: I18n.t('views.company_avatar.flash_messages.created_successfully') }
-        format.json { render json: @company_avatar.to_jq_upload, status: :created, location: @company_avatar }
+        format.json { render json: @company_avatar.to_jq_upload, status: :created, location: [@company_avatar.customer, @company_avatar] }
       else
         format.html { render action: "new" }
         format.json { render json: @company_avatar.errors, status: :unprocessable_entity }
@@ -48,4 +52,5 @@ class CompanyAvatarsController < ApplicationController
       format.json { render json: @company_avatar.to_jq_upload }
     end
   end
+
 end

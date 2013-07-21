@@ -5,7 +5,7 @@ Prototyp1::Application.routes.draw do
   resources :company_avatars, :only => [:create]
 
   resources :customers do
-    resources :company_avatars, :only => [:destroy, :show]
+    resources :company_avatars, :only => [:destroy, :show, :create]
     resources :contacts, :only => [:new, :create, :destroy, :index, :edit_all, :update]
   end
 

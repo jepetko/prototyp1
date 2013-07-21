@@ -11,7 +11,7 @@ describe CustomersController do
   describe "When user is not eligible to see any customers because he is not logged in" do
 
     before(:each) do
-      login_set_user_seed([:customer],true)
+      login_set_user_seed([:customer,:company_avatar],true)
     end
 
     it "doesn't list any customers" do
@@ -94,6 +94,8 @@ describe CustomersController do
         response.should have_selector('select#customer_country') do |select|
           select.should have_selector('option', :value => @test_customer.country)
         end
+
+        response.should contain('<tr class="template-download fade"')  #company avatar
       end
 
       it "is failure" do
@@ -144,9 +146,5 @@ describe CustomersController do
         }.to raise_error ActiveRecord::RecordNotFound
       end
     end
-
   end
-
-
-
 end
