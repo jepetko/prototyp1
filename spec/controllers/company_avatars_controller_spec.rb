@@ -46,7 +46,7 @@ describe CompanyAvatarsController do
       login_set_user_seed([:customer,:company_avatar])
     end
 
-    it 'should show a specific avatar' do
+    it 'shows a specific avatar' do
       get :show, :customer_id => @test_customer, :id => @test_customer.company_avatar.id
       response.should have_selector('img')
 
@@ -56,7 +56,5 @@ describe CompanyAvatarsController do
     end
 
   end
-
-
 
 end

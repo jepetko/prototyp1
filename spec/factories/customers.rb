@@ -9,7 +9,7 @@ FactoryGirl.define do
     street "Funny Street"
     zip "1111"
     city "Funny City"
-    country "USA"
+    country "United States"
   end
 
 end

@@ -2,11 +2,11 @@ Prototyp1::Application.routes.draw do
 
 
   resources :customers
+  resources :company_avatars, :only => [:create]
+
   resources :customers do
-
-    resources :company_avatars, :only => [:create, :destroy, :show]
+    resources :company_avatars, :only => [:destroy, :show]
     resources :contacts, :only => [:new, :create, :destroy, :index, :edit_all, :update]
-
   end
 
   match '/customers/:customer_id/edit/contacts' => 'contacts#edit_all', :via => :get, :as => 'edit_all_customer_contacts'
