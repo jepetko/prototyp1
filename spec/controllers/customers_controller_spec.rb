@@ -43,6 +43,44 @@ describe CustomersController do
       }
     end
 
+    describe "routing" do
+
+      it "routes to #index" do
+        { :get => '/customers'}.should \
+          route_to(:controller => 'customers', :action => 'index')
+      end
+
+      it "routes to #new" do
+        { :get => "/customers/new" }.should \
+          route_to(:controller => 'customers', :action => 'new')
+      end
+
+      it "routes to #create" do
+        { :post => "/customers"}.should \
+          route_to(:controller => 'customers', :action => 'create')
+      end
+
+      it "routes to #show" do
+        { :get => "/customers/#{@test_customer.id}" }.should \
+          route_to(:controller => 'customers', :action => 'show', :id => @test_customer.id.to_s)
+      end
+
+      it "routes to #edit" do
+        { :get => "/customers/#{@test_customer.id}/edit" }.should \
+          route_to(:controller => 'customers', :action => 'edit', :id => @test_customer.id.to_s)
+      end
+
+      it "routes to #update" do
+        { :put => "/customers/#{@test_customer.id}" }.should \
+          route_to(:controller => 'customers', :action => 'update', :id => @test_customer.id.to_s)
+      end
+
+      it "routes to #destroy" do
+        { :delete => "/customers/#{@test_customer.id}" }.should \
+          route_to(:controller => 'customers', :action => 'destroy', :id => @test_customer.id.to_s)
+      end
+    end
+
     describe "get 'new'" do
       it 'is successful' do
         get :new
