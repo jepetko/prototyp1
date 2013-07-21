@@ -129,6 +129,22 @@ describe CustomersController do
 
     end
 
+    describe "delete :destroy" do
+
+      it "is successful when passing existing customer" do
+        expect {
+          delete :destroy, :id => @test_customer.id
+          response.should redirect_to( customers_path )
+        }.to change(Customer,:count).by(-1)
+      end
+
+      it "is failure when passing not existing customer" do
+        expect {
+          delete :destroy, :id => 1000
+        }.to raise_error ActiveRecord::RecordNotFound
+      end
+    end
+
   end
 
 
