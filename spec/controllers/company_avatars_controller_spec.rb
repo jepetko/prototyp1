@@ -42,6 +42,22 @@ describe CompanyAvatarsController do
 
   describe 'if user is eligible' do
 
+    before(:all) do
+=begin
+      att = ActionDispatch::Http::UploadedFile.new({
+                                                    :filename => "#{Rails.root}/lib/assets/images/logo_1.png",
+                                                    :content_type => 'image/png',
+                                                    :tempfile => File.new("#{Rails.root}/spec/upload/missing.jpg")
+                                                })
+=end
+
+      ### see: http://stackoverflow.com/questions/7957823/rspec-converting-post-params-to-string-testing-file-uploader
+      att = fixture_file_upload('/logo_1.png', 'image/png')
+      @valid_attr = {
+          avatar: att
+      }
+    end
+
     before(:each) do
       login_set_user_seed([:customer,:company_avatar])
     end
@@ -58,25 +74,58 @@ describe CompanyAvatarsController do
           route_to(:controller => 'company_avatars', :action => 'create', :customer_id => @test_customer.id.to_s)
       end
 
-      it "routes to #show if avatar is associated with a customer" do
+      it "routes to nested #show if avatar is associated with a customer" do
         { :get => "/customers/#{@test_customer.id}/company_avatars/#{@test_customer.company_avatar.id}" }.should \
           route_to(:controller => 'company_avatars', :action => 'show', :customer_id => @test_customer.id.to_s, :id => @test_customer.company_avatar.id.to_s)
       end
 
-      it "routes to #destroy if avatar is associate dwith a customer" do
+      it "routes to nested #destroy if avatar is associate dwith a customer" do
         { :delete => "/customers/#{@test_customer.id}/company_avatars/#{@test_customer.company_avatar.id}" }.should \
           route_to(:controller => 'company_avatars', :action => 'destroy', :customer_id => @test_customer.id.to_s, :id => @test_customer.company_avatar.id.to_s)
       end
 
+      it "doesn't route to #edit" do
+        { :get => "/customers/#{@test_customer.id}/company_avatars/#{@test_customer.company_avatar.id}/edit"}.should_not \
+          be_routable
+      end
+
+      it "doesn't route to #update" do
+        { :put => "/customers/#{@test_customer.id}/company_avatars/#{@test_customer.company_avatar.id}"}.should_not \
+          be_routable
+      end
+
+      it "doesn't route to #index" do
+        { :get => "/customers/#{@test_customer.id}/company_avatars" }.should_not \
+          be_routable
+      end
+
     end
 
-    it 'shows a specific avatar' do
+    it 'shows a specific avatar associated with the customer' do
       get :show, :customer_id => @test_customer, :id => @test_customer.company_avatar.id
       response.should have_selector('img')
 
       response.should have_selector('*[role="main"]') do |div|
         response.should have_selector( "a[@href=\"#{customer_path(@test_customer)}\"]")
       end
+    end
+
+    it 'destroys a specific avatar associated with the customer' do
+      expect {
+        delete :destroy, :customer_id => @test_customer.id, :id => @test_customer.company_avatar.id
+      }.to change(CompanyAvatar,:count).by(-1)
+    end
+
+    it 'creates a specific avatar for a customer' do
+      expect {
+        post :create, :customer_id => @test_customer.id, :company_avatar => @valid_attr
+      }.to change(CompanyAvatar,:count).by(1)
+    end
+
+    it 'creates an avatar when no customer is defined' do
+      expect {
+        post :create, :company_avatar => @valid_attr
+      }.to change(CompanyAvatar,:count).by(1)
     end
 
   end
