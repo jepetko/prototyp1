@@ -5,8 +5,7 @@ describe CompanyAvatar do
 
    before(:each) do
 
-     #### prepare attachment
-     att = Paperclip::Attachment.new(:avatar, @customer, {
+     att = Paperclip::Attachment.new(:avatar, nil, {
          default_url: '/images/:style/missing.png',
          path: ":rails_root/public/system/:attachment/:id/:style/:filename",
          url: "/system/:attachment/:id/:style/:filename"
@@ -16,7 +15,6 @@ describe CompanyAvatar do
          avatar: att
      }
 
-     ### prepare instances
      @customer = FactoryGirl.create(:customer)
      @customer.company_avatar = CompanyAvatar.new(@attr)
    end
@@ -38,6 +36,7 @@ describe CompanyAvatar do
   it "is valid when valid image is uploaded" do
     avatar = CompanyAvatar.new(@attr)
     avatar.customer = @customer
+    avatar.avatar.should_not be_nil
     avatar.should be_valid
 
     expect {
