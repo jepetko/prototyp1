@@ -84,6 +84,9 @@ describe CompanyAvatarsController do
           route_to(:controller => 'company_avatars', :action => 'destroy', :customer_id => @test_customer.id.to_s, :id => @test_customer.company_avatar.id.to_s)
       end
 
+      ################
+      ### not routable
+
       it "doesn't route to #edit" do
         { :get => "/customers/#{@test_customer.id}/company_avatars/#{@test_customer.company_avatar.id}/edit"}.should_not \
           be_routable

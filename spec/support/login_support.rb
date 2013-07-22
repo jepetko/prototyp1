@@ -5,7 +5,7 @@ module LoginSupport
     test_log_in(@test_user)
 
     if create_records.include?(:customer)
-      [0..5].each do
+      5.times do
         c = FactoryGirl.create(:customer)
         if create_records.include?(:company_avatar)
           #### prepare attachment
@@ -17,8 +17,8 @@ module LoginSupport
           c.company_avatar = CompanyAvatar.create(:avatar => att)
         end
         if create_records.include?(:contact)
-          [0..5].times do
-            c.contacts.create(:name => 'Contact', :city => 'Vienna', :street => 'street', :zip => '1210', :country => 'AUT')
+          5.times do
+            c.contacts.create(:name => 'Contact', :notice => 'nice...', :phone => '01/123456')
           end
         end
         c.save!
@@ -29,6 +29,12 @@ module LoginSupport
     if do_logout
       test_log_out(@test_user)
     end
+  end
+
+  def get_last_contact_id_of_test_cust(to_s = true)
+    id = @test_customer.contacts.last.id
+    return id.to_s if to_s
+    id
   end
 
 end

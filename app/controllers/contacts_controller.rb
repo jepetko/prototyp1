@@ -1,5 +1,7 @@
 class ContactsController < ApplicationController
 
+  before_filter :authenticate_user!
+
   # GET /contacts
   # GET /contacts.json
   def index
@@ -48,7 +50,7 @@ class ContactsController < ApplicationController
     respond_to do |format|
       if @contact.save
 
-        format.html { redirect_to customer_contacts_path(customer),  notice: I18n.t('views.contact.flash_messages.created_successfully') }
+        #format.html { redirect_to customer_contacts_path(customer),  notice: I18n.t('views.contact.flash_messages.created_successfully') }
         format.js { }
         format.json { render json: @contact, status: :created, location: @contact }
       else
