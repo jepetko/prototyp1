@@ -55,3 +55,18 @@ module UsersSupport
 end
 
 World(UsersSupport)
+
+###########################################################################
+#################  common used Givens, Whens and Thens
+
+Given(/^an existing user with name "([^"]*)", email "([^"]*)" and password "([^"]*)"$/) do |name, email, pwd|
+  create_user({:name => name, :email => email, :password => pwd, :password_confirmation => pwd})
+  sign_in
+end
+
+
+When(/^I click "(.*?)"$/) do |link|
+  click_link link
+end
+
+###########################################################################
