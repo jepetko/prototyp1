@@ -52,6 +52,12 @@ module UsersSupport
     click_button "Sign in"
   end
 
+  def create_customers(table)
+    table.hashes.each do |rec|
+      FactoryGirl.create(:customer, :name => rec[:name])
+    end
+  end
+
 end
 
 World(UsersSupport)

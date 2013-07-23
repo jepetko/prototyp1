@@ -1,8 +1,6 @@
 Given(/^following records in the database:$/) do |table|
 
-  table.hashes.each do |rec|
-    FactoryGirl.create(:customer, :name => rec[:name])
-  end
+  create_customers table
 
 end
 
