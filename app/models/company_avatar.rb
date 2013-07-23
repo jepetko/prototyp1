@@ -19,7 +19,7 @@ class CompanyAvatar < ActiveRecord::Base
         "name" => read_attribute(:avatar_file_name),
         "size" => read_attribute(:avatar_file_size),
         "url" => avatar.url(:original),
-        "delete_url" => customer_company_avatar_path(self.customer,self),
+        "delete_url" => self.customer.nil? ? company_avatar_path(self) : customer_company_avatar_path(self.customer,self),
         "delete_type" => "DELETE",
         "thumbnail_url" => avatar.url(:thumb)
         }]
