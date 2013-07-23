@@ -19,7 +19,7 @@ end
 def create_user
   create_visitor
   delete_user
-  @user = FactoryGirl.create(:user, email: @visitor[:email])
+  @user = FactoryGirl.create(:user, @visitor)    ### bug-fix
 end
 
 def delete_user
@@ -42,15 +42,20 @@ def sign_in
   visit '/users/sign_in'
   fill_in "Email", :with => @visitor[:email]
   fill_in "Password", :with => @visitor[:password]
-
-  puts @visitor[:email]
-  puts @visitor[:password]
-  puts User.all.inspect
-  puts page.body
-
-
   click_button "Sign in"
 end
+
+
+######
+###
+### Scenario: User signs in successfully
+### Given I exist as a user
+### And I am not logged in
+### When I sign in with valid credentials
+### Then I see a successful sign in message
+### When I return to the site
+### Then I should be signed in
+######
 
 ### GIVEN ###
 Given /^I am not logged in$/ do
@@ -64,8 +69,6 @@ end
 
 Given /^I exist as a user$/ do
   create_user
-  breakpoint
-  0
 end
 
 Given /^I do not exist as a user$/ do
@@ -79,8 +82,7 @@ end
 
 ### WHEN ###
 When /^I sign in with valid credentials$/ do
-  #create_visitor
-  create_user
+  create_visitor
   sign_in
 end
 
@@ -160,8 +162,6 @@ Then /^I see an unconfirmed account message$/ do
 end
 
 Then /^I see a successful sign in message$/ do
-  puts '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!'
-  puts page.body
   page.should have_content "Signed in successfully."
 end
 
@@ -178,11 +178,11 @@ Then /^I should see a missing password message$/ do
 end
 
 Then /^I should see a missing password confirmation message$/ do
-  page.should have_content "Passworddoesn't match confirmation"
+  page.should have_content "Passworddoesn't match"      ##### confirmation missing in the english translation
 end
 
 Then /^I should see a mismatched password message$/ do
-  page.should have_content "Passworddoesn't match confirmation"
+  page.should have_content "Passworddoesn't match"      ##### confirmation missing in the english translation
 end
 
 Then /^I should see a signed out message$/ do

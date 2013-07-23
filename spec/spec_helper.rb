@@ -53,19 +53,38 @@ RSpec.configure do |config|
 
   ####### test log-in and log-out
 
-  #unless Rails.env.production?
-=begin
-    def test_log_in(user)
-      raise 'You (' + user.email + ') are not authorized!' if not user.valid_password?(user.password)
-      controller.sign_in(:user, user)
-    end
+  unless Rails.env.production?
+    config.include(LoginSupport)
+  end
 
-    def test_log_out(user)
-      controller.sign_out(user)
-    end
+  #######################################
+  ##### watir integration:
 
-  #end
-=end
+  # Add Watir::RSpec::HtmlFormatter to get links to the screenshots, html and
+  # all other files created during the failing examples.
+  config.add_formatter('documentation')
+  config.add_formatter(Watir::RSpec::HtmlFormatter)
 
-  config.include(LoginSupport)
+  # Open up the browser for each example.
+  config.before :all do
+    @browser = Watir::Browser.new :chrome
+  end
+
+  # Close that browser after each example.
+  config.after :all do
+    @browser.close if @browser
+  end
+
+  # Include RSpec::Helper into each of your example group for making it possible to
+  # write in your examples instead of:
+  #   @browser.goto "localhost"
+  #   @browser.text_field(:name => "first_name").set "Bob"
+  #
+  # like this:
+  #   goto "localhost"
+  #   text_field(:name => "first_name").set "Bob"
+  #
+  # This needs that you've used @browser as an instance variable name in
+  # before :all block.
+  config.include Watir::RSpec::Helper :type => :request
 end
