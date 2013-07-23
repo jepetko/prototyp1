@@ -8,14 +8,17 @@ Feature: List all customers by an authorized user
   | email       | name        | password      | password_confirmation |
   | usr@dom.com | the_usr     | usr123456     | usr123456             |
 
-  Scenario: Create a new customer
+
+  Scenario Outline: Create a new customer
     When I click "New customer"
-    And fill the fields with these values
-    | name      | street      | zip           | city                | country         |
-    | ABC       | Funstreet   | 1010          | Vienna              | AUT             |
-    | DEF       | Crystreet   | 1020          | Vienna              | AUT             |
-    | GHI       | Laughplace  | 1030          | Vienna              | AUT             |
+    And fill the fields with <name>, <street>, <zip>, <city> and <country> and click subsequently "Save"
     Then I should see the message "Customer created successfully."
+
+    Examples:
+      | name      | street      | zip           | city                | country         |
+      | ABC       | Funstreet   | 1010          | Vienna              | Austria         |
+      | DEF       | Crystreet   | 1020          | Vienna              | Austria         |
+      | GHI       | Laughplace  | 1030          | Vienna              | Austria         |
 
   Scenario: List customers
     When I click "All customers"

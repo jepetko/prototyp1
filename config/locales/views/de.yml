@@ -2,6 +2,15 @@
 
 de:
   views:
+    layout:
+      nav:
+        new_customer: Neuer Kunde
+        all_customers: Alle Kunden
+        logout: Logout
+        login: Login
+        edit_account: Account editieren
+        admin: Administratorenbereich
+        sign_up: Registrieren
     company_avatar:
       flash_messages:
         created_successfully: Firmenlogo wurde erfolgreich erstellt.

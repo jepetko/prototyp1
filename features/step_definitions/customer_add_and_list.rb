@@ -11,31 +11,38 @@ Given(/^an existing user with these credentials:$/) do |table|
   end
 end
 
-When(/^I click "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+#######
+
+When(/^I click "(.*?)"$/) do |link|
+  click_link link
 end
 
-When(/^fill the fields with these values$/) do |table|
-  # table is a Cucumber::Ast::Table
-  pending # express the regexp above with the code you wish you had
+
+When(/^fill the fields with these values and click "([^"]*)"$/) do |btn, table|
+  values = table.hashes
+  ##### ABC       | Funstreet   | 1010          | Vienna              | Austria
+  values.map do |record|
+    record.each do |k,v|
+      field_name = "customer_#{k}"
+      if k == 'country'
+        select v, :from => field_name
+      else
+        fill_in field_name, :with => v
+      end
+    end
+  end
+  click_button btn if btn == 'Submit'
 end
 
-Then(/^I should see the message "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+
+Then(/^I should see the message "(.*?)"$/) do |msg|
+  expect(page).to have_content(msg)
 end
 
-Then(/^I should see the customer "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^I should see the customer "(.*?)"$/) do |customer_name|
+  expect(page).to have_content(customer_name)
 end
 
-Then(/^the number of customers should be "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
-When(/^I call the URL "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^I will be redirected to the Log\-In page$/) do
-  pending # express the regexp above with the code you wish you had
+Then(/^the number of customers should be "(.*?)"$/) do |count|
+  expect(page).to have_selector('div.customer', :count => count)
 end

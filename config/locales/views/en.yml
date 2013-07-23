@@ -1,0 +1,32 @@
+
+en:
+  views:
+    layout:
+      nav:
+        new_customer: New customer
+        all_customers: All customers
+        logout: Logout
+        login: Login
+        edit_account: Edit account
+        admin: Administrator area
+        sign_up: Register
+    company_avatar:
+      flash_messages:
+        created_successfully: Avatar has been created successfully.
+      upload:
+        max_file_size: File is too big
+        min_file_size: File is too small
+        accept_file_types: File type not allowed
+        max_number_of_files: Max. number of files achieved.
+        uploaded_bytes: Strange... data amount > file size.
+        empty_result: File is empty.
+    contact:
+      index:
+        title: Contacts
+      flash_messages:
+        created_successfully: Contact has been created successfully.
+        updated_successfully: Contact has been updated.
+    company:
+      flash_messages:
+        created_successfully: Customer has been created successfully.
+        updated_successfully: Customer has been updated.
