@@ -8,13 +8,23 @@ class CompanyAvatarsController < ApplicationController
   # POST /company_avatars.json
   def create
     @company_avatar = CompanyAvatar.new(params[:company_avatar])
+    logger.info @company_avatar
+
+
 
     if params[:customer_id]
       @company_avatar.customer_id = params[:customer_id]
     end
 
+    logger.info "After customer_id"
+
+
     respond_to do |format|
+      logger.info "before save"
+
       if @company_avatar.save
+
+        logger.info "after save"
 
         #save in session
         remember_temp_upload(@company_avatar.id)

@@ -93,6 +93,11 @@ Given(/^an existing user with email "(.*?)" and password "(.*?)"$/) do |email, p
 end
 
 When(/^I open a browser instance "(.*?)"$/) do |browser|
+  Rails.application.config.action_controller.allow_forgery_protection = true
+  Rails.application.config.serve_static_assets = false
+  Rails.application.config.assets.compress = false
+  Rails.application.config.assets.debug = true
+
   @browser = Watir::Browser.new browser
 end
 
