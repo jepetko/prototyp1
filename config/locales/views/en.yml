@@ -9,7 +9,7 @@ en:
         login: Login
         edit_account: Edit account
         admin: Administrator area
-        sign_up: Register
+        sign_up: Sign up
     company_avatar:
       flash_messages:
         created_successfully: Avatar has been created successfully.
