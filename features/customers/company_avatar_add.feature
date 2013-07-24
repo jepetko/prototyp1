@@ -11,4 +11,4 @@ Feature: Add company avatar
       Then the chosen file "logo_1.png" will appear in the page
       And I am able to click the button "Upload"
       And the logo will appear in the page
-      And I can see the size of the image "XXKB"
+      And I can see the size of the image "3.5 KB"

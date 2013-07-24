@@ -3,5 +3,5 @@ When(/^I call the URL "(.*?)"$/) do |url|
 end
 
 Then(/^I will be redirected to the Log\-In page$/) do
-  response.should redirect_to('/users/sign_in')
+  current_path.should eq('/users/sign_in')
 end
