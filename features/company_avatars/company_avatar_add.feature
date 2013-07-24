@@ -1,3 +1,4 @@
+@browser
 Feature: Add company avatar
   As authorized user
   I am able to add a company avatar for not yet existing customer
@@ -5,12 +6,12 @@ Feature: Add company avatar
   Background: Existing User
     Given an existing user with email "someone@domain.com" and password "pwd123456"
 
-  @browser
   Scenario Outline: Create company avatar
       When I open a browser instance "<browser>"
       And I sign in
-      And I click "New customer"
-      And I click the plus button
+      And I click "Customer" in browser
+      And I click "New customer" in browser
+      And I click "Avatar" in browser
       And choose a file "logo_1.png"
       Then the chosen file "logo_1.png" will appear in the page
       And I am able to click the button "Upload"

@@ -108,12 +108,12 @@ When(/^I sign in/) do
 end
 
 When(/^I click "(.*?)"$/) do |link|
-  if !@browser.nil?
-    @browser.link(:text,'Customer').click
-    @browser.link(:text, 'New customer').click
-  else
-    click_link link
-  end
+  click_link link
 end
+
+When(/^I click "(.*?)" in browser$/) do |link|
+  @browser.link(:text, link).click
+end
+
 
 ###########################################################################
