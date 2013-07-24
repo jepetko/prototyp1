@@ -58,21 +58,62 @@ module UsersSupport
     end
   end
 
+  def start_rails_server
+    system 'bundle exec rake db:reset RAILS_ENV=test'
+    system 'rm log/test.log'
+    system 'rails s'
+  end
+
+  def terminate_rails_server
+    system "kill $(ps auf | grep 'ruby script/rails' | grep -v grep | awk '{ print $2 }')"
+  end
+
 end
 
 World(UsersSupport)
 
 ###########################################################################
-#################  common used Givens, Whens and Thens
+#################  common used Givens, Whens and Thens and Hooks
 
-Given(/^an existing user with name "([^"]*)", email "([^"]*)" and password "([^"]*)"$/) do |name, email, pwd|
+Before('@browser') do
+  #start_rails_server
+end
+
+After('@browser') do
+  #terminate_rails_server
+end
+
+Given(/^an existing and logged-in user with name "([^"]*)", email "([^"]*)" and password "([^"]*)"$/) do |name, email, pwd|
   create_user({:name => name, :email => email, :password => pwd, :password_confirmation => pwd})
   sign_in
 end
 
+Given(/^an existing user with email "(.*?)" and password "(.*?)"$/) do |email, pwd|
+  create_user({:name => 'Humpty Dumpty', :email => email, :password => pwd, :password_confirmation => pwd})
+end
+
+When(/^I open a browser instance "(.*?)"$/) do |browser|
+  @browser = Watir::Browser.new browser
+end
+
+When(/^I sign in/) do
+  if !@browser.nil?
+    @browser.goto("http://localhost:#{Watir::Rails.port}/users/sign_in")
+    @browser.text_field(:id, 'user_email').set(@user.email)
+    @browser.text_field(:id, 'user_password').set(@user.password)
+    @browser.button(:value, 'Sign in').click
+  else
+    raise "Not supported"
+  end
+end
 
 When(/^I click "(.*?)"$/) do |link|
-  click_link link
+  if !@browser.nil?
+    @browser.link(:text,'Customer').click
+    @browser.link(:text, 'New customer').click
+  else
+    click_link link
+  end
 end
 
 ###########################################################################

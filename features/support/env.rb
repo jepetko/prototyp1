@@ -56,3 +56,14 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
+=begin
+system 'bundle exec rake db:test:reset'
+system 'rm log/test.log'
+system 'rails s'
+
+at_exit do
+  system "kill $(ps auf | grep 'ruby script/rails' | grep -v grep | awk '{ print $2 }')"
+end
+=end
+
+DatabaseCleaner.strategy = nil

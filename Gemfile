@@ -24,8 +24,8 @@ group :development, :test do
   gem "cucumber", ">= 1.3.2"
   gem "cucumber-rails", ">= 1.3.1", :require => false
   gem "faker", :require => false
-  gem "watir"
-  #gem 'watir-rspec'
+  #gem "watir"
+  gem "watir-rails"
 end
 
 

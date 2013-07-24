@@ -4,7 +4,7 @@ Feature: List all customers by an authorized user
   I am able to see all customers
 
   Background: Existing User
-  Given an existing user with name "the_usr", email "usr@dom.com" and password "usr123456"
+  Given an existing and logged-in user with name "the_usr", email "usr@dom.com" and password "usr123456"
 
   Scenario Outline: Create a new customer
     When I click "New customer"

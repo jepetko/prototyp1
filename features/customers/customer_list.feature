@@ -3,7 +3,7 @@ Feature: List customers
   I am able to list all customers
 
   Background: Existing User
-    Given an existing user with name "the_usr", email "usr@dom.com" and password "usr123456"
+    Given an existing and logged-in user with name "the_usr", email "usr@dom.com" and password "usr123456"
     And following records in the database:
       | name      |
       | ABC       |

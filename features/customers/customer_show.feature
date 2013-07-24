@@ -3,7 +3,7 @@ Feature: Show customer
   I am able to see a customer
 
   Background: Existing User
-    Given an existing user with name "the_usr", email "usr@dom.com" and password "usr123456"
+    Given an existing and logged-in user with name "the_usr", email "usr@dom.com" and password "usr123456"
     And following customers:
     | name      |
     | ABC       |
