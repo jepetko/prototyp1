@@ -20,5 +20,5 @@ Feature: Add company avatar
 
       Examples:
       | browser   |
-      | chrome    |
-      #| firefox   |
+      #| chrome    |
+      | firefox   |
