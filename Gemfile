@@ -26,6 +26,7 @@ group :development, :test do
   gem "faker", :require => false
   #gem "watir"
   gem "watir-rails"
+  gem "headless"
 end
 
 

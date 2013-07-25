@@ -66,4 +66,9 @@ at_exit do
 end
 =end
 
-DatabaseCleaner.strategy = nil
+DatabaseCleaner.strategy = nil   #kg
+
+at_exit do
+  $headless.destroy if !$headless.nil?
+  $browser.close if !$browser.nil?
+end

@@ -21,4 +21,5 @@ Feature: Add company avatar
       Examples:
       | browser   |
       #| chrome    |
-      | firefox   |
+      #| phantomjs |
+      | headless  |
