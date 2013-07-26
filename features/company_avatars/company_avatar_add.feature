@@ -8,7 +8,7 @@ Feature: Add company avatar
 
   Scenario Outline: Create company avatar
       When I open a browser instance "<browser>"
-      And I sign in
+      And I sign in in browser
       And I click "Customer" in browser
       And I click "New customer" in browser
       And I click "Avatar" in browser
@@ -20,6 +20,6 @@ Feature: Add company avatar
 
       Examples:
       | browser   |
-      #| chrome    |
-      #| phantomjs |
-      | headless  |
+      | chrome    |
+      | phantomjs |
+      #| headless  |

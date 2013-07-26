@@ -1,4 +1,3 @@
-
 Feature: List all customers by an authorized user
   As authorized user
   I am able to see all customers

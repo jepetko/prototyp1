@@ -31,6 +31,12 @@ module Utils
     end
   end
 
+  def make_screenshot(scenario)
+    Dir::mkdir('screenshots') if not File.directory?('screenshots')
+    screenshot = "./screenshots/FAILED_#{scenario.name.gsub(' ','_').gsub(/[^0-9A-Za-z_]/, '')}.png"
+    @browser.screenshot.save(screenshot)
+  end
+
 end
 
 World(Utils)
@@ -58,7 +64,7 @@ When(/^I open a browser instance "(.*?)"$/) do |browser|
 
 end
 
-When(/^I sign in/) do
+When(/^I sign in in browser/) do
   if !@browser.nil?
     @browser.goto(get_start_url)
     @browser.text_field(:id, 'user_email').set(@user.email)
@@ -77,12 +83,22 @@ When(/^I click "(.*?)" in browser$/) do |link|
   @browser.link(:text, link).click
 end
 
+
+Before do
+  DatabaseCleaner.start
+end
+
+
 After do |scenario|
   if scenario.failed?
-    Dir::mkdir('screenshots') if not File.directory?('screenshots')
-    screenshot = "./screenshots/FAILED_#{scenario.name.gsub(' ','_').gsub(/[^0-9A-Za-z_]/, '')}.png"
-    @browser.screenshot.save(screenshot)
+    make_screenshot scenario
   end
+  DatabaseCleaner.clean
+end
+
+After('@browser') do
+  $headless.destroy if !$headless.nil?
+  $browser.close if !$browser.nil?
 end
 
 ###########################################################################
