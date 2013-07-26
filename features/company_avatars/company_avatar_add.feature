@@ -20,6 +20,6 @@ Feature: Add company avatar
 
       Examples:
       | browser   |
-      | chrome    |
+      #| chrome    |
       | phantomjs |
       #| headless  |

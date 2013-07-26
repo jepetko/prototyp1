@@ -69,3 +69,8 @@ end
 #DatabaseCleaner.strategy = nil   #kg
 DatabaseCleaner.strategy = :truncation
 
+at_exit do
+  $headless.destroy if !$headless.nil?
+  $browser.close if !$browser.nil?
+end
+

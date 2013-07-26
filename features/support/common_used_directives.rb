@@ -76,29 +76,26 @@ When(/^I sign in in browser/) do
 end
 
 When(/^I click "(.*?)"$/) do |link|
-  click_link link
+  click_link_or_button link
 end
 
 When(/^I click "(.*?)" in browser$/) do |link|
-  @browser.link(:text, link).click
+  l = @browser.link(:text, link)
+  if !l.present?
+    l = @browser.button(:value, link)
+  end
+  l.click
 end
-
 
 Before do
   DatabaseCleaner.start
 end
-
 
 After do |scenario|
   if scenario.failed?
     make_screenshot scenario
   end
   DatabaseCleaner.clean
-end
-
-After('@browser') do
-  $headless.destroy if !$headless.nil?
-  $browser.close if !$browser.nil?
 end
 
 ###########################################################################

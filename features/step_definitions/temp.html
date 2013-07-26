@@ -1,0 +1,580 @@
+"<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototyp1</title>
+    <meta name="description" content="Prototyp1">
+    <link href="/assets/application.css?body=1" media="all" rel="stylesheet" type="text/css">
+    <link href="/assets/jquery.fileupload-ui.css?body=1" media="all" rel="stylesheet" type="text/css">
+    <link href="/assets/bootstrap_and_overrides.css?body=1" media="all" rel="stylesheet" type="text/css">
+    <link href="/assets/company_avatars.css?body=1" media="all" rel="stylesheet" type="text/css">
+    <link href="/assets/contacts.css?body=1" media="all" rel="stylesheet" type="text/css">
+    <link href="/assets/customers.css?body=1" media="all" rel="stylesheet" type="text/css">
+    <link href="/assets/home.css?body=1" media="all" rel="stylesheet" type="text/css">
+    <link href="/assets/scaffolds.css?body=1" media="all" rel="stylesheet" type="text/css">
+    <script src="/assets/jquery.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery_ujs.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-transition.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-affix.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-alert.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-button.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-carousel.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-collapse.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-dropdown.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-modal.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-scrollspy.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-tab.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-tooltip.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-popover.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap-typeahead.js?body=1" type="text/javascript"></script>
+    <script src="/assets/bootstrap.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/vendor/jquery.ui.widget.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/vendor/load-image.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/vendor/canvas-to-blob.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/vendor/tmpl.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/jquery.iframe-transport.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/jquery.fileupload.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/jquery.fileupload-fp.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/jquery.fileupload-ui.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/locale.js?body=1" type="text/javascript"></script>
+    <script src="/assets/jquery-fileupload/index.js?body=1" type="text/javascript"></script>
+    <script src="/assets/application.js?body=1" type="text/javascript"></script>
+</head>
+<body class="customers edit" style="">
+<div class="navbar navbar-fixed-top">
+    <nav class="navbar-inner">
+        <div class="container"><a href="/" class="brand">Prototyp1</a>
+            <ul class="nav">
+                <li><a href="/users/sign_out" data-method="delete" rel="nofollow">Logout</a></li>
+                <li><a href="/users/edit">Edit account</a></li>
+                <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#"> Customer <b
+                        class="caret"></b> </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/customers/new">New customer</a></li>
+                        <li><a href="/customers">All customers</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+<div id="main" role="main">
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div class="span12">
+                    <div class="tabbable">    <!-- link list -->
+                        <div class="link-list"><a href="/customers/1" class="btn"><i
+                                class="icon-file"></i>&nbsp;Show</a> <a href="/customers" class="btn"><i
+                                class="icon-step-backward"></i>&nbsp;Back</a></div>
+                        <!-- content -->
+                        <ul class="nav nav-tabs">
+                            <li class=""><a href="#tab1" data-toggle="tab">Customer</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Avatar</a></li>
+                            <li class="active"><a href="#tab3" data-toggle="tab">Contacts</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="tab1">       <!-- customer data -->
+                                <form accept-charset="UTF-8" action="/customers/1" class="simple_form edit_customer"
+                                      id="edit_customer_1" method="post" novalidate="novalidate">
+                                    <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden"
+                                                                                          value="✓"><input
+                                            name="_method" type="hidden" value="put"></div>
+                                    <div class="form-inputs">
+                                        <div class="control-group string required customer_name"><label
+                                                class="string required control-label" for="customer_name"><abbr
+                                                title="required">*</abbr> Name</label>
+
+                                            <div class="controls"><input class="string required" id="customer_name"
+                                                                         name="customer[name]" size="50" type="text"
+                                                                         value="Jakubowski and Sons"></div>
+                                        </div>
+                                        <div class="control-group string required customer_street"><label
+                                                class="string required control-label" for="customer_street"><abbr
+                                                title="required">*</abbr> Street</label>
+
+                                            <div class="controls"><input class="string required" id="customer_street"
+                                                                         name="customer[street]" size="50" type="text"
+                                                                         value="8970 Romaguera Knoll"></div>
+                                        </div>
+                                        <div class="control-group string required customer_zip"><label
+                                                class="string required control-label" for="customer_zip"><abbr
+                                                title="required">*</abbr> Zip</label>
+
+                                            <div class="controls"><input class="string required" id="customer_zip"
+                                                                         name="customer[zip]" size="50" type="text"
+                                                                         value="78843-2680"></div>
+                                        </div>
+                                        <div class="control-group string required customer_city"><label
+                                                class="string required control-label" for="customer_city"><abbr
+                                                title="required">*</abbr> City</label>
+
+                                            <div class="controls"><input class="string required" id="customer_city"
+                                                                         name="customer[city]" size="50" type="text"
+                                                                         value="West Ciceromouth"></div>
+                                        </div>
+                                        <div class="control-group country required customer_country"><label
+                                                class="country required control-label" for="customer_country"><abbr
+                                                title="required">*</abbr> Country</label>
+
+                                            <div class="controls"><select class="country required" id="customer_country"
+                                                                          name="customer[country]">
+                                                <option value=""></option>
+                                                <option value="Afghanistan">Afghanistan</option>
+                                                <option value="Åland Islands">Åland Islands</option>
+                                                <option value="Albania">Albania</option>
+                                                <option value="Algeria">Algeria</option>
+                                                <option value="American Samoa">American Samoa</option>
+                                                <option value="Andorra">Andorra</option>
+                                                <option value="Angola">Angola</option>
+                                                <option value="Anguilla">Anguilla</option>
+                                                <option value="Antarctica">Antarctica</option>
+                                                <option value="Antigua and Barbuda">Antigua and Barbuda</option>
+                                                <option value="Argentina">Argentina</option>
+                                                <option value="Armenia">Armenia</option>
+                                                <option value="Aruba">Aruba</option>
+                                                <option value="Australia">Australia</option>
+                                                <option value="Austria">Austria</option>
+                                                <option value="Azerbaijan">Azerbaijan</option>
+                                                <option value="Bahamas">Bahamas</option>
+                                                <option value="Bahrain">Bahrain</option>
+                                                <option value="Bangladesh">Bangladesh</option>
+                                                <option value="Barbados">Barbados</option>
+                                                <option value="Belarus">Belarus</option>
+                                                <option value="Belgium">Belgium</option>
+                                                <option value="Belize">Belize</option>
+                                                <option value="Benin">Benin</option>
+                                                <option value="Bermuda">Bermuda</option>
+                                                <option value="Bhutan">Bhutan</option>
+                                                <option value="Bolivia, Plurinational State of">Bolivia, Plurinational
+                                                    State of
+                                                </option>
+                                                <option value="Bonaire, Sint Eustatius and Saba">Bonaire, Sint Eustatius
+                                                    and Saba
+                                                </option>
+                                                <option value="Bosnia and Herzegovina">Bosnia and Herzegovina</option>
+                                                <option value="Botswana">Botswana</option>
+                                                <option value="Bouvet Island">Bouvet Island</option>
+                                                <option value="Brazil">Brazil</option>
+                                                <option value="British Indian Ocean Territory">British Indian Ocean
+                                                    Territory
+                                                </option>
+                                                <option value="Brunei Darussalam">Brunei Darussalam</option>
+                                                <option value="Bulgaria">Bulgaria</option>
+                                                <option value="Burkina Faso">Burkina Faso</option>
+                                                <option value="Burundi">Burundi</option>
+                                                <option value="Cambodia">Cambodia</option>
+                                                <option value="Cameroon">Cameroon</option>
+                                                <option value="Canada">Canada</option>
+                                                <option value="Cape Verde">Cape Verde</option>
+                                                <option value="Cayman Islands">Cayman Islands</option>
+                                                <option value="Central African Republic">Central African Republic
+                                                </option>
+                                                <option value="Chad">Chad</option>
+                                                <option value="Chile">Chile</option>
+                                                <option value="China">China</option>
+                                                <option value="Christmas Island">Christmas Island</option>
+                                                <option value="Cocos (Keeling) Islands">Cocos (Keeling) Islands</option>
+                                                <option value="Colombia">Colombia</option>
+                                                <option value="Comoros">Comoros</option>
+                                                <option value="Congo">Congo</option>
+                                                <option value="Congo, the Democratic Republic of the">Congo, the
+                                                    Democratic Republic of the
+                                                </option>
+                                                <option value="Cook Islands">Cook Islands</option>
+                                                <option value="Costa Rica">Costa Rica</option>
+                                                <option value="Côte d'Ivoire">Côte d'Ivoire</option>
+                                                <option value="Croatia">Croatia</option>
+                                                <option value="Cuba">Cuba</option>
+                                                <option value="Curaçao">Curaçao</option>
+                                                <option value="Cyprus">Cyprus</option>
+                                                <option value="Czech Republic">Czech Republic</option>
+                                                <option value="Denmark">Denmark</option>
+                                                <option value="Djibouti">Djibouti</option>
+                                                <option value="Dominica">Dominica</option>
+                                                <option value="Dominican Republic">Dominican Republic</option>
+                                                <option value="Ecuador">Ecuador</option>
+                                                <option value="Egypt">Egypt</option>
+                                                <option value="El Salvador">El Salvador</option>
+                                                <option value="Equatorial Guinea">Equatorial Guinea</option>
+                                                <option value="Eritrea">Eritrea</option>
+                                                <option value="Estonia">Estonia</option>
+                                                <option value="Ethiopia">Ethiopia</option>
+                                                <option value="Falkland Islands (Malvinas)">Falkland Islands
+                                                    (Malvinas)
+                                                </option>
+                                                <option value="Faroe Islands">Faroe Islands</option>
+                                                <option value="Fiji">Fiji</option>
+                                                <option value="Finland">Finland</option>
+                                                <option value="France">France</option>
+                                                <option value="French Guiana">French Guiana</option>
+                                                <option value="French Polynesia">French Polynesia</option>
+                                                <option value="French Southern Territories">French Southern
+                                                    Territories
+                                                </option>
+                                                <option value="Gabon">Gabon</option>
+                                                <option value="Gambia">Gambia</option>
+                                                <option value="Georgia">Georgia</option>
+                                                <option value="Germany">Germany</option>
+                                                <option value="Ghana">Ghana</option>
+                                                <option value="Gibraltar">Gibraltar</option>
+                                                <option value="Greece">Greece</option>
+                                                <option value="Greenland">Greenland</option>
+                                                <option value="Grenada">Grenada</option>
+                                                <option value="Guadeloupe">Guadeloupe</option>
+                                                <option value="Guam">Guam</option>
+                                                <option value="Guatemala">Guatemala</option>
+                                                <option value="Guernsey">Guernsey</option>
+                                                <option value="Guinea">Guinea</option>
+                                                <option value="Guinea-Bissau">Guinea-Bissau</option>
+                                                <option value="Guyana">Guyana</option>
+                                                <option value="Haiti">Haiti</option>
+                                                <option value="Heard Island and McDonald Islands">Heard Island and
+                                                    McDonald Islands
+                                                </option>
+                                                <option value="Holy See (Vatican City State)">Holy See (Vatican City
+                                                    State)
+                                                </option>
+                                                <option value="Honduras">Honduras</option>
+                                                <option value="Hong Kong">Hong Kong</option>
+                                                <option value="Hungary">Hungary</option>
+                                                <option value="Iceland">Iceland</option>
+                                                <option value="India">India</option>
+                                                <option value="Indonesia">Indonesia</option>
+                                                <option value="Iran, Islamic Republic of">Iran, Islamic Republic of
+                                                </option>
+                                                <option value="Iraq">Iraq</option>
+                                                <option value="Ireland">Ireland</option>
+                                                <option value="Isle of Man">Isle of Man</option>
+                                                <option value="Israel">Israel</option>
+                                                <option value="Italy">Italy</option>
+                                                <option value="Jamaica">Jamaica</option>
+                                                <option value="Japan">Japan</option>
+                                                <option value="Jersey">Jersey</option>
+                                                <option value="Jordan">Jordan</option>
+                                                <option value="Kazakhstan">Kazakhstan</option>
+                                                <option value="Kenya">Kenya</option>
+                                                <option value="Kiribati">Kiribati</option>
+                                                <option value="Korea, Democratic People's Republic of">Korea, Democratic
+                                                    People's Republic of
+                                                </option>
+                                                <option value="Korea, Republic of">Korea, Republic of</option>
+                                                <option value="Kuwait">Kuwait</option>
+                                                <option value="Kyrgyzstan">Kyrgyzstan</option>
+                                                <option value="Lao People's Democratic Republic">Lao People's Democratic
+                                                    Republic
+                                                </option>
+                                                <option value="Latvia">Latvia</option>
+                                                <option value="Lebanon">Lebanon</option>
+                                                <option value="Lesotho">Lesotho</option>
+                                                <option value="Liberia">Liberia</option>
+                                                <option value="Libya">Libya</option>
+                                                <option value="Liechtenstein">Liechtenstein</option>
+                                                <option value="Lithuania">Lithuania</option>
+                                                <option value="Luxembourg">Luxembourg</option>
+                                                <option value="Macao">Macao</option>
+                                                <option value="Macedonia, the former Yugoslav Republic of">Macedonia,
+                                                    the former Yugoslav Republic of
+                                                </option>
+                                                <option value="Madagascar">Madagascar</option>
+                                                <option value="Malawi">Malawi</option>
+                                                <option value="Malaysia">Malaysia</option>
+                                                <option value="Maldives">Maldives</option>
+                                                <option value="Mali">Mali</option>
+                                                <option value="Malta">Malta</option>
+                                                <option value="Marshall Islands">Marshall Islands</option>
+                                                <option value="Martinique">Martinique</option>
+                                                <option value="Mauritania">Mauritania</option>
+                                                <option value="Mauritius">Mauritius</option>
+                                                <option value="Mayotte" selected="selected">Mayotte</option>
+                                                <option value="Mexico">Mexico</option>
+                                                <option value="Micronesia, Federated States of">Micronesia, Federated
+                                                    States of
+                                                </option>
+                                                <option value="Moldova, Republic of">Moldova, Republic of</option>
+                                                <option value="Monaco">Monaco</option>
+                                                <option value="Mongolia">Mongolia</option>
+                                                <option value="Montenegro">Montenegro</option>
+                                                <option value="Montserrat">Montserrat</option>
+                                                <option value="Morocco">Morocco</option>
+                                                <option value="Mozambique">Mozambique</option>
+                                                <option value="Myanmar">Myanmar</option>
+                                                <option value="Namibia">Namibia</option>
+                                                <option value="Nauru">Nauru</option>
+                                                <option value="Nepal">Nepal</option>
+                                                <option value="Netherlands">Netherlands</option>
+                                                <option value="New Caledonia">New Caledonia</option>
+                                                <option value="New Zealand">New Zealand</option>
+                                                <option value="Nicaragua">Nicaragua</option>
+                                                <option value="Niger">Niger</option>
+                                                <option value="Nigeria">Nigeria</option>
+                                                <option value="Niue">Niue</option>
+                                                <option value="Norfolk Island">Norfolk Island</option>
+                                                <option value="Northern Mariana Islands">Northern Mariana Islands
+                                                </option>
+                                                <option value="Norway">Norway</option>
+                                                <option value="Oman">Oman</option>
+                                                <option value="Pakistan">Pakistan</option>
+                                                <option value="Palau">Palau</option>
+                                                <option value="Palestine, State of">Palestine, State of</option>
+                                                <option value="Panama">Panama</option>
+                                                <option value="Papua New Guinea">Papua New Guinea</option>
+                                                <option value="Paraguay">Paraguay</option>
+                                                <option value="Peru">Peru</option>
+                                                <option value="Philippines">Philippines</option>
+                                                <option value="Pitcairn">Pitcairn</option>
+                                                <option value="Poland">Poland</option>
+                                                <option value="Portugal">Portugal</option>
+                                                <option value="Puerto Rico">Puerto Rico</option>
+                                                <option value="Qatar">Qatar</option>
+                                                <option value="Réunion">Réunion</option>
+                                                <option value="Romania">Romania</option>
+                                                <option value="Russian Federation">Russian Federation</option>
+                                                <option value="Rwanda">Rwanda</option>
+                                                <option value="Saint Barthélemy">Saint Barthélemy</option>
+                                                <option value="Saint Helena, Ascension and Tristan da Cunha">Saint
+                                                    Helena, Ascension and Tristan da Cunha
+                                                </option>
+                                                <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                                                <option value="Saint Lucia">Saint Lucia</option>
+                                                <option value="Saint Martin (French part)">Saint Martin (French part)
+                                                </option>
+                                                <option value="Saint Pierre and Miquelon">Saint Pierre and Miquelon
+                                                </option>
+                                                <option value="Saint Vincent and the Grenadines">Saint Vincent and the
+                                                    Grenadines
+                                                </option>
+                                                <option value="Samoa">Samoa</option>
+                                                <option value="San Marino">San Marino</option>
+                                                <option value="Sao Tome and Principe">Sao Tome and Principe</option>
+                                                <option value="Saudi Arabia">Saudi Arabia</option>
+                                                <option value="Senegal">Senegal</option>
+                                                <option value="Serbia">Serbia</option>
+                                                <option value="Seychelles">Seychelles</option>
+                                                <option value="Sierra Leone">Sierra Leone</option>
+                                                <option value="Singapore">Singapore</option>
+                                                <option value="Sint Maarten (Dutch part)">Sint Maarten (Dutch part)
+                                                </option>
+                                                <option value="Slovakia">Slovakia</option>
+                                                <option value="Slovenia">Slovenia</option>
+                                                <option value="Solomon Islands">Solomon Islands</option>
+                                                <option value="Somalia">Somalia</option>
+                                                <option value="South Africa">South Africa</option>
+                                                <option value="South Georgia and the South Sandwich Islands">South
+                                                    Georgia and the South Sandwich Islands
+                                                </option>
+                                                <option value="South Sudan">South Sudan</option>
+                                                <option value="Spain">Spain</option>
+                                                <option value="Sri Lanka">Sri Lanka</option>
+                                                <option value="Sudan">Sudan</option>
+                                                <option value="Suriname">Suriname</option>
+                                                <option value="Svalbard and Jan Mayen">Svalbard and Jan Mayen</option>
+                                                <option value="Swaziland">Swaziland</option>
+                                                <option value="Sweden">Sweden</option>
+                                                <option value="Switzerland">Switzerland</option>
+                                                <option value="Syrian Arab Republic">Syrian Arab Republic</option>
+                                                <option value="Taiwan, Province of China">Taiwan, Province of China
+                                                </option>
+                                                <option value="Tajikistan">Tajikistan</option>
+                                                <option value="Tanzania, United Republic of">Tanzania, United Republic
+                                                    of
+                                                </option>
+                                                <option value="Thailand">Thailand</option>
+                                                <option value="Timor-Leste">Timor-Leste</option>
+                                                <option value="Togo">Togo</option>
+                                                <option value="Tokelau">Tokelau</option>
+                                                <option value="Tonga">Tonga</option>
+                                                <option value="Trinidad and Tobago">Trinidad and Tobago</option>
+                                                <option value="Tunisia">Tunisia</option>
+                                                <option value="Turkey">Turkey</option>
+                                                <option value="Turkmenistan">Turkmenistan</option>
+                                                <option value="Turks and Caicos Islands">Turks and Caicos Islands
+                                                </option>
+                                                <option value="Tuvalu">Tuvalu</option>
+                                                <option value="Uganda">Uganda</option>
+                                                <option value="Ukraine">Ukraine</option>
+                                                <option value="United Arab Emirates">United Arab Emirates</option>
+                                                <option value="United Kingdom">United Kingdom</option>
+                                                <option value="United States">United States</option>
+                                                <option value="United States Minor Outlying Islands">United States Minor
+                                                    Outlying Islands
+                                                </option>
+                                                <option value="Uruguay">Uruguay</option>
+                                                <option value="Uzbekistan">Uzbekistan</option>
+                                                <option value="Vanuatu">Vanuatu</option>
+                                                <option value="Venezuela, Bolivarian Republic of">Venezuela, Bolivarian
+                                                    Republic of
+                                                </option>
+                                                <option value="Viet Nam">Viet Nam</option>
+                                                <option value="Virgin Islands, British">Virgin Islands, British</option>
+                                                <option value="Virgin Islands, U.S.">Virgin Islands, U.S.</option>
+                                                <option value="Wallis and Futuna">Wallis and Futuna</option>
+                                                <option value="Western Sahara">Western Sahara</option>
+                                                <option value="Yemen">Yemen</option>
+                                                <option value="Zambia">Zambia</option>
+                                            </select></div>
+                                        </div>
+                                        <input id="customer_company_avatar" name="customer[company_avatar]"
+                                               type="hidden" value="1"></div>
+                                    <div class="form-actions"><input class="btn" name="commit" type="submit"
+                                                                     value="Update Customer"></div>
+                                </form>
+                            </div>
+                            <div class="tab-pane" id="tab2">       <!-- company avatar -->
+                                <form accept-charset="UTF-8" action="/customers/1/company_avatars"
+                                      class="simple_form edit_company_avatar" enctype="multipart/form-data"
+                                      id="fileupload" method="post" novalidate="novalidate">
+                                    <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden"
+                                                                                          value="✓"></div>
+                                    <div class="form-inputs">
+                                        <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                                        <div class="row fileupload-buttonbar">
+                                            <!-- The fileinput-button span is used to style the file input field as button -->
+                                            <span class="btn btn-success fileinput-button disabled">           <i
+                                                    class="icon-plus icon-white"></i>           <input
+                                                    id="company_avatar_avatar" name="company_avatar[avatar]" type="file"
+                                                    disabled="">         </span> <!-- The global progress bar -->
+                                            <div class="progress progress-success progress-striped active fade">
+                                                <div class="bar" style="width:0%;"></div>
+                                            </div>
+                                        </div>
+                                        <!-- The loading indicator is shown during image processing -->
+                                        <div class="fileupload-loading"></div>
+                                        <br> <!-- The table listing the files available for upload/download -->
+                                        <table class="row table table-striped">
+                                            <tbody class="files" data-toggle="modal-gallery"
+                                                   data-target="#modal-gallery">
+                                            <tr class="template-download fade in">
+                                                <td class="preview"><img src="/assets/thumb/missing.jpg"></td>
+                                                <td class="name"><i class="icon-download"></i> <a
+                                                        href="/assets/original/missing.jpg" title="" rel="gallery"
+                                                        download=""> </a></td>
+                                                <td class="size"><span></span></td>
+                                                <td colspan="2"></td>
+                                                <td class="delete">
+                                                    <button class="btn btn-danger" data-type="DELETE"
+                                                            data-url="/customers/1/company_avatars/1"><i
+                                                            class="icon-trash icon-white"></i></button>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </form>
+                                <script>     var fileUploadErrors = {         maxFileSize: "File is too big", minFileSize: "File is too small", acceptFileTypes: "File type not allowed", maxNumberOfFiles: "Max. number of files achieved.", uploadedBytes: "Strange... data amount &gt; file size.", emptyResult: "File is empty."     }; </script>
+                                <!-- The template to display files available for upload -->
+                                <script id="template-upload" type="text/x-tmpl"> {% for (var i=0, file; file=o.files[i];
+                                    i++) { %}
+                                    <tr class="template-upload fade">
+                                        <td class="preview"><span class="fade"></span></td>
+                                        <td class="name"><span>{%=file.name%}</span></td>
+                                        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                                        {% if (file.error) { %}
+                                        <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span>
+                                            {%=locale.fileupload.errors[file.error] || file.error%}
+                                        </td>
+                                        {% } else if (o.files.valid && !i) { %}
+                                        <td>
+                                            <div class="progress progress-success progress-striped active">
+                                                <div class="bar" style="width:0%;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="start">{% if (!o.options.autoUpload) { %}
+                                            <button class="btn btn-primary"><i class="icon-upload icon-white"></i>
+                                            </button>
+                                            {% } %}
+                                        </td>
+                                        {% } else { %}
+                                        <td colspan="2"></td>
+                                        {% } %}
+                                        <td class="cancel">{% if (!i) { %}
+                                            <button class="btn btn-warning"><i class="icon-ban-circle icon-white"></i>
+                                            </button>
+                                            {% } %}
+                                        </td>
+                                    </tr>
+                                    {% } %}
+                                </script>
+                                <!-- The template to display files available for download -->
+                                <script id="template-download" type="text/x-tmpl"> {% for (var i=0, file;
+                                    file=o.files[i]; i++) { %}
+                                    <tr class="template-download fade"> {% if (file.error) { %}
+                                        <td></td>
+                                        <td class="name"><span>{%=file.name%}</span></td>
+                                        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                                        <td class="error" colspan="2"><span class="label label-important">{%=locale.fileupload.error%}</span>
+                                            {%=locale.fileupload.errors[file.error] || file.error%}
+                                        </td>
+                                        {% } else { %} {% ProtoSupport.setCompanyAvatarOnCustomer(file.id); %}
+                                        <td class="preview">{% if (file.thumbnail_url) { %} <img
+                                                src="{%=file.thumbnail_url%}"> {% } %}
+                                        </td>
+                                        <td class="name"><i class="icon-download"></i> <a href="{%=file.url%}"
+                                                                                          title="{%=file.name%}"
+                                                                                          rel="{%=file.thumbnail_url&&'gallery'%}"
+                                                                                          download="{%=file.name%}">
+                                            {%=file.name%} </a></td>
+                                        <td class="size"><span>{%=o.formatFileSize(file.size)%}</span></td>
+                                        <td colspan="2"></td>
+                                        {% } %}
+                                        <td class="delete">
+                                            <button class="btn btn-danger" data-type="{%=file.delete_type%}"
+                                                    data-url="{%=file.delete_url%}"><i
+                                                    class="icon-trash icon-white"></i></button>
+                                        </td>
+                                    </tr>
+                                    {% } %}
+                                </script>
+                                <script type="text/javascript">     ProtoSupport.addCompanyAvatarFileUploadSupport();
+                                ProtoSupport.setCompanyAvatarOnCustomer(1);
+                                ProtoSupport.listExistingUpload(1); </script>
+                            </div>
+                            <div class="tab-pane active" id="tab3">       <!-- contacts -->
+                                <div id="contacts" style="display: block; "> No contacts. Edit record to add some of
+                                    them.
+                                </div>
+                                <button class="btn btn-new-contact">New contact</button>
+                                <!-- customer_contacts_path -->
+                                <form accept-charset="UTF-8" action="/customers/1/contacts"
+                                      class="simple_form new_contact" data-remote="true" id="new_contact" method="post"
+                                      novalidate="novalidate" style="display: block; ">
+                                    <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden"
+                                                                                          value="✓"></div>
+                                    <div class="form-inputs">
+                                        <div class="control-group string required contact_name"><label
+                                                class="string required control-label" for="contact_name"><abbr
+                                                title="required">*</abbr> Name</label>
+
+                                            <div class="controls"><input class="string required" id="contact_name"
+                                                                         name="contact[name]" size="50" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="control-group tel optional contact_phone"><label
+                                                class="tel optional control-label" for="contact_phone">Phone</label>
+
+                                            <div class="controls"><input class="string tel optional" id="contact_phone"
+                                                                         name="contact[phone]" size="50" type="tel">
+                                            </div>
+                                        </div>
+                                        <div class="control-group text optional contact_notice"><label
+                                                class="text optional control-label" for="contact_notice">Notice</label>
+
+                                            <div class="controls"><textarea class="text optional" cols="40"
+                                                                            id="contact_notice" name="contact[notice]"
+                                                                            rows="5"></textarea></div>
+                                        </div>
+                                    </div>
+                                    <input class="btn" name="commit" type="submit" value="Create Contact"></form>
+                                <script type="text/javascript"> //<![CDATA[ ProtoSupport.fetchCustomersContacts('/customers/1/edit/contacts'); //]]> </script>
+                                <script type="text/javascript"> //<![CDATA[ ProtoSupport.addNewContactSupport(); //]]> </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer></footer>
+        </div>
+    </div>
+    <!--! end of .container -->     </div>
+<!--! end of #main -->     </body>
+</html>"
