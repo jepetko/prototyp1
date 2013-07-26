@@ -8,7 +8,6 @@ Feature: Add contact to a customer
     Given a bunch of customers
 
   Scenario Outline: Go to Add contact form
-    When I open a browser instance "<browser>"
     And I sign in in browser
     And I click "Customer" in browser
     And I click "All customers" in browser
@@ -17,19 +16,13 @@ Feature: Add contact to a customer
     And I click "New contact" in browser
     Then I must see a form where I can put contact data
 
-      Examples:
-      | browser     |
-      | phantomjs   |
-      | chrome      |
-
-  Scenario Outline: Save contact
     When I put <name>, <phone>, <note>
-    And I click "Create contact"
+    And I click "Save contact" in browser
     Then contact <name>, <phone>, <note> should appear in the table above
 
       Examples:
         | name                  | phone             | note              |
         | Mini Mouse            | 01/123456         | Nice Girl         |
         | Mickey Mouse          | 01/1239999956     | Very chatty       |
-        | Tom                   |                   | Little bit stupid |
-        | Jerry                 | °dflkdg^dlf       | Pretty smart guy  |
+        #| Tom                   |                   | Little bit stupid |
+        #| Jerry                 | °dflkdg^dlf       | Pretty smart guy  |

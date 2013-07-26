@@ -18,16 +18,19 @@ Then(/^I must see a form where I can put contact data$/) do
 end
 
 When(/^I put (.*), (.*), (.*)$/) do |name, phone, note|
-  @browser.form(:id,'new_contact') do |f|
-    f.input(:id, 'customer_contact_name').set name
-    f.input(:id, 'customer_contact_phone').set phone
-    f.input(:id, 'customer_notice').set note
-  end
+  f = @browser.form(:id,'new_contact')
+  f.text_field(:id, 'contact_name').set name
+  f.text_field(:id, 'contact_phone').set phone
+  f.text_field(:id, 'contact_notice').set note
 end
 
 Then(/^contact (.*), (.*), (.*) should appear in the table above$/) do |name, phone, note|
   div = @browser.div(:id, 'contacts')
-  expect(div).to have_content(name)
-  expect(div).to have_content(phone)
-  expect(div).to have_content(note)
+  Watir::Wait.until {
+    c = @browser.div(:id, 'contacts')
+    c.present? && c.text.include?(name)
+  }
+  expect(div.text).to include(name)
+  expect(div.text).to include(phone)
+  expect(div.text).to include(note)
 end

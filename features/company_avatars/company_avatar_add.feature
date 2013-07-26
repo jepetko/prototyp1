@@ -6,8 +6,7 @@ Feature: Add company avatar
   Background: Existing User
     Given an existing user with email "someone@domain.com" and password "pwd123456"
 
-  Scenario Outline: Create company avatar
-      When I open a browser instance "<browser>"
+  Scenario: Create company avatar
       And I sign in in browser
       And I click "Customer" in browser
       And I click "New customer" in browser
@@ -17,9 +16,3 @@ Feature: Add company avatar
       And I am able to click the button "Upload"
       And the logo will appear in the page
       And I can see the size of the image "3.5 KB"
-
-      Examples:
-      | browser   |
-      #| chrome    |
-      | phantomjs |
-      #| headless  |

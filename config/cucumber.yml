@@ -7,4 +7,8 @@ default: <%= std_opts %> features
 wip: --tags @wip:3 --wip features
 rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags ~@wip
 
+#### different profiles for different browser tests
+phantomjs: --tags @browser BROWSER_TYPE=phantomjs
+chrome: --tags @browser BROWSER_TYPE=chrome
+
 

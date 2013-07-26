@@ -3,7 +3,7 @@ When(/^choose a file "(.*?)"$/) do |arg1|
   #firefox issue: otherwise following error is raised:
   #Element is not currently visible and so may not be interacted with (Selenium::WebDriver::Error::ElementNotVisibleError)
   #removing class name seems not to be possible in this configuration
-  #@browser.span(:class, 'fileinput-button').tap {|x| puts x.methods }.class_name
+  #browser.span(:class, 'fileinput-button').tap {|x| puts x.methods }.class_name
   @browser.file_field(:id, 'company_avatar_avatar').set("#{Rails.root}/features/support/logo_1.png")
 end
 
