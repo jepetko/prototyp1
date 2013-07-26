@@ -46,7 +46,7 @@ begin
 
   task :default => :cucumber
 
-  task :features => :cucumber do
+  task :contacts => :cucumber do
     STDERR.puts "*** The 'features' task is deprecated. See rake -T cucumber ***"
   end
 
