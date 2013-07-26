@@ -10,6 +10,12 @@ en:
         edit_account: Edit account
         admin: Administrator area
         sign_up: Sign up
+    customer:
+      flash_messages:
+        created_successfully: Customer has been created successfully.
+        updated_successfully: Customer has been updated successfully.
+      edit:
+        new_contact: New contact
     company_avatar:
       flash_messages:
         created_successfully: Avatar has been created successfully.
@@ -23,6 +29,8 @@ en:
     contact:
       index:
         title: Contacts
+      form:
+        save: Save contact
       flash_messages:
         created_successfully: Contact has been created successfully.
         updated_successfully: Contact has been updated.

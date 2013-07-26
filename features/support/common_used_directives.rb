@@ -76,7 +76,11 @@ When(/^I sign in in browser/) do
 end
 
 When(/^I click "(.*?)"$/) do |link|
-  click_link link
+  begin
+      click_link_or_button link
+  rescue
+      raise page.body
+  end
 end
 
 When(/^I click "(.*?)" in browser$/) do |link|

@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'sauce/cucumber'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -56,16 +57,22 @@ end
 # See https://github.com/cucumber/cucumber-rails/blob/master/features/choose_javascript_database_strategy.feature
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
-=begin
-system 'bundle exec rake db:test:reset'
-system 'rm log/test.log'
-system 'rails s'
-
-at_exit do
-  system "kill $(ps auf | grep 'ruby script/rails' | grep -v grep | awk '{ print $2 }')"
-end
-=end
-
-#DatabaseCleaner.strategy = nil   #kg
+#### kg
 DatabaseCleaner.strategy = :truncation
+
+
+#### kg: sauce
+Capybara.run_server = false
+Capybara.register_driver(:selenium){ |app| Capybara::Selenium::Driver.new(app, { :browser => :chrome }) }
+Capybara.default_driver = :selenium
+Capybara.javascript_driver = :sauce
+Capybara.server_port = 3000
+
+# Set up configuration
+Sauce.config do |c|
+  c[:browsers] = [
+      ["Linux", "Chrome", nil]
+  ]
+  c[:start_tunnel] = false
+end
 

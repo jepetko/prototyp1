@@ -46,16 +46,10 @@ module UsersSupport
   end
 
   def sign_in
-    visit '/users/sign_in'
+    visit 'http://localhost:3000/users/sign_in'
     fill_in "Email", :with => @visitor[:email]
     fill_in "Password", :with => @visitor[:password]
     click_button "Sign in"
-  end
-
-  def create_customers(table)
-    table.hashes.each do |rec|
-      FactoryGirl.create(:customer, :name => rec[:name])
-    end
   end
 
 end
