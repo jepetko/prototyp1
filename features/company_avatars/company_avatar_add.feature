@@ -7,7 +7,7 @@ Feature: Add company avatar
     Given an existing user with email "someone@domain.com" and password "pwd123456"
 
   Scenario: Create company avatar
-      And I sign in in browser
+      When I sign in in browser
       And I click "Customer" in browser
       And I click "New customer" in browser
       And I click "Avatar" in browser

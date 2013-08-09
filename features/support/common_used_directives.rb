@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 module Utils
 
   def self.extended(obj)
@@ -7,6 +9,7 @@ module Utils
       Rails.application.config.serve_static_assets = false
       Rails.application.config.assets.compress = true
       Rails.application.config.assets.debug = true
+      I18n.locale = ENV['LANG'].to_sym || I18n.default_locale
       @browser = Watir::Browser.new ENV['BROWSER_TYPE'] || :phantomjs
     }
   end
@@ -33,8 +36,8 @@ end
 
 World(Utils)
 
-###########################################################################
-#################  Common used Givens, Whens and Thens and Hooks
+########################################################################################
+#################  Common used Givens, Whens and Thens and Hooks     (english)
 
 Given(/^an existing and logged-in user with name "([^"]*)", email "([^"]*)" and password "([^"]*)"$/) do |name, email, pwd|
   create_user({:name => name, :email => email, :password => pwd, :password_confirmation => pwd})
@@ -67,6 +70,36 @@ When(/^I click "(.*?)" in browser$/) do |link|
   end
   l.click
 end
+
+#########################################################################################
+#################  Common used Givens, Whens and Thens and Hooks     (german)
+
+Wenn(/^ich mich anmelde$/) do
+  if @browser.nil?
+    raise "Not supported"
+  else
+    @browser.goto('/users/sign_in')
+    @browser.text_field(:id, 'user_email').set(@user.email)
+    @browser.text_field(:id, 'user_password').set(@user.password)
+    @browser.button(:value, 'Sign in').click
+  end
+end
+
+Wenn(/^ich auf "(.*?)" klicke$/) do |link|
+  l = @browser.link(:text, link)
+  if !l.present?
+    l = @browser.button(:value, link)
+  end
+  l.click
+end
+
+Angenommen(/^es gibt einen User mit der Email "(.*?)" und Passwort "(.*?)"$/) do |email, pwd|
+  create_user({:email => email, :name => email, :password => pwd, :password_confirmation => pwd})
+  sign_in
+end
+
+######################################################################################
+############## Hooks
 
 Before do
   DatabaseCleaner.start

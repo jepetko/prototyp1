@@ -56,35 +56,4 @@ RSpec.configure do |config|
   unless Rails.env.production?
     config.include(LoginSupport)
   end
-
-  #######################################
-  ##### watir integration:
-
-  # Add Watir::RSpec::HtmlFormatter to get links to the screenshots, html and
-  # all other files created during the failing examples.
-  config.add_formatter('documentation')
-  config.add_formatter(Watir::RSpec::HtmlFormatter)
-
-  # Open up the browser for each example.
-  config.before :all do
-    @browser = Watir::Browser.new :chrome
-  end
-
-  # Close that browser after each example.
-  config.after :all do
-    @browser.close if @browser
-  end
-
-  # Include RSpec::Helper into each of your example group for making it possible to
-  # write in your examples instead of:
-  #   @browser.goto "localhost"
-  #   @browser.text_field(:name => "first_name").set "Bob"
-  #
-  # like this:
-  #   goto "localhost"
-  #   text_field(:name => "first_name").set "Bob"
-  #
-  # This needs that you've used @browser as an instance variable name in
-  # before :all block.
-  config.include Watir::RSpec::Helper :type => :request
 end

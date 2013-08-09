@@ -10,5 +10,7 @@ rerun: <%= rerun_opts %> --format rerun --out rerun.txt --strict --tags ~@wip
 #### different profiles for different browser tests
 phantomjs: --tags @browser BROWSER_TYPE=phantomjs
 chrome: --tags @browser BROWSER_TYPE=chrome
+phantomjs_de: --tags @browser @de BROWSER_TYPE=phantomjs LANG=de
+
 
 
