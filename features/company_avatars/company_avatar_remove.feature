@@ -7,20 +7,16 @@ Funktionalität: Firmenavatar entfernen      ## these tests are intentionally wr
 
   Grundlage: Existierender User
     Angenommen es gibt einen User mit der Email "user@domain.com" und Passwort "pwd123456"
-    Und es gibt Daten wie im Bereich Beispiele beschrieben
+    Und es gibt Daten wie im File "customers.csv"
 
-    Szenariogrundriss:
+    Szenario:
       Wenn ich mich anmelde
-      Und ich auf "Kunde" klicke
-      Und ich auf "Alle Kunden" klicke
-      Und ich mich für den Kunden mit dem Name <name> entscheide und auf "Bearbeiten" klicke
+      Und ich auf "Customer" klicke
+      Und ich auf "All customers" klicke
+      Und ich mich für den Kunden an der Position "1" entscheide und auf "Edit" klicke
       Und ich auf den roten Button zum Entfernen von Avatar klicke
       Dann ist die Icon verschwunden
       Und bei F5 scheint die Icon auch nicht mehr auf
-
-      Beispiele:
-      | name          |
-      | Company       |
 
 
 

@@ -9,7 +9,8 @@ module Utils
       Rails.application.config.serve_static_assets = false
       Rails.application.config.assets.compress = true
       Rails.application.config.assets.debug = true
-      I18n.locale = ENV['LANG'].to_sym || I18n.default_locale
+      #Rails.application.config.i18n.locale = ENV['LANG'].to_sym || I18n.default_locale
+
       @browser = Watir::Browser.new ENV['BROWSER_TYPE'] || :phantomjs
     }
   end

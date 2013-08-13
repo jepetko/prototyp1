@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require_relative '../../lib/support/ExampleDataProcessor'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -68,5 +69,6 @@ end
 
 #DatabaseCleaner.strategy = nil   #kg
 DatabaseCleaner.strategy = :truncation
+
 
 
