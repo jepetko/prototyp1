@@ -1,21 +1,23 @@
 # encoding: utf-8
 
 Angenommen(/^es gibt Daten wie im File "(.*)"$/) do |filename|
-  #Rake::Task['db:populate_customers_csv'].invoke
+  ExampleDataProcessor.populate customers: filename
 end
 
-Und(/^ich mich für den Kunden mit dem Namen "(.*?)" entscheide und auf "(.*?)" klicke$/) do |name,link|
-  h3 = @browser.div(:class,'thumbnail').h3(:xpath, "h3[text()==\"#{name}\"]")
+Und(/^ich mich für den Kunden an der Position "(.*?)" entscheide und auf "(.*?)" klicke$/) do |name,link|
+  @browser.div(:class,'thumbnail').link(:text,'Edit').click
 end
 
 Und(/^ich auf den roten Button zum Entfernen von Avatar klicke$/) do
-  pending # express the regexp above with the code you wish you had
+  @browser.td(:class,'delete').button.click
 end
 
 Dann(/^ist die Icon verschwunden$/) do
-  pending # express the regexp above with the code you wish you had
+  @browser.td(:class,'preview').img.should_not be_present
 end
 
-Und(/^bei F(\d+) scheint die Icon auch nicht mehr auf$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Und(/^bei F5 scheint die Icon auch nicht mehr auf$/) do
+  @browser.refresh
+  @browser.link(:text,'Avatar').click
+  @browser.td(:class,'preview').img.src.should =~ /missing\.jpg/
 end

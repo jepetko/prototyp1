@@ -14,6 +14,7 @@ Funktionalität: Firmenavatar entfernen      ## these tests are intentionally wr
       Und ich auf "Customer" klicke
       Und ich auf "All customers" klicke
       Und ich mich für den Kunden an der Position "1" entscheide und auf "Edit" klicke
+      Und ich auf "Avatar" klicke
       Und ich auf den roten Button zum Entfernen von Avatar klicke
       Dann ist die Icon verschwunden
       Und bei F5 scheint die Icon auch nicht mehr auf

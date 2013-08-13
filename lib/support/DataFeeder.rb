@@ -1,22 +1,33 @@
 module DataFeeder
 
-  @proc = Proc.new do |clazz,hash|
+  def create(clazz,hash)
     puts "Creating object of class #{clazz}"
     Object.const_get(clazz).create! hash
   end
 
-  def create_customer(args)
-    customer = args.select do |key, value|
-      [:name, :street, :zip, :city, :country].include?(key)
-    end
-    @proc.call 'Customer', customer
+  def get_avatar_file
+    "#{Rails.root}/lib/assets/images/logo_#{Random.rand(1..25)}.png"
   end
 
-  def create_user(args)
-    user = args.select do |key,value|
+  def add_avatar(customer)
+    file_name = get_avatar_file
+    customer.company_avatar = CompanyAvatar.new
+    customer.company_avatar.avatar = File.new(file_name)
+    customer.save!
+  end
+
+  def create_customer(hash)
+    customer = hash.select do |key|
+      [:name, :street, :zip, :city, :country].include?(key)
+    end
+    self.create 'Customer', customer
+  end
+
+  def create_user(hash)
+    user = hash.select do |key|
       [:name, :email, :password, :password_confirmation].include?(key)
     end
-    @proc.call 'User', user
+    self.create 'User', user
   end
 
 end
