@@ -11,7 +11,7 @@ module Utils
       Rails.application.config.assets.debug = true
       #Rails.application.config.i18n.locale = ENV['LANG'].to_sym || I18n.default_locale
 
-      @browser = Watir::Browser.new ENV['BROWSER_TYPE'] || :chrome
+      @browser = Watir::Browser.new ENV['BROWSER_TYPE'] || :phantomjs
       @browser.window.resize_to(2600, 600)
     }
   end
