@@ -49,12 +49,10 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.save
-
-        #format.html { redirect_to customer_contacts_path(customer),  notice: I18n.t('views.contact.flash_messages.created_successfully') }
         format.js { }
         format.json { render json: @contact, status: :created, location: @contact }
       else
-        format.html { render action: "new" }
+        format.js { }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end

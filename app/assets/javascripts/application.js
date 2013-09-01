@@ -62,7 +62,6 @@ var ProtoSupport = (function() {
             });
         },
         addNewContactSupport : function() {
-            $
             $('.btn-new-contact').on('click', function() {
                 var form = $('.new_contact');
                 if( form.css('display') == 'none' )
@@ -70,6 +69,28 @@ var ProtoSupport = (function() {
                 else
                     form.fadeOut();
             })
+        },
+        showValidationErrors : function(model,json) {
+            if( json ) {
+                $.each( json, function(key,val) {
+                    var el = $('[for="' + model + '_' + key + '"]');
+                    el.attr('error-message', val.join('; '));
+                })
+            } else {
+                var labels = $('label');
+                $.each(labels, function(idx,val) {
+                    $(val).attr('error-message','');
+                })
+            }
+
+        },
+        clearForm : function(id) {
+            var form = $('form#'+id);
+            $.each(['text','color','date','datetime','datetime-local','email','month','number','range','search',
+            'tel','time','url','week'], function(idx,val) {
+                form.find('input[type='+val+']').val('');
+            });
+            form.find('textarea, select').val('');
         }
     };
 })();

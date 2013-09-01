@@ -4,3 +4,9 @@ all = @contact.customer.contacts
 var html = '<%= escape_javascript render :partial => "contacts/pageable_contacts", :locals => { :contacts => all }%>';
 $('#contacts').html(html);
 ProtoSupport.addAsyncPagination();
+<%if not @contact.errors.empty? %>
+    ProtoSupport.showValidationErrors('contact',<%= raw @contact.errors.to_json%>);
+<%else%>
+    ProtoSupport.showValidationErrors('contact',null);
+    ProtoSupport.clearForm('new_contact');
+<%end%>

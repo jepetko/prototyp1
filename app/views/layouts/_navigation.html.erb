@@ -22,7 +22,7 @@
     <%= render 'layouts/prototypnav' %>
 
       <li>
-        <form class="navbar-search pull-left" method="GET">
+        <form class="navbar-search pull-left" method="GET" action="<%= customers_path%>">
           <input type="text" name="keyword" class="search-query" placeholder="<%=t('views.layout.nav.search')%>">
         </form>
       </li>
