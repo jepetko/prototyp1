@@ -7,7 +7,12 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    @customers = Customer.all
+    keyword = params[:keyword]
+    if keyword.nil?
+      @customers = Customer.all
+    else
+      @customers = Customer.where("name LIKE '%#{keyword}%'")
+    end
 
     respond_to do |format|
       format.html # index.html.erb

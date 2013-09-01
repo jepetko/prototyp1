@@ -2,6 +2,8 @@
 
 de:
   views:
+    home:
+      title: Hier finden Sie folgende Demo-Präsentationen.
     layout:
       nav:
         new_customer: Neuer Kunde
@@ -11,6 +13,7 @@ de:
         edit_account: Account editieren
         admin: Administratorenbereich
         sign_up: Registrieren
+        search: Kundensuche
     company_avatar:
       flash_messages:
         created_successfully: Firmenlogo wurde erfolgreich erstellt.
@@ -27,6 +30,8 @@ de:
       flash_messages:
         created_successfully: Kontakt wurde erfolgreich erstellt.
         updated_successfully: Kontakt wurde aktualisiert.
+      edit:
+        save: Kontakt speichern
     company:
       flash_messages:
         created_successfully: Kunde wurde erfolgreich erstellt.

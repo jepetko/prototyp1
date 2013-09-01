@@ -21,6 +21,11 @@
 
     <%= render 'layouts/prototypnav' %>
 
+      <li>
+        <form class="navbar-search pull-left" method="GET">
+          <input type="text" name="keyword" class="search-query" placeholder="<%=t('views.layout.nav.search')%>">
+        </form>
+      </li>
   <% else %>
     <li>
     <%= link_to t('views.layout.nav.sign_up'), new_user_registration_path %>

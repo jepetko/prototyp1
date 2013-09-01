@@ -1,6 +1,8 @@
 
 en:
   views:
+    home:
+      title: Have a look at these awesome demo presentations.
     layout:
       nav:
         new_customer: New customer
@@ -33,6 +35,8 @@ en:
       flash_messages:
         created_successfully: Contact has been created successfully.
         updated_successfully: Contact has been updated.
+      edit:
+        save: Save contact
     company:
       flash_messages:
         created_successfully: Customer has been created successfully.
