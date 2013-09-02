@@ -14,7 +14,7 @@ module CSVExampleGenerator
 
   def create_customers(file)
     CSV.foreach("#{Rails.root}/lib/support/files/#{file}") do |row|
-      c = create_customer name: row[0], street: row[1], zip: row[2], city: row[3], country: row[4]
+      c = create_customer name: row[0], street: row[1], zip: row[2], city: row[3], country: row[4], latlon: row[5]
       add_avatar c
     end
   end

@@ -36,7 +36,8 @@ describe CustomersController do
           street: 'Example Str.',
           city: 'New York',
           zip: 11111,
-          country: 'United States'
+          country: 'United States',
+          latlon: 'POINT(1 1)'
       }
       @c_attr_failure = {
           name: 'Test'
@@ -110,7 +111,7 @@ describe CustomersController do
           response.should render_template(:new)
 
           ## note: 4 'blank' hints must be shown because of missing city, zip, street and country
-          response.should have_selector( @selector_for_blank_hint, :count => 4 )
+          response.should have_selector( @selector_for_blank_hint, :count => 5 )
         }.not_to change(Customer,:count)
       end
     end

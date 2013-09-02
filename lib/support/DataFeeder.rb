@@ -18,7 +18,7 @@ module DataFeeder
 
   def create_customer(hash)
     customer = hash.select do |key|
-      [:name, :street, :zip, :city, :country].include?(key)
+      [:name, :street, :zip, :city, :country, :latlon].include?(key)
     end
     self.create 'Customer', customer
   end

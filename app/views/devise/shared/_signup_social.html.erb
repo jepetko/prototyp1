@@ -15,7 +15,8 @@
           <% end %>
 
           <div>
-            <%= link_to raw(image_tag "#{provider}.png", :title => "Sign in with #{provider.to_s.titleize}"), omniauth_authorize_path(resource_name, provider), :class => "login-social" %><br />
+            <%= link_to raw(image_tag "#{provider}.png", :title => "Sign in with #{provider.to_s.titleize}"), omniauth_authorize_path(resource_name, provider), \
+            :class => "login-social", :id => "auth_#{provider}" %><br />
           </div>
     <% first = false
        end -%>

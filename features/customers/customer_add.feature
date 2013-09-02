@@ -1,4 +1,4 @@
-Feature: List all customers by an authorized user
+Feature: Create customer
   As authorized user
   I am able to see all customers
 
@@ -7,13 +7,14 @@ Feature: List all customers by an authorized user
 
   Scenario Outline: Create a new customer
     When I click "New customer"
-    And fill the fields with <name>, <street>, <zip>, <city> and <country> and click subsequently "Create Customer"
+    And I fill the fields with <name>, <street>, <zip>, <city>, <country> and <latlon>
+    And I click "Create Customer"
     Then I should see the message "Customer has been created successfully."
 
     Examples:
-      | name      | street      | zip           | city                | country         |
-      | ABC       | Funstreet   | 1010          | Vienna              | Austria         |
-      | DEF       | Crystreet   | 1020          | Vienna              | Austria         |
-      | GHI       | Laughplace  | 1030          | Vienna              | Austria         |
+      | name      | street      | zip           | city                | country         | latlon          |
+      | ABC       | Funstreet   | 1010          | Vienna              | Austria         | POINT(1 1)      |
+      | DEF       | Crystreet   | 1020          | Vienna              | Austria         | POINT(2 2)      |
+      | GHI       | Laughplace  | 1030          | Vienna              | Austria         | POINT(3 3)      |
 
 

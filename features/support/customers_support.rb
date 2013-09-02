@@ -8,7 +8,9 @@ module CustomersSupport
                          zip: Faker::Address.zip_code,
                          street: Faker::Address.street_address,
                          country: Faker::Address.country,
-                         name: Faker::Company.name)
+                         name: Faker::Company.name,
+                         latlon: "POINT(#{Faker::Address.latitude} #{Faker::Address.longitude})"
+      )
     end
   end
 

@@ -8,7 +8,8 @@ describe Customer do
         country: 'AUT',
         name: 'Company Limited',
         street: 'Funny Street 1',
-        zip: '1010'
+        zip: '1010',
+        latlon: 'POINT(1 1)'
     }
   end
 

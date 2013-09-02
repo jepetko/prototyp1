@@ -73,6 +73,21 @@ When(/^I click "(.*?)" in browser$/) do |link|
   l.click
 end
 
+Then(/^I should see the message "(.*?)"$/) do |msg|
+  expect(page).to have_content(msg)
+end
+
+When(/^I fill the fields with (.*), (.*), (.*), (.*), (.*) and (.*)$/) do |name, street, zip, city, country, latlon|
+
+  fill_in :customer_name, :with => name
+  fill_in :customer_street, :with => street
+  fill_in :customer_zip, :with => zip
+  fill_in :customer_city, :with => city
+  fill_in :customer_latlon, :with => latlon
+
+  select country, :from => :customer_country
+end
+
 #########################################################################################
 #################  Common used Givens, Whens and Thens and Hooks     (german)
 

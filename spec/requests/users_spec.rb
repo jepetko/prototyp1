@@ -84,20 +84,17 @@ describe "Users Requests" do
     it "should be successful when user is passing valid provider and uid" do
 
       visit "users/sign_in"
-      response.should contain("Sign in with Facebook")
+      response.should contain("Sign in with social network")
 
       request.env["devise.mapping"] = Devise.mappings[:user]
       request.env["omniauth.auth"] = OmniAuth.config.mock_auth[:facebook]
 
-      click_link "Sign in with Facebook"
-
+      click_link 'auth_facebook'
       response.status.should be(200)
       response.should have_selector('#flash_notice') do |div|
         div.should contain('Successfully')
       end
       response.should contain('Logout')
-      response.should contain('stupid')
-
     end
   end
 
