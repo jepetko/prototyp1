@@ -7,6 +7,8 @@ require "action_mailer/railtie"
 require "active_resource/railtie"
 require "sprockets/railtie"
 require 'bootstrap-sass'
+require 'active_record/connection_adapters/postgis_adapter/railtie'
+
 # require "rails/test_unit/railtie"
 
 if defined?(Bundler)

@@ -75,3 +75,6 @@ gem "jquery-fileupload-rails"
 
 # for paginate
 gem "will_paginate-bootstrap"
+
+gem 'rgeo'
+gem 'activerecord-postgis-adapter'
