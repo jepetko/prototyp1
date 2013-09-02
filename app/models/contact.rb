@@ -2,7 +2,7 @@ class Contact < ActiveRecord::Base
   attr_accessible :name, :notice, :phone
 
   validates :name, :presence => true
-  validates :phone, :format => { with: /\d+/, message: I18n.t('must_be_a_number') }
+  validates :phone, :format => { with: /[\d]+[\s]*/, message: I18n.t('errors.messages.not_a_number') }
 
   belongs_to :customer, :dependent => :destroy
 

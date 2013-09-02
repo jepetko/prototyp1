@@ -13,6 +13,8 @@
  *= require_tree .
 */
 
+@import "bootstrap";
+
 .link-list {
   float: right;
 }
@@ -69,5 +71,13 @@
 }
 
 label.control-label:after {
-  content: attr(error-message) '';
+  @extend .label;
+  @extend .label-important;
+  content: attr(error-message) ' ';
+  margin-left: 20px;
+  visibility: hidden;
+}
+
+label.control-label.label-visible:after {
+  visibility: visible;
 }

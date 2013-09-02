@@ -74,12 +74,12 @@ var ProtoSupport = (function() {
             if( json ) {
                 $.each( json, function(key,val) {
                     var el = $('[for="' + model + '_' + key + '"]');
-                    el.attr('error-message', val.join('; '));
+                    el.attr('error-message', val.join('; ')).addClass('label-visible');
                 })
             } else {
                 var labels = $('label');
                 $.each(labels, function(idx,val) {
-                    $(val).attr('error-message','');
+                    $(val).attr('error-message','').removeClass('label-visible');
                 })
             }
 
