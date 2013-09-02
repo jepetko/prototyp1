@@ -103,6 +103,12 @@ class CustomersController < ApplicationController
     end
   end
 
+  def map
+    respond_to do |format|
+      format.html { redirect_to customers_url }
+    end
+  end
+
   private
   def fill_company_avatar(customer_params)
     company_avatar_id = customer_params[:company_avatar]

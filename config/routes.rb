@@ -1,5 +1,6 @@
 Prototyp1::Application.routes.draw do
 
+  match '/customers/map' => 'customers#map', :via => :get, :as => 'show_all_customers_in_map'
 
   resources :customers
   resources :company_avatars, :only => [:create,:show,:destroy]  #show, destroy

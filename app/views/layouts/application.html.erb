@@ -31,5 +31,8 @@
         </div>
       </div> <!--! end of .container -->
     </div> <!--! end of #main -->
+    <% if params[:controller] == 'customers' %>
+      <%= javascript_include_tag "spatial" %>
+    <% end %>
   </body>
 </html>
