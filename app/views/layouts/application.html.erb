@@ -5,6 +5,9 @@
     <title><%= content_for?(:title) ? yield(:title) : "Prototyp1" %></title>
     <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Prototyp1" %>">
     <%= stylesheet_link_tag "application", :media => "all" %>
+    <% if params[:controller] == 'customers' %>
+        <%= stylesheet_link_tag "cesium", :media => "all" %>
+    <% end %>
     <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
     <%= yield(:head) %>

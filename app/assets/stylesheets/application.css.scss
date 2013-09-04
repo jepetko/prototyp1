@@ -10,7 +10,12 @@
  *
  *= require_self
  *= require jquery.fileupload-ui
- *= require_tree .
+ *= require bootstrap_and_overrides
+ *= require company_avatars
+ *= require contacts
+ *= require customers
+ *= require home
+ *= require scaffolds
 */
 
 @import "bootstrap";

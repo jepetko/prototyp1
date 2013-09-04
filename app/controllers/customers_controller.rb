@@ -104,8 +104,16 @@ class CustomersController < ApplicationController
   end
 
   def map
+    keyword = params[:keyword]
+    if keyword.nil?
+      @customers = Customer.all
+    else
+      @customers = Customer.where("name LIKE '%#{keyword}%'")
+    end
+
     respond_to do |format|
-      format.html { redirect_to customers_url }
+      format.html # map.html.erb
+      format.json { render json: @customers }
     end
   end
 

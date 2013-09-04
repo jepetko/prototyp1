@@ -11,3 +11,5 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require Cesium/Cesium
+
+var cesiumWidget = new Cesium.CesiumWidget('cesiumContainer');
