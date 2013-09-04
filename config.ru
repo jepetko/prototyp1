@@ -3,16 +3,33 @@
 require ::File.expand_path('../config/environment',  __FILE__)
 
 require 'rack/reverse_proxy'
+require 'htmlentities'
+
+class Rack::ReverseProxyMatcher
+
+  alias_method :get_uri_without_decode, :get_uri
+
+  def get_uri(path,env)
+    puts 'this is a monkeypatched method for :get_uri'
+    url = get_uri_without_decode(path,env)
+    if url.path.start_with?('http%')
+      url = URI.decode url.path
+      url = URI(url)
+    end
+    url
+  end
+end
+
 
 use Rack::ReverseProxy do
   # Set :preserve_host to true globally (default is true already)
   reverse_proxy_options :preserve_host => true
 
   # Forward the path /test* to http://example.com/test*
-  # reverse_proxy '/test', 'http://www.leanetic.com'
+  #reverse_proxy '/proxy', 'http://www.leanetic.com'
 
   # Forward the path /foo/* to http://example.com/bar/*
-  reverse_proxy /^\/foo(\/.*)$/, 'http://example.com/bar$1', :username => 'name', :password => 'basic_auth_secret'
+  reverse_proxy /^\/proxy\?url=(.*)$/, "$1", :preserve_host => false
 end
 
 run Prototyp1::Application

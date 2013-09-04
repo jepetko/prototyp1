@@ -79,3 +79,4 @@ gem "will_paginate-bootstrap"
 gem 'rgeo'
 gem 'activerecord-postgis-adapter'
 gem "rack-reverse-proxy", :require => "rack/reverse_proxy"
+gem 'htmlentities'
