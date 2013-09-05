@@ -74,7 +74,7 @@ var cesiumModule = function() {
         };
 
         this.flyTo = function(lat,lon) {
-            this.reset();
+            //this.reset();
             var scene = this.widget.scene;
             var destination = Cesium.Cartographic.fromDegrees(16.38006, 48.220685, 15000.0);
             //var destination = Cesium.Cartographic.fromDegrees(-117.16, 32.71, 15000.0);
