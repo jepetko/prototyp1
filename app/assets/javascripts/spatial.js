@@ -18,11 +18,41 @@ var cesiumModule = function() {
 
     function CesiumDemo() {
 
-        this.widget = null;
+        this.viewer = null;
 
         this.init = function() {
-            this.widget = new Cesium.CesiumWidget('cesiumContainer');
-            var layers = this.widget.centralBody.getImageryLayers();
+
+//Initialize the viewer widget with several custom options and mixins.
+            this.viewer = new Cesium.Viewer('cesiumContainer', {
+                //Start in Columbus Viewer
+                sceneMode : Cesium.SceneMode.COLUMBUS_VIEW,
+                //Use standard Cesium terrain
+                terrainProvider : new Cesium.CesiumTerrainProvider({
+                    url : 'http://cesium.agi.com/smallterrain',
+                    credit : 'Terrain data courtesy Analytical Graphics, Inc.'
+                }),
+                //Hide the base layer picker
+                baseLayerPicker : false,
+                //Use OpenStreetMaps
+                imageryProvider : new Cesium.OpenStreetMapImageryProvider({
+                    url : 'http://tile.openstreetmap.org/'
+                })
+            });
+
+//Add basic drag and drop functionality
+            this.viewer.extend(Cesium.viewerDragDropMixin);
+
+//Allow users to zoom and follow objects loaded from CZML by clicking on it.
+            this.viewer.extend(Cesium.viewerDynamicObjectMixin);
+
+//Show a pop-up alert if we encounter an error when processing a dropped file
+            this.viewer.onDropError.addEventListener(function(dropHandler, name, error) {
+                console.log(error);
+                window.alert(error);
+            });
+
+            var widget = this.viewer.cesiumWidget;
+            var layers = widget.centralBody.getImageryLayers();
 
             var provider = new Cesium.WebMapServiceImageryProvider({
                 url : 'http://data.wien.gv.at/daten/wms',
@@ -39,7 +69,7 @@ var cesiumModule = function() {
                 }
             });
 
-            layers.addImageryProvider(provider);
+            //layers.addImageryProvider(provider);
             this.postInit();
         };
 
@@ -51,7 +81,15 @@ var cesiumModule = function() {
                 }
             })(this));
 
-            var canvas = this.widget.scene.getCanvas();
+            var btn0 = $('#museum');
+            btn0.on('click', (function(self) {
+                return function() {
+                    self.addFromWFS('/proxy?url=' + encodeURIComponent('http://data.wien.gv.at/daten/wfs?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:MUSEUMOGD&srsName=EPSG:4326&outputFormat=json') );
+                }
+            })(this));
+
+            var widget = this.viewer.cesiumWidget;
+            var canvas = this.viewer.scene.getCanvas();
             var handler = new Cesium.ScreenSpaceEventHandler(canvas);
             var flags = {
                 looking : false,
@@ -81,16 +119,6 @@ var cesiumModule = function() {
             }, Cesium.ScreenSpaceEventType.LEFT_UP);
         };
 
-        this.loadWFS = function(url) {
-            $.ajax(url, function() {
-
-            }).done(function ( data ) {
-                    if( console && console.log ) {
-                        console.log("Sample of data:", data.slice(0, 100));
-                    }
-                });
-        };
-
         this.setExtent = function(extent) {
             var west = Cesium.Math.toRadians(extent.minx);
             var south = Cesium.Math.toRadians(extent.miny);
@@ -105,8 +133,8 @@ var cesiumModule = function() {
         };
 
         this.getLonLat = function(mousePos) {
-            var scene = this.widget.scene;
-            var camer = scene.getCamera();
+            var scene = this.viewer.scene;
+            var camera = scene.getCamera();
             var ray = camera.controller.getPickRay(mousePos);
             var intersection = Cesium.IntersectionTests.rayEllipsoid(ray, Cesium.Ellipsoid.WGS84);
             console.log(intersection);
@@ -137,7 +165,9 @@ var cesiumModule = function() {
 
         this.flyTo = function(lon,lat) {
             //this.reset();
-            var scene = this.widget.scene;
+            var widget = this.viewer.cesiumWidget;
+            console.log( widget );
+            var scene = this.viewer.scene;
             var destination = Cesium.Cartographic.fromDegrees(lon, lat, 15000.0);
 
             //hack:
@@ -149,9 +179,22 @@ var cesiumModule = function() {
             scene.getAnimations().add(flight);
         };
 
-        this.destroy = function() {
+        this.addFromWFS = function(url) {
+            var dataSource = new Cesium.GeoJsonDataSource();
+            /*var defaultPoint = dataSource.defaultPoint;
+            defaultPoint.point = undefined;
+            var billboard = new Cesium.DynamicBillboard();
+            billboard.image = new Cesium.ConstantProperty('/assets/marker.png');
+            defaultPoint.billboard = billboard;*/
+            dataSource.loadUrl(url);
+            var dataSources = this.viewer.dataSources;
+            dataSources.add(dataSource);
+        };
 
-        }
+        this.destroy = function() {
+            //TODO: unregister event handlers?
+            this.widget = null;
+        };
 
         this.init();
     };
@@ -159,7 +202,28 @@ var cesiumModule = function() {
 };
 
 $( function() {
-    //var module = cesiumModule();
+    var module = cesiumModule();
+    window.myCesium = module;
 
-    $('#layertree').layers();
+    //$('#layertree').layers();
 });
+
+/*
+function analyze(obj, dataType) {
+    console.log('starting analysis on');
+    console.log(obj);
+    for( var a in obj)  {
+        if( typeof obj[a] == 'function' ) continue;
+        if( typeof obj[a] == 'undefined' ) continue;
+        if( typeof obj[a] == 'string' ) continue;
+        console.log( 'a:' + a );
+        if(  obj[a] instanceof dataType ) {
+            console.warn('FOUND!');
+            console.warn(dataType);
+            return;
+        } else {
+            console.warn('going deeper');
+            analyze(obj[a], dataType);
+        }
+    }
+}  */
