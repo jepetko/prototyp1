@@ -12,27 +12,96 @@
 //
 //= require Cesium/Cesium
 
-var cesiumWidget = new Cesium.CesiumWidget('cesiumContainer');
-cesiumWidget.zoomTo();
-var layers = cesiumWidget.centralBody.getImageryLayers();
+var cesiumModule = function() {
 
+    function CesiumDemo() {
 
-var provider = new Cesium.WebMapServiceImageryProvider({
-    url : 'http://data.wien.gv.at/daten/wms',
-    layers : 'HUNDEZONEOGD',
-    credit : 'Infrared data courtesy Iowa Environmental Mesonet',
-    parameters : {
-        transparent : 'TRUE',
-        format : 'image/png'
-    },
-    proxy : {
-        getURL : function(url) {
-            return '/proxy?url=' + encodeURIComponent(url);
+        this.widget = null;
+
+        this.init = function() {
+            this.widget = new Cesium.CesiumWidget('cesiumContainer');
+            var layers = this.widget.centralBody.getImageryLayers();
+
+            var provider = new Cesium.WebMapServiceImageryProvider({
+                url : 'http://data.wien.gv.at/daten/wms',
+                layers : 'HUNDEZONEOGD',
+                credit : 'Infrared data courtesy Iowa Environmental Mesonet',
+                parameters : {
+                    transparent : 'TRUE',
+                    format : 'image/png'
+                },
+                proxy : {
+                    getURL : function(url) {
+                        return '/proxy?url=' + encodeURIComponent(url);
+                    }
+                }
+            });
+
+            layers.addImageryProvider(provider);
+            this.postInit();
+        };
+
+        this.postInit = function() {
+            var btn = $('#vienna');
+            btn.on('click', (function(self) {
+                return function() {
+                    self.flyTo(48.10,16.5);
+                }
+            })(this));
+        };
+
+        this.reset = function() {
+            var ellipsoid = Cesium.Ellipsoid.WGS84;
+            var scene = this.widget.scene;
+            console.log(scene);
+
+            scene.getPrimitives().removeAll();
+            scene.getAnimations().removeAll();
+
+            var camera = scene.getCamera();
+            console.log( camera );
+
+            camera.transform = Cesium.Matrix4.IDENTITY;
+            camera.controller.constrainedAxis = undefined;
+            camera.controller.lookAt(
+                new Cesium.Cartesian3(0.0, -2.0, 1.0).normalize().multiplyByScalar(2.0 * ellipsoid.getMaximumRadius()),
+                Cesium.Cartesian3.ZERO,
+                Cesium.Cartesian3.UNIT_Z);
+
+            var controller = scene.getScreenSpaceCameraController();
+            controller.setEllipsoid(ellipsoid);
+            controller.enableTilt = true;
+        };
+
+        this.flyTo = function(lat,lon) {
+            this.reset();
+            var scene = this.widget.scene;
+            var destination = Cesium.Cartographic.fromDegrees(16.38006, 48.220685, 15000.0);
+            //var destination = Cesium.Cartographic.fromDegrees(-117.16, 32.71, 15000.0);
+
+            //hack:
+            scene.camera = scene.getCamera();
+
+            var flight = Cesium.CameraFlightPath.createAnimationCartographic(scene, {
+                destination : destination
+            });
+            scene.getAnimations().add(flight);
+        };
+
+        this.destroy = function() {
+
         }
-    }
+
+        this.init();
+    };
+    return new CesiumDemo();
+};
+
+$( function() {
+    var module = cesiumModule();
 });
 
-layers.addImageryProvider(provider);
+
 /*
 var blackMarble = layers.addImageryProvider(new Cesium.TileMapServiceImageryProvider({
     url : 'http://cesium.agi.com/blackmarble',
