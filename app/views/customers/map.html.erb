@@ -1,3 +1,32 @@
-  <div id="cesiumContainer">
-    <input type="button" id="vienna" value="Show Vienna">
-  </div>
+<div id="cesiumContainer">
+  <input type="button" id="vienna" value="Show Vienna">
+  <input type="button" id="weltkulturerbe" value="Weltkulturerbe">
+  <ul id="layertree">
+    <li>Item0
+      <ul>
+        <li data-map-actions="0,1">Item01</li>
+        <li data-map-actions="0,2">Item02</li>
+        <li data-map-actions="0">Item03
+          <ul>
+            <li>Item030</li>
+            <li>Item031</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Item1
+      <ul>
+        <li>Item10</li>
+        <li data-map-layer="false">Item11</li>
+        <li>Item12
+          <ul>
+            <li>Item120</li>
+            <li>Item121</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<!-- http://data.wien.gv.at/daten/geoserver/ows?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BAUBLOCKOGD&srsName=EPSG:4326&outputFormat=json -->
+<!-- http://data.wien.gv.at/daten/wfs?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:MUSEUMOGD&srsName=EPSG:4326&outputFormat=json -->

@@ -11,6 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require Cesium/Cesium
+//= require jquery-ui/jquery-ui-1.10.3.custom
+//= require spatial/layers
 
 var cesiumModule = function() {
 
@@ -45,9 +47,69 @@ var cesiumModule = function() {
             var btn = $('#vienna');
             btn.on('click', (function(self) {
                 return function() {
-                    self.flyTo(48.10,16.5);
+                    self.flyTo(16.38006, 48.220685);
                 }
             })(this));
+
+            var canvas = this.widget.scene.getCanvas();
+            var handler = new Cesium.ScreenSpaceEventHandler(canvas);
+            var flags = {
+                looking : false,
+                moveForward : false,
+                moveBackward : false,
+                moveUp : false,
+                moveDown : false,
+                moveLeft : false,
+                moveRight : false
+            };
+
+            handler.setInputAction(function(movement) {
+                flags.looking = true;
+                mousePosition = startMousePosition = Cesium.Cartesian3.clone(movement.position);
+                console.log('down:');
+                console.log(mousePosition);
+            }, Cesium.ScreenSpaceEventType.LEFT_DOWN);
+
+            handler.setInputAction(function(movement) {
+                mousePosition = movement.endPosition;
+            }, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+
+            handler.setInputAction(function(position) {
+                flags.looking = false;
+                console.log('up:');
+                console.log(position);
+            }, Cesium.ScreenSpaceEventType.LEFT_UP);
+        };
+
+        this.loadWFS = function(url) {
+            $.ajax(url, function() {
+
+            }).done(function ( data ) {
+                    if( console && console.log ) {
+                        console.log("Sample of data:", data.slice(0, 100));
+                    }
+                });
+        };
+
+        this.setExtent = function(extent) {
+            var west = Cesium.Math.toRadians(extent.minx);
+            var south = Cesium.Math.toRadians(extent.miny);
+            var east = Cesium.Math.toRadians(extent.maxx);
+            var north = Cesium.Math.toRadians(extent.maxy);
+            var extent = new Cesium.Extent(west, south, east, north);
+
+            var scene = this.widget.scene;
+            var camera = scene.getCamera();
+
+            camera.controller.viewExtent(extent, Cesium.Ellipsoid.WGS84);
+        };
+
+        this.getLonLat = function(mousePos) {
+            var scene = this.widget.scene;
+            var camer = scene.getCamera();
+            var ray = camera.controller.getPickRay(mousePos);
+            var intersection = Cesium.IntersectionTests.rayEllipsoid(ray, Cesium.Ellipsoid.WGS84);
+            console.log(intersection);
         };
 
         this.reset = function() {
@@ -73,11 +135,10 @@ var cesiumModule = function() {
             controller.enableTilt = true;
         };
 
-        this.flyTo = function(lat,lon) {
+        this.flyTo = function(lon,lat) {
             //this.reset();
             var scene = this.widget.scene;
-            var destination = Cesium.Cartographic.fromDegrees(16.38006, 48.220685, 15000.0);
-            //var destination = Cesium.Cartographic.fromDegrees(-117.16, 32.71, 15000.0);
+            var destination = Cesium.Cartographic.fromDegrees(lon, lat, 15000.0);
 
             //hack:
             scene.camera = scene.getCamera();
@@ -98,23 +159,7 @@ var cesiumModule = function() {
 };
 
 $( function() {
-    var module = cesiumModule();
+    //var module = cesiumModule();
+
+    $('#layertree').layers();
 });
-
-
-/*
-var blackMarble = layers.addImageryProvider(new Cesium.TileMapServiceImageryProvider({
-    url : 'http://cesium.agi.com/blackmarble',
-    maximumLevel : 8,
-    credit : 'Black Marble imagery courtesy NASA Earth Observatory'
-}));
-blackMarble.alpha = 0.5;
-blackMarble.brightness = 2.0;
-layers.addImageryProvider(new Cesium.SingleTileImageryProvider({
-    url : '../images/cesium.png',
-    extent : new Cesium.Extent(
-        Cesium.Math.toRadians(-75.0),
-        Cesium.Math.toRadians(28.0),
-        Cesium.Math.toRadians(-67.0),
-        Cesium.Math.toRadians(29.75))
-})); */
