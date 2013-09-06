@@ -6,6 +6,11 @@ function LayerListCtrl($scope, Layer, sharedService) {
     $scope.layers = Layer.query();
     $scope.myLayer = 'Bing Maps Road';
 
+    $scope.filterBase = function(layer)
+    {
+        return (layer.type == 'base');
+    };
+
     $scope.baseLayerActivityChanged = function() {
         sharedService.setMessage('base-layer-changed', $scope.myLayer ); //this variable is defined in ng-model
     };
@@ -15,14 +20,6 @@ function LayerListCtrl($scope, Layer, sharedService) {
         console.log('layers loaded');
         console.log( $scope.layers);
         sharedService.setMessage('layers-loaded', $scope.layers);
-    };
-
-    $scope.moveUp = function() {
-
-    };
-
-    $scope.moveDown = function() {
-
     };
 };
 

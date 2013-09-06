@@ -1,6 +1,6 @@
 <div id="layer-app" ng-controller="LayerListCtrl" ng-init="init()">
   <select ng-change="baseLayerActivityChanged()" ng-model="myLayer">
-    <option ng-repeat="layer in layers" class="li-layer" value="{{layer.key}}">
+    <option ng-repeat="layer in layers | filter:filterBase" class="li-layer" value="{{layer.key}}">
       {{layer.label}}
     </option>
   </select>
