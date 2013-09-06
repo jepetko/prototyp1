@@ -19,6 +19,7 @@
 
 angular.bootstrap($('#layer-app'),['httpServices', 'layerAppDirectives', 'test-service']);
 angular.bootstrap($('#map-app'),['test-service']);
+angular.bootstrap($('#tools-app'),['test-service']);
 
 /*
 var cesiumModule = function() {

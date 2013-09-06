@@ -35,6 +35,8 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
             return '/proxy?url=' + encodeURIComponent(url);
         }
     };
+    $scope.ellipsoid = Cesium.Ellipsoid.WGS84;
+
 
     $scope.layerFactoryCfg = {
         'Bing Maps Aerial' : function() {
@@ -128,7 +130,6 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
             }
             layer.name = name;
             $scope.baseLayers[name] = layer;
-
         }
 
         var lastLayer = coll.get(0);
@@ -140,6 +141,37 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
         return this.viewer.cesiumWidget.centralBody.getImageryLayers();
     };
 
+    $scope.fly = function() {
+        var scene = this.viewer.scene;
+        var destination = Cesium.Cartographic.fromDegrees(lon, lat, 15000.0);
+
+        //hack:
+        scene.camera = scene.getCamera();
+
+        var flight = Cesium.CameraFlightPath.createAnimationCartographic(scene, {
+            destination : destination
+        });
+        scene.getAnimations().add(flight);
+    };
+
+    $scope.flyToOwnLoc = function() {
+        function fly(pos) {
+            var dest = Cesium.Cartographic.fromDegrees(pos.coords.longitude, pos.coords.latitude, 1000.0);
+            dest = $scope.ellipsoid.cartographicToCartesian(dest);
+
+            var scene = $scope.viewer.scene;
+            //hack, otherwise : "Cannot read property 'frustum' of undefined "
+            scene.camera = scene.getCamera();
+
+            var flight = Cesium.CameraFlightPath.createAnimation(scene, {
+                destination : dest
+            });
+
+            scene.getAnimations().add(flight);
+        }
+        navigator.geolocation.getCurrentPosition(fly);
+    };
+
 
     $scope.$on('handleBroadcast', function(evt,msg,obj) {
         console.log(evt);
@@ -149,6 +181,26 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
             case 'base-layer-changed':
                 $scope.addLayer(obj);
                 break;
+            case 'tool-changed':
+                if( obj.id == 'zoom') {
+                    $scope.flyToOwnLoc();
+                }
+                break;
         }
     });
+};
+
+
+function ToolsCtrl($scope, sharedService) {
+    $scope.tools = [ { id : 'zoom', label : 'Zoom'}, { id : 'pick', label : 'Pick'} ];
+
+    $scope.toolPicked = function() {
+        var self = this;
+        $scope.tools.forEach( function(tool) {
+            tool.active = (self.tool == tool) ? 'active' : 'inactive';
+            if( tool.active === 'active' ) {
+                sharedService.setMessage('tool-changed', tool);
+            }
+        });
+    }
 };

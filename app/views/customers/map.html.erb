@@ -1,6 +1,3 @@
-<div id="map-app" ng-controller="CesiumMapCtrl" ng-init="init()">
-</div>
-
 <div id="layer-app" ng-controller="LayerListCtrl" ng-init="init()">
   <select ng-change="baseLayerActivityChanged()" ng-model="myLayer">
     <option ng-repeat="layer in layers" class="li-layer" value="{{layer.key}}">
@@ -8,6 +5,17 @@
     </option>
   </select>
   <span layer-count="{{layers.length}}">Number of base layer: {{layers.length}}</span>
+</div>
+
+<div id="tools-app">
+  <div class="btn-group" data-toggle="buttons-checkbox" ng-controller="ToolsCtrl">
+    <button ng-repeat="tool in tools" type="button" class="btn btn-primary {{tool.active}}" ng-click="toolPicked()">
+        {{tool.label}}
+    </button>
+  </div>
+</div>
+
+<div id="map-app" ng-controller="CesiumMapCtrl" ng-init="init()">
 </div>
 
 <!--
