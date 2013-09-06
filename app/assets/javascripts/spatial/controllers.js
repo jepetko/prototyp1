@@ -4,6 +4,7 @@
 
 function LayerListCtrl($scope, Layer, sharedService) {
     $scope.layers = Layer.query();
+    $scope.myLayer = 'Bing Maps Road';
 
     $scope.baseLayerActivityChanged = function() {
         sharedService.setMessage('base-layer-changed', $scope.myLayer ); //this variable is defined in ng-model
@@ -29,45 +30,56 @@ function LayerListCtrl($scope, Layer, sharedService) {
 function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
 
     $scope.baseLayers = {};
+    $scope.proxy =  {
+        getURL : function(url) {
+            return '/proxy?url=' + encodeURIComponent(url);
+        }
+    };
 
     $scope.layerFactoryCfg = {
-        'Bing Maps Aerial' : undefined,
+        'Bing Maps Aerial' : function() {
+            return new Cesium.BingMapsImageryProvider({
+                url: 'http://dev.virtualearth.net',
+                mapStyle: Cesium.BingMapsStyle.AERIAL_WITH_LABELS,
+                proxy: $scope.proxy
+            });
+        },
         'Bing Maps Road' : function() {
             return new Cesium.BingMapsImageryProvider({
                 url: 'http://dev.virtualearth.net',
                 mapStyle: Cesium.BingMapsStyle.ROAD,
-                proxy: new Cesium.DefaultProxy('/proxy/')
+                proxy: $scope.proxy
             });
         },
         'ArcGIS World Street Maps' : function() {
             return new Cesium.ArcGisMapServerImageryProvider({
                 url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
-                proxy: new Cesium.DefaultProxy('/proxy/')
+                proxy: $scope.proxy
             });
         },
         'OpenStreetMaps' : function() {
             return new Cesium.OpenStreetMapImageryProvider({
-                proxy: new Cesium.DefaultProxy('/proxy/')
+                proxy: $scope.proxy
             });
         },
         'MapQuest OpenStreetMaps' : function() {
             return new Cesium.OpenStreetMapImageryProvider({
                 url: 'http://otile1.mqcdn.com/tiles/1.0.0/osm/',
-                proxy: new Cesium.DefaultProxy('/proxy/')
+                proxy: $scope.proxy
             });
         },
         'Stamen Maps' : function() {
             return new Cesium.OpenStreetMapImageryProvider({
                 url: 'http://tile.stamen.com/watercolor/',
                 fileExtension: 'jpg',
-                proxy: new Cesium.DefaultProxy('/proxy/'),
+                proxy: $scope.proxy,
                 credit: 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.'
             });
-
         },
         'Natural Earth II (local)' : function() {
             return new Cesium.TileMapServiceImageryProvider({
-                url : require.toUrl('Assets/Textures/NaturalEarthII')
+                url : '/assets/Cesium/Assets/Textures/NaturalEarthII',
+                fileExtension: 'jpg'
             });
         }
     };
@@ -101,30 +113,41 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
         this.viewer.extend(Cesium.viewerDynamicObjectMixin);
     };
 
-    $scope.addLayers = function(layers) {
-        $(layers).each( function(idx, value) {
-            var imageryProvider = $scope.layerFactory(value);
-            var layer;
+    $scope.addLayer = function(id) {
+
+        var coll = $scope.getImageryColl();
+        var layer = coll.get(id);
+
+        if( typeof layer == 'undefined' ) {
+            var imageryProvider = $scope.layerFactory(id);
             if (typeof imageryProvider === 'undefined') {
-                var coll = $scope.viewer.getImageryLayers();
+                var coll = this.getImageryColl();
                 layer = coll.get(0);
             } else {
                 layer = new Cesium.ImageryLayer(imageryProvider);
             }
             layer.name = name;
             $scope.baseLayers[name] = layer;
-        });
-    }
+
+        }
+
+        var lastLayer = coll.get(0);
+        coll.remove( lastLayer, false );
+        coll.add( layer );
+    };
+
+    $scope.getImageryColl = function() {
+        return this.viewer.cesiumWidget.centralBody.getImageryLayers();
+    };
+
 
     $scope.$on('handleBroadcast', function(evt,msg,obj) {
         console.log(evt);
         console.log(msg);
         console.log(obj);
         switch(msg) {
-            case 'layers-loaded':
-                console.log('CesiumMapCtrl; layers-loaded:');
-                console.log(obj);
-                this.addLayers(obj);
+            case 'base-layer-changed':
+                $scope.addLayer(obj);
                 break;
         }
     });

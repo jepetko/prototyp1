@@ -6,10 +6,11 @@ angular.module('layerAppDirectives', [])
     .directive('layerCount', ['$timeout', function (timer) {
         return {
             link: function (scope, elem, attrs, ctrl) {
-                var hello = $.proxy(function () {
-                    console.log( scope.layers );
+                var callback = $.proxy(function () {
+                    console.log('layerCount directive called:');
+                    console.log(attrs);
                 }, scope);
-                timer(hello,1000);
+                timer(callback,2000);
             }
         }
     }]);
