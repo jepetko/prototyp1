@@ -61,6 +61,7 @@ gem "multipart-post", ">= 1.2.0"
 group :development, :test do
   gem "ruby-debug-base19x", "0.11.30.pre12"
   gem "ruby-debug-ide", "0.4.17.beta17"
+  gem "spork"
 end
 
 #for simple_form

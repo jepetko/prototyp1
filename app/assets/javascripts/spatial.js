@@ -10,10 +10,17 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require angularjs/angular
+//= require angularjs/angular-resource
 //= require Cesium/Cesium
-//= require jquery-ui/jquery-ui-1.10.3.custom
-//= require spatial/layers
+//= require spatial/app
+//= require spatial/controllers
+//= require shared/services
 
+angular.bootstrap($('#layer-app'),['httpServices', 'layerAppDirectives', 'test-service']);
+angular.bootstrap($('#map-app'),['test-service']);
+
+/*
 var cesiumModule = function() {
 
     function CesiumDemo() {
@@ -86,6 +93,31 @@ var cesiumModule = function() {
                 return function() {
                     self.addFromWFS('/proxy?url=' + encodeURIComponent('http://data.wien.gv.at/daten/wfs?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:MUSEUMOGD&srsName=EPSG:4326&outputFormat=json') );
                 }
+            })(this));
+
+            var btn1 = $('#draw_extent');
+            btn1.on('click', (function(self) {
+
+                var scene = this.viewer.scene;
+
+                var myHandler = function(e) {
+                    var labels = new Cesium.LabelCollection();
+                    label = labels.add();
+                    scene.getPrimitives().add(labels);
+
+                    label.setShow(true);
+                    label.setText('(' +
+                        Cesium.Math.toDegrees(e.west).toFixed(2) + ', ' +
+                        Cesium.Math.toDegrees(e.south).toFixed(2) + ', ' +
+                        Cesium.Math.toDegrees(e.east).toFixed(2) + ', ' +
+                        Cesium.Math.toDegrees(e.north).toFixed(2) + ')');
+                    label.setScale(0.7);
+                    label.setPosition(widget.centralBody.getEllipsoid().cartographicToCartesian(e.getCenter()));
+                    label.setHorizontalOrigin( Cesium.HorizontalOrigin.CENTER );
+                };
+
+                var drawExtentHelper = new DrawExtentHelper(scene, myHandler);
+                drawExtentHelper.start();
             })(this));
 
             var widget = this.viewer.cesiumWidget;
@@ -181,11 +213,11 @@ var cesiumModule = function() {
 
         this.addFromWFS = function(url) {
             var dataSource = new Cesium.GeoJsonDataSource();
-            /*var defaultPoint = dataSource.defaultPoint;
+            var defaultPoint = dataSource.defaultPoint;
             defaultPoint.point = undefined;
             var billboard = new Cesium.DynamicBillboard();
             billboard.image = new Cesium.ConstantProperty('/assets/marker.png');
-            defaultPoint.billboard = billboard;*/
+            defaultPoint.billboard = billboard;
             dataSource.loadUrl(url);
             var dataSources = this.viewer.dataSources;
             dataSources.add(dataSource);
@@ -207,7 +239,7 @@ $( function() {
 
     //$('#layertree').layers();
 });
-
+      */
 /*
 function analyze(obj, dataType) {
     console.log('starting analysis on');

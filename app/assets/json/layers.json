@@ -1,0 +1,9 @@
+[
+    { "key" : "Bing Maps Aerial", "label" : "Bing Maps Aerial", "active" : "selected" },
+    { "key" : "Bing Maps Road", "label" : "Bing Maps Road", "active" : ""},
+    { "key" : "ArcGIS World Street Maps", "label" : "ArcGIS World Street Maps", "active" : "" },
+    { "key" : "OpenStreetMaps", "label" : "OpenStreetMaps", "active" : "" },
+    { "key" : "MapQuest OpenStreetMaps", "label" : "MapQuest OpenStreetMaps", "active" : "" },
+    { "key" : "Stamen Maps", "label" : "Stamen Maps", "active" : "" },
+    { "key" : "Natural Earth II (local)", "label" : "Natural Earth II (local)", "active" : "" }
+]
