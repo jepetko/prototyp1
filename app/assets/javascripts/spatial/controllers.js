@@ -5,7 +5,6 @@
 function LayerListCtrl($scope, Layer, sharedService) {
     $scope.layers = Layer.query();
     $scope.myBaseLayer = 'Bing Maps Road';
-    $scope.countRendered = 0;
 
     $scope.filterBase = function(layer) {
         return (layer.type == 'base');
@@ -15,9 +14,9 @@ function LayerListCtrl($scope, Layer, sharedService) {
         return (layer.type == 'wfs');
     };
 
-    $scope.$watch('myBaseLayer', function() {
-        console.log('base layer changed!!!');
-    });
+    $scope.$watch('myBaseLayer', function(newValue, oldValue) {
+        sharedService.setMessage('base-layer-changed', newValue);
+    },true);
 
     $scope.init = function() {
         console.log('init');

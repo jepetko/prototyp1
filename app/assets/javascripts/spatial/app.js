@@ -15,8 +15,8 @@ layerAppDir.directive('addBootstrapSwitches', function($timeout)  {
                     var value = data.value;
                     if( value === true ) {
                         var $el = $(data.el);
-                        var radio = $el.children('input[type="radio"]');
-                        console.log(radio);
+                        scope.$parent.myBaseLayer = $el.attr('value');
+                        scope.$parent.$apply();
                     }
                     baseLayers.bootstrapSwitch('toggleRadioState');
                 });
