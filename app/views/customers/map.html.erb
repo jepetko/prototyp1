@@ -1,28 +1,46 @@
-
-<div id="layer-app" ng-controller="LayerListCtrl" ng-init="init()">
-
-  <div ng-repeat="layer in layers | filter:filterBase">
-      <div class="base-layer" data-on="success" data-off="danger" add-bootstrap-switches>
-        <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.key}}" ng-model="myLayer" ng-change="baseLayerActivityChanged()">
-      </div>{{layer.label}}<br>
+<div>
+  <div id="tools-app" class="left-side">
+    <div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox" ng-controller="ToolsCtrl">
+      <button ng-repeat="tool in tools" type="button" class="btn btn-primary {{tool.active}}" ng-click="toolPicked()">
+        <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
+      </button>
+    </div>
   </div>
-  <!--
-  <select ng-change="baseLayerActivityChanged()" ng-model="myLayer">
-    <option ng-repeat="layer in layers | filter:filterBase" class="li-layer" value="{{layer.key}}">
-      {{layer.label}}
-    </option>
-  </select>
-  -->
-</div>
-
-<div id="tools-app">
-  <div class="btn-group" data-toggle="buttons-checkbox" ng-controller="ToolsCtrl">
-    <button ng-repeat="tool in tools" type="button" class="btn btn-primary {{tool.active}}" ng-click="toolPicked()">
-        {{tool.label}}
-    </button>
+  <div id="layer-app" class="accordion right-side" ng-controller="LayerListCtrl" ng-init="init()">
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#base-layers">
+          Base-Layers
+        </a>
+      </div>
+      <div id="base-layers" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <div ng-repeat="layer in layers | filter:filterBase">
+            <div class="base-layer switch-mini" data-on="success" data-off="danger" add-bootstrap-radio-switches>
+              <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.key}}">
+            </div>{{layer.label}}<br>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-group">
+      <div class="accordion-heading">
+        <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#wfs-layers">
+          Vektor Layer
+        </a>
+      </div>
+      <div id="wfs-layers" class="accordion-body collapse in">
+        <div class="accordion-inner">
+          <div ng-repeat="layer in layers | filter:filterWFS">
+            <div class="wfs-layer switch-mini" data-on="success" data-off="danger" add-bootstrap-checkbox-switches>
+              <input id="{{layer.id}}" type="checkbox" name="wfs-layer" value="{{layer.key}}">
+            </div>{{layer.label}}<br>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-
 
 <div id="map-app" ng-controller="CesiumMapCtrl" ng-init="init()">
 </div>

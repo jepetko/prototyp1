@@ -19,9 +19,6 @@ function LayerListCtrl($scope, Layer, sharedService) {
     },true);
 
     $scope.init = function() {
-        console.log('init');
-        console.log('layers loaded');
-        console.log( $scope.layers);
         sharedService.setMessage('layers-loaded', $scope.layers);
     };
 };
@@ -36,7 +33,6 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
         }
     };
     $scope.ellipsoid = Cesium.Ellipsoid.WGS84;
-
 
     $scope.layerFactoryCfg = {
         'Bing Maps Aerial' : function() {
@@ -176,9 +172,6 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
 
 
     $scope.$on('handleBroadcast', function(evt,msg,obj) {
-        console.log(evt);
-        console.log(msg);
-        console.log(obj);
         switch(msg) {
             case 'base-layer-changed':
                 $scope.addLayer(obj);
@@ -194,9 +187,9 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
 
 
 function ToolsCtrl($scope, sharedService) {
-    $scope.tools = [ { id : 'zoom', label : 'Zoom'},
-                     { id : 'pick', label : 'Pick'},
-                     { id : 'extent', label : 'Draw Extent'} ];
+    $scope.tools = [ { id : 'zoom', label : 'Zoom', icon : 'icon-zoom-in'},
+                     { id : 'pick', label : 'Pick', icon : 'icon-map-marker'},
+                     { id : 'extent', label : 'Draw Extent', icon : 'icon-retweet'} ];
 
     $scope.toolPicked = function() {
         var self = this;

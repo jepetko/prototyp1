@@ -3,7 +3,7 @@
 /* App Module */
 
 var layerAppDir = angular.module('layerAppDirectives', []);
-layerAppDir.directive('addBootstrapSwitches', function($timeout)  {
+layerAppDir.directive('addBootstrapRadioSwitches', function($timeout)  {
     return function(scope, element, attrs) {
         $timeout(function() {
             element.bootstrapSwitch();
@@ -24,6 +24,13 @@ layerAppDir.directive('addBootstrapSwitches', function($timeout)  {
         }, 1000);
     }
 });
+layerAppDir.directive('addBootstrapCheckboxSwitches', function($timeout) {
+    return function(scope,element, attrs) {
+        $timeout(function() {
+            element.bootstrapSwitch();
+        }, 1000);
+    }
+})
 
 angular.module('httpServices', ['ngResource']).
     factory('Layer', function($resource){
