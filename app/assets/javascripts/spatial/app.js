@@ -24,10 +24,13 @@ layerAppDir.directive('addBootstrapRadioSwitches', function($timeout)  {
         }, 1000);
     }
 });
-layerAppDir.directive('addBootstrapCheckboxSwitches', function($timeout) {
+layerAppDir.directive('addBootstrapCheckboxSwitches', function($timeout,sharedService) {
     return function(scope,element, attrs) {
         $timeout(function() {
             element.bootstrapSwitch();
+            element.on('switch-change', function(e,data) {
+                sharedService.setMessage('wfs-layer-toggled', scope.layer);
+            });
         }, 1000);
     }
 })

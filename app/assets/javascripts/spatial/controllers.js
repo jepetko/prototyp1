@@ -79,13 +79,53 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
                 url : '/assets/Cesium/Assets/Textures/NaturalEarthII',
                 fileExtension: 'jpg'
             });
+        },
+        'wfs' : function(url,marker) {
+            var dataSource = new Cesium.GeoJsonDataSource();
+            var defaultPoint = dataSource.defaultPoint;
+           /* defaultPoint.point = undefined;
+            var billboard = new Cesium.DynamicBillboard();
+            billboard.image = new Cesium.ConstantProperty(marker);
+            defaultPoint.billboard = billboard*/;
+            dataSource.loadUrl(url);
+            return dataSource;
         }
     };
 
-    $scope.layerFactory = function(id) {
+    $scope.layerAdder = {
+        base : function(id) {
+            var coll = $scope.getImageryColl();
+            var layer = coll.get(id);
+
+            if( typeof layer == 'undefined' ) {
+                var imageryProvider = $scope.layerFactory(id);
+                if (typeof imageryProvider === 'undefined') {
+                    var coll = this.getImageryColl();
+                    layer = coll.get(0);
+                } else {
+                    layer = new Cesium.ImageryLayer(imageryProvider);
+                }
+                layer.name = name;
+                $scope.baseLayers[name] = layer;
+            }
+
+            var lastLayer = coll.get(0);
+            coll.remove( lastLayer, false );
+            coll.add( layer );
+        },
+        wfs : function(id,url,marker) {
+            var dataSource = $scope.layerFactory('wfs',url,marker);   //there is unified handling for all wfs layers
+            var dataSources = $scope.viewer.dataSources;
+            dataSources.add(dataSource);
+        }
+    }
+
+    $scope.layerFactory = function() {
+        var id = arguments[0], params = Array.prototype.slice.call(arguments,1);
+
         var f = this.layerFactoryCfg[id];
         if( typeof f == 'function') {
-            return f();
+            return f.apply(this,params);
         }
         return f;
     };
@@ -113,26 +153,14 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
         this.viewer.extend(Cesium.viewerDynamicObjectMixin);
     };
 
-    $scope.addLayer = function(id) {
+    $scope.addLayer = function(type,id) {
+        $scope.layerAdder[type].call(this,id);
+    };
 
-        var coll = $scope.getImageryColl();
-        var layer = coll.get(id);
-
-        if( typeof layer == 'undefined' ) {
-            var imageryProvider = $scope.layerFactory(id);
-            if (typeof imageryProvider === 'undefined') {
-                var coll = this.getImageryColl();
-                layer = coll.get(0);
-            } else {
-                layer = new Cesium.ImageryLayer(imageryProvider);
-            }
-            layer.name = name;
-            $scope.baseLayers[name] = layer;
-        }
-
-        var lastLayer = coll.get(0);
-        coll.remove( lastLayer, false );
-        coll.add( layer );
+    $scope.toggleLayer = function(type,obj) {
+        var id = obj['id'], url = obj['url'], marker = obj['marker'];
+        url = '/proxy?url=' + encodeURIComponent(url);
+        $scope.layerAdder[type].call(this,id,url,marker);
     };
 
     $scope.getImageryColl = function() {
@@ -174,7 +202,10 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
     $scope.$on('handleBroadcast', function(evt,msg,obj) {
         switch(msg) {
             case 'base-layer-changed':
-                $scope.addLayer(obj);
+                $scope.addLayer('base',obj);
+                break;
+            case 'wfs-layer-toggled':
+                $scope.toggleLayer('wfs',obj);
                 break;
             case 'tool-changed':
                 if( obj.id == 'zoom') {
