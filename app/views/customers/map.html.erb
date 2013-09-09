@@ -1,10 +1,18 @@
+
 <div id="layer-app" ng-controller="LayerListCtrl" ng-init="init()">
+
+  <div ng-repeat="layer in layers | filter:filterBase">
+      <div class="base-layer" data-on="success" data-off="danger" add-bootstrap-switches>
+        <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.key}}" ng-model="myLayer" ng-change="baseLayerActivityChanged()">
+      </div>{{layer.label}}<br>
+  </div>
+  <!--
   <select ng-change="baseLayerActivityChanged()" ng-model="myLayer">
     <option ng-repeat="layer in layers | filter:filterBase" class="li-layer" value="{{layer.key}}">
       {{layer.label}}
     </option>
   </select>
-  <span layer-count="{{layers.length}}">Number of base layer: {{layers.length}}</span>
+  -->
 </div>
 
 <div id="tools-app">
@@ -15,8 +23,10 @@
   </div>
 </div>
 
+
 <div id="map-app" ng-controller="CesiumMapCtrl" ng-init="init()">
 </div>
+
 
 <!--
 

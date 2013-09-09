@@ -12,6 +12,7 @@
 //
 //= require angularjs/angular
 //= require angularjs/angular-resource
+//= require bootstrap-switch/bootstrap-switch.min
 //= require Cesium/Cesium
 //= require spatial/app
 //= require spatial/controllers

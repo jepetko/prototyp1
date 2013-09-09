@@ -4,16 +4,20 @@
 
 function LayerListCtrl($scope, Layer, sharedService) {
     $scope.layers = Layer.query();
-    $scope.myLayer = 'Bing Maps Road';
+    $scope.myBaseLayer = 'Bing Maps Road';
+    $scope.countRendered = 0;
 
-    $scope.filterBase = function(layer)
-    {
+    $scope.filterBase = function(layer) {
         return (layer.type == 'base');
     };
 
-    $scope.baseLayerActivityChanged = function() {
-        sharedService.setMessage('base-layer-changed', $scope.myLayer ); //this variable is defined in ng-model
+    $scope.filterWFS = function(layer) {
+        return (layer.type == 'wfs');
     };
+
+    $scope.$watch('myBaseLayer', function() {
+        console.log('base layer changed!!!');
+    });
 
     $scope.init = function() {
         console.log('init');
@@ -39,39 +43,39 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
         'Bing Maps Aerial' : function() {
             return new Cesium.BingMapsImageryProvider({
                 url: 'http://dev.virtualearth.net',
-                mapStyle: Cesium.BingMapsStyle.AERIAL_WITH_LABELS,
-                proxy: $scope.proxy
+                mapStyle: Cesium.BingMapsStyle.AERIAL_WITH_LABELS//,
+                //proxy: $scope.proxy
             });
         },
         'Bing Maps Road' : function() {
             return new Cesium.BingMapsImageryProvider({
                 url: 'http://dev.virtualearth.net',
-                mapStyle: Cesium.BingMapsStyle.ROAD,
-                proxy: $scope.proxy
+                mapStyle: Cesium.BingMapsStyle.ROAD//,
+                //proxy: $scope.proxy
             });
         },
         'ArcGIS World Street Maps' : function() {
             return new Cesium.ArcGisMapServerImageryProvider({
-                url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer',
-                proxy: $scope.proxy
+                url : 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer'//,
+                //proxy: $scope.proxy
             });
         },
         'OpenStreetMaps' : function() {
             return new Cesium.OpenStreetMapImageryProvider({
-                proxy: $scope.proxy
+                //proxy: $scope.proxy
             });
         },
         'MapQuest OpenStreetMaps' : function() {
             return new Cesium.OpenStreetMapImageryProvider({
-                url: 'http://otile1.mqcdn.com/tiles/1.0.0/osm/',
-                proxy: $scope.proxy
+                url: 'http://otile1.mqcdn.com/tiles/1.0.0/osm/'//,
+                //proxy: $scope.proxy
             });
         },
         'Stamen Maps' : function() {
             return new Cesium.OpenStreetMapImageryProvider({
                 url: 'http://tile.stamen.com/watercolor/',
                 fileExtension: 'jpg',
-                proxy: $scope.proxy,
+                //proxy: $scope.proxy,
                 credit: 'Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.'
             });
         },
@@ -94,7 +98,9 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
     $scope.init = function() {
         $scope.viewer = new Cesium.Viewer($element.attr('id'), {
             //Start in Columbus Viewer
-            sceneMode : Cesium.SceneMode.COLUMBUS_VIEW,
+            //Note: this will show the layer picker!
+            sceneMode : Cesium.SceneMode.SCENE3D,
+            baseLayerPicker : false /*,
             //Use standard Cesium terrain
             terrainProvider : new Cesium.CesiumTerrainProvider({
                 url : 'http://cesium.agi.com/smallterrain',
@@ -105,7 +111,7 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
             //Use OpenStreetMaps
             imageryProvider : new Cesium.OpenStreetMapImageryProvider({
                 url : 'http://tile.openstreetmap.org/'
-            })
+            }) */
         });
 
         this.viewer.extend(Cesium.viewerDragDropMixin);
@@ -189,7 +195,9 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
 
 
 function ToolsCtrl($scope, sharedService) {
-    $scope.tools = [ { id : 'zoom', label : 'Zoom'}, { id : 'pick', label : 'Pick'} ];
+    $scope.tools = [ { id : 'zoom', label : 'Zoom'},
+                     { id : 'pick', label : 'Pick'},
+                     { id : 'extent', label : 'Draw Extent'} ];
 
     $scope.toolPicked = function() {
         var self = this;

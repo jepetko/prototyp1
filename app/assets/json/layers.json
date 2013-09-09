@@ -1,8 +1,10 @@
 [
-    { "key" : "Bing Maps Aerial", "label" : "Bing Maps Aerial", "active" : "selected", "type" : "base"},
-    { "key" : "ArcGIS World Street Maps", "label" : "ArcGIS World Street Maps", "active" : "", "type" : "base" },
-    { "key" : "OpenStreetMaps", "label" : "OpenStreetMaps", "active" : "", "type" : "base" },
-    { "key" : "MapQuest OpenStreetMaps", "label" : "MapQuest OpenStreetMaps", "active" : "", "type" : "base" },
-    { "key" : "Stamen Maps", "label" : "Stamen Maps", "active" : "", "type" : "base" },
-    { "key" : "Natural Earth II (local)", "label" : "Natural Earth II (local)", "active" : "", "type" : "base" }
+    { "id" : "layer_1", "key" : "Bing Maps Aerial", "label" : "Bing Maps Aerial", "active" : "selected", "visible" : "checked", "type" : "base"},
+    { "id" : "layer_2","key" : "ArcGIS World Street Maps", "label" : "ArcGIS World Street Maps", "active" : "", "type" : "base" },
+    { "id" : "layer_3","key" : "OpenStreetMaps", "label" : "OpenStreetMaps", "active" : "", "type" : "base" },
+    { "id" : "layer_4","key" : "MapQuest OpenStreetMaps", "label" : "MapQuest OpenStreetMaps", "active" : "", "type" : "base" },
+    { "id" : "layer_5","key" : "Stamen Maps", "label" : "Stamen Maps", "active" : "", "type" : "base" },
+    { "id" : "layer_6","key" : "Natural Earth II (local)", "label" : "Natural Earth II (local)", "active" : "", "type" : "base" },
+    { "id" : "layer_7","key" : "museum", "label" : "Museums", "active" : "", "type" : "wfs" }
+
 ]
