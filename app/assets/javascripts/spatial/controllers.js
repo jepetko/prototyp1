@@ -83,10 +83,11 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
         'wfs' : function(url,marker) {
             var dataSource = new Cesium.GeoJsonDataSource();
             var defaultPoint = dataSource.defaultPoint;
-           /* defaultPoint.point = undefined;
+            //defaultPoint.point = undefined;
             var billboard = new Cesium.DynamicBillboard();
-            billboard.image = new Cesium.ConstantProperty(marker);
-            defaultPoint.billboard = billboard*/;
+            billboard.image = new Cesium.ConstantProperty(marker);  //doesnt work
+            defaultPoint.billboard = billboard;
+
             dataSource.loadUrl(url);
             return dataSource;
         }
@@ -135,18 +136,7 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
             //Start in Columbus Viewer
             //Note: this will show the layer picker!
             sceneMode : Cesium.SceneMode.SCENE3D,
-            baseLayerPicker : false /*,
-            //Use standard Cesium terrain
-            terrainProvider : new Cesium.CesiumTerrainProvider({
-                url : 'http://cesium.agi.com/smallterrain',
-                credit : 'Terrain data courtesy Analytical Graphics, Inc.'
-            }),
-            //Hide the base layer picker
-            baseLayerPicker : false,
-            //Use OpenStreetMaps
-            imageryProvider : new Cesium.OpenStreetMapImageryProvider({
-                url : 'http://tile.openstreetmap.org/'
-            }) */
+            baseLayerPicker : false
         });
 
         this.viewer.extend(Cesium.viewerDragDropMixin);
@@ -198,6 +188,42 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
         navigator.geolocation.getCurrentPosition(fly);
     };
 
+    $scope.pickBillboard = function() {
+        // If the mouse is over the billboard, change its scale and color
+        var scene = this.viewer.scene;
+        var handler = new Cesium.ScreenSpaceEventHandler(scene.getCanvas());
+        handler.setInputAction(
+            $.proxy(function (evt) {
+                var pickedObject = scene.pick(evt.position);
+                if(pickedObject && pickedObject.dynamicObject && pickedObject.dynamicObject.geoJson) {
+                    var props = pickedObject.dynamicObject.geoJson.properties;
+                    var str = '';
+                    for( var name in props ) {
+                        str += ' ' + props[name];
+                    }
+                    console.log(str);
+                    console.log(unescape(str));
+                    console.log(escape(str));
+
+                    var pos = pickedObject.dynamicObject.geoJson.geometry.coordinates;
+                    var lon = pos[0], lat = pos[1];
+
+                    var labels = new Cesium.LabelCollection();
+                    labels.add({
+                        position  : this.ellipsoid.cartographicToCartesian(Cesium.Cartographic.fromDegrees(lon,lat)),
+                        text      : str,
+                        font      : '24px Helvetica',
+                        fillColor : { red : 0.0, blue : 1.0, green : 1.0, alpha : 1.0 },
+                        outlineColor : { red : 0.0, blue : 0.0, green : 0.0, alpha : 1.0 },
+                        outlineWidth : 2,
+                        style : Cesium.LabelStyle.FILL_AND_OUTLINE
+                    });
+                    scene.getPrimitives().add(labels);
+                }
+            }, this),
+            Cesium.ScreenSpaceEventType.LEFT_CLICK
+        );
+    };
 
     $scope.$on('handleBroadcast', function(evt,msg,obj) {
         switch(msg) {
@@ -210,6 +236,9 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
             case 'tool-changed':
                 if( obj.id == 'zoom') {
                     $scope.flyToOwnLoc();
+                } else
+                if( obj.id == 'pick' ) {
+                    $scope.pickBillboard();
                 }
                 break;
         }
