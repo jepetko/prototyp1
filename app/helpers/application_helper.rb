@@ -1,6 +1,6 @@
 module ApplicationHelper
 
-  def display_base_errors resource
+  def display_base_errors(resource)
     return '' if (resource.errors.empty?) or (resource.errors[:base].empty?)
     messages = resource.errors[:base].map { |msg| content_tag(:p, msg) }.join
     html = <<-HTML
@@ -10,6 +10,16 @@ module ApplicationHelper
     </div>
     HTML
     html.html_safe
+  end
+
+  def controller_specific_root_class(params)
+    ['root', "#{params[:controller].html_safe}", "#{params[:action].html_safe}"].join('-')
+  end
+
+  def controller_specific_includes(params)
+    if params[:controller] == 'customers' && params[:action] == 'map'
+      javascript_include_tag 'spatial'
+    end
   end
 
   #deprecated

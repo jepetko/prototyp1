@@ -1,15 +1,7 @@
 // Place all the styles related to the Contacts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-
-@mixin vendor-prefix($name, $value) {
-  #{$name}: #{$value};
-  -webkit-#{$name}: #{$value};
-  -ms-#{$name}: #{$value};
-  -moz-#{$name}: #{$value};
-  -o-#{$name}: #{$value};
-}
-
+@import "common";
 
 table.contacts {
   width: 100%;

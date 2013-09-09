@@ -18,7 +18,7 @@
 //= require spatial/controllers
 //= require shared/services
 
-angular.bootstrap($('#layer-app'),['httpServices', 'layerAppDirectives', 'test-service']);
+angular.bootstrap($('#layers-app'),['httpServices', 'layerAppDirectives', 'test-service']);
 angular.bootstrap($('#map-app'),['test-service']);
 angular.bootstrap($('#tools-app'),['test-service']);
 

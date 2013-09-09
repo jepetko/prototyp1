@@ -1,6 +1,7 @@
 // Place all the styles related to the Customers controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "common";
 
 .new_customer, .edit_customer {
 
@@ -27,3 +28,32 @@
     color: #bd362f;
   }
 }
+
+.root-customers-map {
+  width: 100%;
+
+  #map-tools {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 60%;
+    z-index: 1000;
+    background-color: #fff;
+    opacity: .95;
+    padding: 10px;
+    @include vendor-prefix(border-bottom-right-radius,5px);
+
+    #tools-app {
+      float: left;
+      min-width: 60px;
+      width: 60px;
+    }
+
+    #layers-app {
+      float: left;
+      width: 80%;
+    }
+  }
+}
+
+

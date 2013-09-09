@@ -1,12 +1,12 @@
-<div>
-  <div id="tools-app" class="left-side">
+<div id="map-tools">
+  <div id="tools-app">
     <div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox" ng-controller="ToolsCtrl">
       <button ng-repeat="tool in tools" type="button" class="btn btn-primary {{tool.active}}" ng-click="toolPicked()">
         <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
       </button>
     </div>
   </div>
-  <div id="layer-app" class="accordion right-side" ng-controller="LayerListCtrl" ng-init="init()">
+  <div id="layers-app" class="accordion" ng-controller="LayerListCtrl" ng-init="init()">
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#base-layers">
