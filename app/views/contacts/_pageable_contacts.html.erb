@@ -4,6 +4,6 @@
 <% if contacts.empty? %>
     No contacts. Edit record to add some of them.
 <% else %>
-    <%= render(:partial => 'contacts/contacts', :locals => {:contacts => contacts})%>
+    <%= render(:partial => 'contacts/contacts', :locals => {:contacts => contacts, :editable => editable} )%>
     <%= will_paginate contacts, renderer: BootstrapPagination::Rails %>
 <% end %>

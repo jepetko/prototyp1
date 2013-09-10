@@ -1,0 +1,6 @@
+var html = '<div class="alert alert-block alert-success"> \
+        <a class="close" data-dismiss="alert" href="#">X</a> \
+        <%=I18n.t('views.contact.flash_messages.updated_successfully')%> \
+        </div>';
+$('.contact-form-wrapper').prepend(html);
+ProtoSupport.refresh();

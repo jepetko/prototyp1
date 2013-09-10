@@ -1,3 +1,3 @@
-var html = '<%= escape_javascript render :partial => "contacts/pageable_contacts", :locals => { :contacts => @contacts }%>';
+var html = '<%= escape_javascript render :partial => "contacts/pageable_contacts", :locals => { :contacts => @contacts, :editable => false }%>';
 $('#contacts').hide().html(html).fadeIn('slow');
 ProtoSupport.addAsyncPagination();

@@ -7,10 +7,12 @@ Prototyp1::Application.routes.draw do
 
   resources :customers do
     resources :company_avatars, :only => [:destroy, :show, :create]
-    resources :contacts, :only => [:new, :create, :destroy, :index, :edit_all, :update]
+    resources :contacts, :only => [:new, :create, :destroy, :index, :edit_all, :update, :form]
   end
 
   match '/customers/:customer_id/edit/contacts' => 'contacts#edit_all', :via => :get, :as => 'edit_all_customer_contacts'
+
+  match '/customers/:customer_id/contacts/:id/form' => 'contacts#form', :via => :get, :as => 'form_customer_contact'
 
   authenticated :user do
     root :to => 'home#index'

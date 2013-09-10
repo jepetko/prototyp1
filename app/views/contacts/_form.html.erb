@@ -1,5 +1,5 @@
 <!-- customer_contacts_path -->
-<%= simple_form_for( [contact.customer, contact], remote: true ) do |f| %>
+<%= simple_form_for( [contact.customer, contact], remote: true, html: { class: 'contact-form'} ) do |f| %>
     <%= f.error_notification%>
 
     <div class="form-inputs">
@@ -7,6 +7,5 @@
       <%= f.input :phone %>
       <%= f.input :notice, :input_html => { :rows => 5 } %>
     </div>
-
-      <%= f.button :submit, t('views.contact.edit.save') %>
+    <%= f.button :submit, t('views.contact.edit.save') %>
 <% end %>

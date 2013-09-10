@@ -13,14 +13,23 @@ class ContactsController < ApplicationController
     end
   end
 
+  # GET /contacts/edit_all
+  def edit_all
+    @contacts = Contact.where( :customer_id => params[:customer_id])
+
+    respond_to do |format|
+      format.js { }
+      format.json { render json: @contacts }
+    end
+  end
+
   # GET /contacts/new
   # GET /contacts/new.json
   def new
-
     @contact = Contact.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.js { }
       format.json { render json: @contact }
     end
   end
@@ -30,15 +39,7 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
   end
 
-  # GET /contacts/edit
-  def edit_all
-    @contacts = Contact.where( :customer_id => params[:customer_id])
 
-    respond_to do |format|
-      format.js { }
-      format.json { render json: @contacts }
-    end
-  end
 
   # POST /contacts
   # POST /contacts.json
@@ -65,10 +66,10 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.update_attributes(params[:contact])
-        format.html { redirect_to @contact, notice: I18n.t('views.contact.flash_messages.updated_successfully') }
+        format.js { }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
+        format.js { }
         format.json { render json: @contact.errors, status: :unprocessable_entity }
       end
     end
@@ -97,9 +98,14 @@ class ContactsController < ApplicationController
     end
   end
 
-  def index_paginated
-    @contacts = Contact.where( :customer_id => params[:customer_id])
+  def form
+    customer_id = params[:customer_id]
+    customer = Customer.where(:id => customer_id).first
+    @contact = params.has_key?(:id) ? customer.contacts.where(:id => params[:id]).first : customer.contacts.build
 
-    render :partial => 'contacts/pageable_contacts', :locals => { :contacts => @contacts }
+    respond_to do |format|
+      format.js { }
+      format.json { render json: @contact }
+    end
   end
 end

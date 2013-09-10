@@ -34,10 +34,11 @@
       <!-- contacts -->
       <div id="contacts">
       </div>
-      <button class="btn btn-new-contact">New contact</button>
-      <%= render :partial => 'contacts/form', :locals => {:contact => @customer.contacts.build} %>
-      <%= javascript_tag "ProtoSupport.fetchCustomersContacts('#{edit_all_customer_contacts_path(@customer)}');" %>
-      <%= javascript_tag "ProtoSupport.addNewContactSupport();" %>
+      <button class="btn btn-contact-form">New contact</button>
+      <div class="contact-form-wrapper">
+      </div>
+      <%= javascript_tag "ProtoSupport.executeScript('#{edit_all_customer_contacts_path(@customer)}');" %>
+      <%= javascript_tag "ProtoSupport.addNewContactSupport('#{@customer.id}');" %>
     </div>
   </div>
 </div>

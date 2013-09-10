@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery-ui/jquery-ui-1.10.3.custom
 //= require jquery_ujs
 //= require bootstrap
 //= require jquery-fileupload
@@ -47,7 +48,7 @@ var ProtoSupport = (function() {
                 $('#loading').remove();
             });
         },
-        fetchCustomersContacts : function(path) {
+        executeScript : function(path) {
             $.getScript(path);
         },
         addAsyncPagination : function() {
@@ -60,14 +61,48 @@ var ProtoSupport = (function() {
                 });
             });
         },
-        addNewContactSupport : function() {
-            $('.btn-new-contact').on('click', function() {
-                var form = $('.new_contact');
-                if( form.css('display') == 'none' )
-                    form.fadeIn();
-                else
-                    form.fadeOut();
-            })
+        fade : function(selector) {
+            var el = $(selector);
+            if( el.css('display') == 'none' ) {
+                //el.fadeIn();
+                el.css('display','block');
+            } else {
+                //el.fadeOut();
+                el.css('display','none');
+            }
+        },
+        addNewContactSupport : function(customerID) {
+            $('.btn-contact-form').on('click', function() {
+                var form = $('.contact-form');
+                if( form.length == 0 ) {
+                    $.getScript('/customers/' + customerID + '/contacts/new').done(
+                        function(script, status) {
+                            ProtoSupport.fade('.contact-form');
+                        }
+                    );
+                } else {
+                    ProtoSupport.fade('.contact-form');
+                }
+            });
+        },
+        addEditContactSupport : function(customerID) {
+            var rows = $('table.contacts tr');
+
+            for( var i=0; i<rows.length; i++ ) {
+                var row = rows[i];
+                var $row = $(row);
+
+                var loadForm = function() {
+                    var id = $(this).attr('data-id');
+                    $.getScript('/customers/' + customerID + '/contacts/' + id + '/form').done(
+                        function(script,status) {
+                            ProtoSupport.fade('.contact-form');
+                        }
+                    );
+                };
+
+                $row.on('click', loadForm );
+            }
         },
         showValidationErrors : function(model,json) {
             if( json ) {
@@ -83,13 +118,16 @@ var ProtoSupport = (function() {
             }
 
         },
-        clearForm : function(id) {
-            var form = $('form#'+id);
+        clearForm : function(cssClass) {
+            var form = $('.' + cssClass);
             $.each(['text','color','date','datetime','datetime-local','email','month','number','range','search',
             'tel','time','url','week'], function(idx,val) {
                 form.find('input[type='+val+']').val('');
             });
             form.find('textarea, select').val('');
+        },
+        refreshPageableContacts : function() {
+
         }
     };
 })();

@@ -1,7 +1,7 @@
 <% unless contacts.nil? %>
     <table class="contacts">
         <% contacts.each do |c| %>
-            <%= render :partial => 'contacts/contact', :locals => {:contact => c} %>
+            <%= render :partial => 'contacts/contact', :locals => {:contact => c, :editable => editable} %>
         <% end %>
     </table>
 <%end%>

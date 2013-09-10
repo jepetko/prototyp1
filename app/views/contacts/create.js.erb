@@ -8,5 +8,5 @@ ProtoSupport.addAsyncPagination();
     ProtoSupport.showValidationErrors('contact',<%= raw @contact.errors.to_json%>);
 <%else%>
     ProtoSupport.showValidationErrors('contact',null);
-    ProtoSupport.clearForm('new_contact');
+    ProtoSupport.clearForm('contact-form');
 <%end%>

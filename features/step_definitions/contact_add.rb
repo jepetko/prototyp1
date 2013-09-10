@@ -14,7 +14,10 @@ When(/^I click "(.*?)" in browser in order to add a new contact$/) do |link|
 end
 
 Then(/^I must see a form where I can put contact data$/) do
-  expect(@browser.form(:id,'new_contact').present?).to be_true
+  @browser.button(:text, 'New contact').click
+  Watir::Wait.until {
+    @browser.form(:id, 'new_contact' ).present?
+  }
 end
 
 When(/^I put (.*), (.*), (.*)$/) do |name, phone, note|
