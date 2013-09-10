@@ -14,9 +14,8 @@ When(/^I click "(.*?)" in browser in order to add a new contact$/) do |link|
 end
 
 Then(/^I must see a form where I can put contact data$/) do
-  @browser.button(:text, 'New contact').click
   Watir::Wait.until {
-    @browser.form(:id, 'new_contact' ).present?
+    @browser.form(:id,'new_contact').present?
   }
 end
 
@@ -28,6 +27,15 @@ When(/^I put (.*), (.*), (.*)$/) do |name, phone, note|
 end
 
 Then(/^contact (.*), (.*), (.*) should appear in the table above$/) do |name, phone, note|
+
+  #TODO: count the rows (=number of contacts)
+  #and compare the number with the new count
+=begin
+  Watir::Wait.until {
+    @browser.form(:id,'new_contact').present?
+  }
+=end
+
   div = @browser.div(:id, 'contacts')
   Watir::Wait.until {
     c = @browser.div(:id, 'contacts')
