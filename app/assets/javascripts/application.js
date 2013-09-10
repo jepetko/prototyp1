@@ -74,15 +74,12 @@ var ProtoSupport = (function() {
         addNewContactSupport : function(customerID) {
             $('.btn-contact-form').on('click', function() {
                 var form = $('.contact-form');
-                if( form.length == 0 ) {
-                    $.getScript('/customers/' + customerID + '/contacts/new').done(
-                        function(script, status) {
-                            ProtoSupport.fade('.contact-form');
-                        }
-                    );
-                } else {
-                    ProtoSupport.fade('.contact-form');
-                }
+                form.remove();
+                $.getScript('/customers/' + customerID + '/contacts/new').done(
+                    function(script, status) {
+                        ProtoSupport.fade('.contact-form');
+                    }
+                );
             });
         },
         addEditContactSupport : function(customerID) {
@@ -100,7 +97,6 @@ var ProtoSupport = (function() {
                         }
                     );
                 };
-
                 $row.on('click', loadForm );
             }
         },
@@ -125,9 +121,6 @@ var ProtoSupport = (function() {
                 form.find('input[type='+val+']').val('');
             });
             form.find('textarea, select').val('');
-        },
-        refreshPageableContacts : function() {
-
         }
     };
 })();

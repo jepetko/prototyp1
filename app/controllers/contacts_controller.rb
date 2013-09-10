@@ -66,6 +66,7 @@ class ContactsController < ApplicationController
 
     respond_to do |format|
       if @contact.update_attributes(params[:contact])
+        @contacts = Contact.where(:customer_id => params[:customer_id])
         format.js { }
         format.json { head :no_content }
       else
