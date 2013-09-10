@@ -29,7 +29,7 @@ layerAppDir.directive('addBootstrapCheckboxSwitches', function($timeout,sharedSe
         $timeout(function() {
             element.bootstrapSwitch();
             element.on('switch-change', function(e,data) {
-                sharedService.setMessage('wfs-layer-toggled', scope.layer);
+                sharedService.setMessage('wfs-layer-toggled', { toggled : data.value, layer : scope.layer } );
             });
         }, 1000);
     }

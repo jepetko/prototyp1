@@ -5,6 +5,5 @@
     { "id" : "layer_4","key" : "MapQuest OpenStreetMaps", "label" : "MapQuest OpenStreetMaps", "active" : "", "type" : "base" },
     { "id" : "layer_5","key" : "Stamen Maps", "label" : "Stamen Maps", "active" : "", "type" : "base" },
     { "id" : "layer_6","key" : "Natural Earth II (local)", "label" : "Natural Earth II (local)", "active" : "", "type" : "base" },
-    { "id" : "layer_7","key" : "sightseeing", "label" : "Sight Seeing", "active" : "", "type" : "wfs", "url" : "http://data.wien.gv.at/daten/geoserver/ows?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:SEHENSWUERDIGOGD", "marker" : "/assets/marker.png" },
-    { "id" : "layer_8","key" : "borders", "label" : "Vienna Districts", "active" : "", "type" : "wfs", "url" : "http://data.wien.gv.at/daten/wfs?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json"}
+    { "id" : "layer_7","key" : "sightseeing", "label" : "Sight Seeing", "active" : "", "type" : "wfs", "url" : "http://data.wien.gv.at/daten/geoserver/ows?service=WFS&request=GetFeature&version=1.1.0&srsName=EPSG:4326&outputFormat=json&typeName=ogdwien:SEHENSWUERDIGOGD", "marker" : "/assets/marker.png" }
 ]

@@ -34,6 +34,8 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
     };
     $scope.ellipsoid = Cesium.Ellipsoid.WGS84;
 
+    $scope.dataSourceCache = {};
+
     $scope.layerFactoryCfg = {
         'Bing Maps Aerial' : function() {
             return new Cesium.BingMapsImageryProvider({
@@ -84,10 +86,11 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
             var dataSource = new Cesium.GeoJsonDataSource();
             var defaultPoint = dataSource.defaultPoint;
             //defaultPoint.point = undefined;
-            var billboard = new Cesium.DynamicBillboard();
-            billboard.image = new Cesium.ConstantProperty(marker);  //doesnt work
-            defaultPoint.billboard = billboard;
-
+            if( marker ) {
+                var billboard = new Cesium.DynamicBillboard();
+                billboard.image = new Cesium.ConstantProperty(marker);  //doesnt work
+                defaultPoint.billboard = billboard;
+            }
             dataSource.loadUrl(url);
             return dataSource;
         }
@@ -114,10 +117,23 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
             coll.remove( lastLayer, false );
             coll.add( layer );
         },
-        wfs : function(id,url,marker) {
-            var dataSource = $scope.layerFactory('wfs',url,marker);   //there is unified handling for all wfs layers
+        wfs : function(id,url,marker,toggled) {
+
             var dataSources = $scope.viewer.dataSources;
-            dataSources.add(dataSource);
+
+            var existingDataSource = $scope.dataSourceCache[url];
+
+            if( toggled ) {
+                if( typeof existingDataSource == 'undefined' ) {
+                    existingDataSource = $scope.layerFactory('wfs',url,marker);   //there is unified handling for all wfs layers
+                    $scope.dataSourceCache[url] = existingDataSource;
+                }
+                dataSources.add(existingDataSource);
+            } else {
+                if( typeof existingDataSource != 'undefined' ) {
+                    dataSources.remove(existingDataSource, false);
+                }
+            }
         }
     }
 
@@ -147,10 +163,10 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
         $scope.layerAdder[type].call(this,id);
     };
 
-    $scope.toggleLayer = function(type,obj) {
-        var id = obj['id'], url = obj['url'], marker = obj['marker'];
+    $scope.toggleLayer = function(type,layer,toggled) {
+        var id = layer['id'], url = layer['url'], marker = layer['marker'];
         url = '/proxy?url=' + encodeURIComponent(url);
-        $scope.layerAdder[type].call(this,id,url,marker);
+        $scope.layerAdder[type].call(this,id,url,marker,toggled);
     };
 
     $scope.getImageryColl = function() {
@@ -201,10 +217,6 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
                     for( var name in props ) {
                         str += ' ' + props[name];
                     }
-                    console.log(str);
-                    console.log(unescape(str));
-                    console.log(escape(str));
-
                     var pos = pickedObject.dynamicObject.geoJson.geometry.coordinates;
                     var lon = pos[0], lat = pos[1];
 
@@ -231,7 +243,8 @@ function CesiumMapCtrl($scope, $element, $attrs, sharedService) {
                 $scope.addLayer('base',obj);
                 break;
             case 'wfs-layer-toggled':
-                $scope.toggleLayer('wfs',obj);
+                var toggled = obj['toggled'], layer = obj['layer'];
+                $scope.toggleLayer('wfs',layer, toggled);
                 break;
             case 'tool-changed':
                 if( obj.id == 'zoom') {
