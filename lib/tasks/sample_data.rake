@@ -40,17 +40,6 @@ def make_customers
     zip = Faker::Address.zip_code
     city = Faker::Address.city
 
-    #lon = Faker::Address.longitude
-    #lat = Faker::Address.latitude
-
-    #approx. Austria extent
-=begin
-bottom: 46.10966936980434
-left: 9.178699028539494
-right: 17.528308403539857
-top: 49.02909877888059
-=end
-
     lat = random_coordinate  9.178699028539494, 17.528308403539857
     lon = random_coordinate  46.10966936980434, 49.02909877888059
 
@@ -62,6 +51,18 @@ top: 49.02909877888059
     customer.company_avatar = CompanyAvatar.new
     customer.company_avatar.avatar = File.new(file_name)
 
+    make_contacts customer
+
     customer.save!
+  end
+end
+
+def make_contacts(customer)
+  count = rand 20
+  count.times do
+    name = Faker::Name.name
+    tel = Faker::PhoneNumber.phone_number
+    notice = Faker::Lorem.paragraph rand(5)
+    customer.contacts.build(:name => name, :phone => tel, :notice => notice)
   end
 end
