@@ -21,5 +21,13 @@
         "clazz" : "Bing",
         "clazz_type": "Aerial",
         "label" : "Bing Maps Aerial",
-        "type" : "base"}
+        "type" : "base"},
+
+    {   "id" : "layer_4",
+        "name" : "Customers",
+        "clazz" : "Vector",
+        "label" : "Customers",
+        "type" : "wfs",
+        "url" : "/customers.geojson",
+        "use_proxy" : false }
 ]

@@ -25,10 +25,33 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
             olLayer.setVisibility(true);
         },
         wfs : function(layer) {
-            //todo
-            console.log(layer);
+
+            var name = layer.name;
+            var url = layer['url'];
+            if(layer['use_proxy']) {
+                url = '/proxy?url=' + encodeURIComponent(url);
+            }
+            var olLayer = $scope.map.getLayersByName(name);
+            if( olLayer.length === 0 ) {
+                var clazz = window['OpenLayers']['Layer'][layer.clazz];
+                if( !clazz ) {
+                    return; //TODO: throw Exception?
+                }
+                olLayer = new clazz(layer.name, {
+                    projection: $scope.map.getProjection(),
+                    strategies: [new OpenLayers.Strategy.Fixed()],
+                    protocol: new OpenLayers.Protocol.HTTP({
+                        url: url,
+                        format: new OpenLayers.Format.GeoJSON()
+                    })
+                });
+                $scope.map.addLayer(olLayer);
+            } else {
+                olLayer = olLayer[0];
+            }
+            olLayer.setVisibility(true);
         }
-    }
+    };
 
     $scope.layerFactory = function() {
         var id = arguments[0], params = Array.prototype.slice.call(arguments,1);
@@ -52,14 +75,12 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         $scope.map = new OpenLayers.Map($element.attr('id'),options);
     };
 
-    $scope.addLayer = function(type,id) {
-        $scope.layerAdder[type].call(this,id);
+    $scope.addLayer = function(type,layer) {
+        $scope.layerAdder[type].call(this,layer);
     };
 
     $scope.toggleLayer = function(type,layer,toggled) {
-        var id = layer['id'], url = layer['url'], marker = layer['marker'];
-        url = '/proxy?url=' + encodeURIComponent(url);
-        $scope.layerAdder[type].call(this,id,url,marker,toggled);
+        $scope.layerAdder[type].call(this,layer,toggled);
     };
 
     $scope.flyToOwnLoc = function() {
