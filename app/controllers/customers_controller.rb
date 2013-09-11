@@ -4,6 +4,9 @@ class CustomersController < ApplicationController
 
   before_filter :authenticate_user!
 
+  before_filter :remember_avatar, :only => [:create, :update]
+  after_filter :consume_avatar, :only => [:create]
+
   # GET /customers
   # GET /customers.json
   def index
@@ -15,7 +18,7 @@ class CustomersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @customers }
     end
   end
@@ -26,7 +29,7 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @customer }
     end
   end
@@ -37,7 +40,7 @@ class CustomersController < ApplicationController
     @customer = Customer.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @customer }
     end
   end
@@ -50,18 +53,11 @@ class CustomersController < ApplicationController
   # POST /customers
   # POST /customers.json
   def create
-    customer_params = params[:customer]
-
-    fill_company_avatar(customer_params)
-
-    @customer = Customer.new(customer_params)
+    @customer = Customer.new(params[:customer])
+    @customer.company_avatar = @company_avatar
 
     respond_to do |format|
       if @customer.save
-
-        if not @customer.company_avatar.nil?
-          remove_temp_upload
-        end
 
         format.html { redirect_to @customer, notice: I18n.t('views.company.flash_messages.created_successfully') }
         format.json { render json: @customer, status: :created, location: @customer }
@@ -76,9 +72,8 @@ class CustomersController < ApplicationController
   # PUT /customers/1.json
   def update
     customer_params = params[:customer]
-    fill_company_avatar(customer_params)
-
     @customer = Customer.find(params[:id])
+    @customer.company_avatar = @company_avatar
 
     respond_to do |format|
       if @customer.update_attributes(customer_params)
@@ -103,6 +98,7 @@ class CustomersController < ApplicationController
     end
   end
 
+  # todo: this method looks like index. refactor it!
   def map
     keyword = params[:keyword]
     if keyword.nil?
@@ -118,17 +114,17 @@ class CustomersController < ApplicationController
   end
 
   private
-  def fill_company_avatar(customer_params)
-    company_avatar_id = customer_params[:company_avatar]
+  def remember_avatar
+    company_avatar_id = params[:customer][:company_avatar]
 
-    if company_avatar_id.nil? || company_avatar_id.empty?
-      customer_params[:company_avatar] = nil
-    else
-      company_avatar = CompanyAvatar.find_by_id( company_avatar_id.to_i )
-      if not company_avatar.nil?
-        remember_temp_upload company_avatar_id.to_i
-      end
-      customer_params[:company_avatar] = company_avatar
+    @company_avatar = CompanyAvatar.find_by_id( company_avatar_id.to_i )
+    if not @company_avatar.nil?
+      remember_temp_upload company_avatar_id.to_i     ## remember; maybe some validations will fail
     end
+    params[:customer][:company_avatar] = nil
+  end
+
+  def consume_avatar
+    remove_temp_upload
   end
 end

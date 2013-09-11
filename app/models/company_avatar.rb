@@ -1,7 +1,10 @@
 class CompanyAvatar < ActiveRecord::Base
 
+  before_save :default_values
+
   #paperclip integration
   attr_accessible :avatar
+  attr_accessible :customer_id
   has_attached_file :avatar,
                     :styles => { :medium => "300x300>", :thumb => "100x100>" },
                     :default_url => "/assets/:style/missing.jpg",
@@ -9,7 +12,6 @@ class CompanyAvatar < ActiveRecord::Base
                     :url => "/system/:attachment/:id/:style/:filename"
 
   belongs_to :customer
-  validates :customer_id, :presence => true, :numericality =>  { :greater_than_or_equal_to => 0 }
 
   include Rails.application.routes.url_helpers
 
@@ -24,6 +26,12 @@ class CompanyAvatar < ActiveRecord::Base
         "thumbnail_url" => avatar.url(:thumb)
         }]
     }
+  end
+
+  private
+
+  def default_values
+    self.customer_id ||= 0
   end
 
 end

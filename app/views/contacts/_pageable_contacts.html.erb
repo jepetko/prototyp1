@@ -8,12 +8,18 @@
        page+=1
      end
    end
+   page = 1 if page == 0
 
    contacts = contacts.to_a.paginate( :page => page || 1, :per_page => 5 )
+
+   paginate_action = params[:action]
+   if paginate_action != 'index'
+     paginate_action = 'edit_all'
+   end
 %>
 <% if contacts.empty? %>
     No contacts. Edit record to add some of them.
 <% else %>
     <%= render(:partial => 'contacts/contacts', :locals => {:contacts => contacts, :editable => editable} )%>
-    <%= will_paginate contacts, :params => { :controller => 'contacts', :action => 'edit_all' }, renderer: BootstrapPagination::Rails %>
+    <%= will_paginate contacts, :params => { :controller => 'contacts', :action => paginate_action }, renderer: BootstrapPagination::Rails %>
 <% end %>
