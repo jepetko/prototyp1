@@ -17,7 +17,7 @@
         <div class="accordion-inner">
           <div ng-repeat="layer in layers | filter:filterBase">
             <div class="base-layer switch-mini" data-on="success" data-off="danger" add-bootstrap-radio-switches>
-              <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.key}}">
+              <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.name}}">
             </div>{{layer.label}}<br>
           </div>
         </div>
@@ -33,7 +33,7 @@
         <div class="accordion-inner">
           <div ng-repeat="layer in layers | filter:filterWFS">
             <div class="wfs-layer switch-mini" data-on="success" data-off="danger" add-bootstrap-checkbox-switches>
-              <input id="{{layer.id}}" type="checkbox" name="wfs-layer" value="{{layer.key}}">
+              <input id="{{layer.id}}" type="checkbox" name="wfs-layer" value="{{layer.name}}">
             </div>{{layer.label}}<br>
           </div>
         </div>

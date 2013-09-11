@@ -8,13 +8,26 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     $scope.map = null;
 
     $scope.layerAdder = {
-        base : function(id) {
-            //todo
-            console.log(id);
+        base : function(layer) {
+            var name = layer.name;
+            var olLayer = $scope.map.getLayersByName(name);
+            if( olLayer.length === 0 ) {
+                console.log(name + ' doesnt exist');
+                var clazz = window['OpenLayers']['Layer'][layer.clazz];
+                if( !clazz ) {
+                    return; //TODO: throw Exception?
+                }
+                olLayer = new clazz( { name : name, type : layer.clazz_type, key : layer.key } )
+                $scope.map.addLayer(olLayer);
+            } else {
+                olLayer = olLayer[0];
+            }
+            $scope.map.setBaseLayer(olLayer);
+            olLayer.setVisibility(true);
         },
-        wfs : function(id,url,marker,toggled) {
+        wfs : function(layer) {
             //todo
-            console.log(id);
+            console.log(layer);
         }
     }
 

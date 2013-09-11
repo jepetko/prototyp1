@@ -19,4 +19,12 @@ layerApp.controller('LayerListCtrl', ['$scope', 'Layer', 'sharedService', functi
     $scope.init = function() {
         sharedService.setMessage('layers-loaded', $scope.layers);
     };
+
+    $scope.getLayerByName = function(name) {
+        for( var i=0; i<this.layers.length; i++ ) {
+            var layer = this.layers[i];
+            if( layer.name === name) return layer;
+        }
+        return null;
+    };
 }]);

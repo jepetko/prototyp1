@@ -16,7 +16,7 @@ layerApp.directive('addBootstrapRadioSwitches', function($timeout)  {
                     var value = data.value;
                     if( value === true ) {
                         var $el = $(data.el);
-                        scope.$parent.myBaseLayer = $el.attr('value');
+                        scope.$parent.myBaseLayer = scope.getLayerByName($el.attr('value'));
                         scope.$parent.$apply();
                     }
                     baseLayers.bootstrapSwitch('toggleRadioState');
