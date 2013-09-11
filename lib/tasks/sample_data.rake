@@ -28,6 +28,10 @@ def make_users
   end
 end
 
+def random_coordinate(min, max)
+  rand * (max-min) + min
+end
+
 def make_customers
 
   100.times do |n|
@@ -35,7 +39,24 @@ def make_customers
     street = Faker::Address.street_address
     zip = Faker::Address.zip_code
     city = Faker::Address.city
-    customer = Customer.create!(:name => name, :street => street, :zip => zip, :city => city, :country => 'AUT')
+
+    #lon = Faker::Address.longitude
+    #lat = Faker::Address.latitude
+
+    #approx. Austria extent
+=begin
+bottom: 46.10966936980434
+left: 9.178699028539494
+right: 17.528308403539857
+top: 49.02909877888059
+=end
+
+    lat = random_coordinate  9.178699028539494, 17.528308403539857
+    lon = random_coordinate  46.10966936980434, 49.02909877888059
+
+    point = "POINT(#{lat} #{lon})"
+    customer = Customer.create!(:name => name, :street => street, :zip => zip, :city => city, :country => 'Austria', :latlon => point)
+
 
     file_name = "#{Rails.root}/lib/assets/images/logo_#{Random.rand(1..25)}.png"
     customer.company_avatar = CompanyAvatar.new
