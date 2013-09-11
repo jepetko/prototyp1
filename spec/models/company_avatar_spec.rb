@@ -24,10 +24,14 @@ describe CompanyAvatar do
     avatar.should respond_to(:customer)
   end
 
-   it "must be stored when customer_id is 0" do
+   it "must be stored when customer_id is null or 0" do
      avatar = CompanyAvatar.new(@attr)
      avatar.customer_id = 0
      avatar.should be_valid
+
+     avatar.customer = nil
+     avatar.should be_valid
+
      expect {
        avatar.save!
      }.to change(CompanyAvatar, :count).by(1)
