@@ -20,6 +20,7 @@ class CustomersController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @customers }
+      format.geojson { }
     end
   end
 
