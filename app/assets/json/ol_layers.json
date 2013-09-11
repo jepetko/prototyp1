@@ -5,8 +5,8 @@
         "clazz" : "Bing",
         "clazz-type": "Road",
         "label" : "Bing Maps Roads",
-        "active" : "selected",
         "type" : "base"},
+
     {   "id" : "layer_2",
         "name" : "Bing Maps Aerial Labels",
         "key": "ArZbMKQ6_og3-twbH84sWXKVK4THYUy-DsGm60O2d_Ojd1DGyUcKt-VN230bO0fv",
@@ -14,12 +14,12 @@
         "clazz_type": "AerialWithLabels",
         "label" : "Bing Maps Aerial with Labels",
         "type" : "base"},
+
     {   "id" : "layer_3",
         "name" : "Bing Maps Aerial",
         "key": "ArZbMKQ6_og3-twbH84sWXKVK4THYUy-DsGm60O2d_Ojd1DGyUcKt-VN230bO0fv",
         "clazz" : "Bing",
         "clazz_type": "Aerial",
         "label" : "Bing Maps Aerial",
-        "active" : "selected",
         "type" : "base"}
 ]

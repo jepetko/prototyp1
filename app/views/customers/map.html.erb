@@ -1,9 +1,14 @@
 <div id="map-tools">
   <div id="tools-app">
-    <div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox" ng-controller="ToolsCtrl">
-      <button ng-repeat="tool in tools" type="button" class="btn btn-primary {{tool.active}}" ng-click="toolPicked()">
+    <div ng-controller="ToolsCtrl">
+      <button ng-repeat="tool in tools | filter:standalone" type="button" class="btn btn-primary" ng-click="toolClicked()">
         <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
       </button>
+      <div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox">
+          <button ng-repeat="tool in tools | filter:group" type="button" class="btn btn-primary {{tool.active}}" ng-click="toolPicked()">
+            <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
+          </button>
+      </div>
     </div>
   </div>
   <div id="layers-app" class="accordion" ng-controller="LayerListCtrl" ng-init="init()">

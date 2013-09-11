@@ -12,7 +12,6 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
             var name = layer.name;
             var olLayer = $scope.map.getLayersByName(name);
             if( olLayer.length === 0 ) {
-                console.log(name + ' doesnt exist');
                 var clazz = window['OpenLayers']['Layer'][layer.clazz];
                 if( !clazz ) {
                     return; //TODO: throw Exception?
@@ -42,7 +41,15 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     };
 
     $scope.init = function() {
-        $scope.map = new OpenLayers.Map($element.attr('id'));
+        var options = {
+            projection: new OpenLayers.Projection("EPSG:102113"),
+            units: "m",
+            numZoomLevels: 18,
+            maxResolution: 156543.0339,
+            maxExtent: new OpenLayers.Bounds(-20037508, -20037508,
+                20037508, 20037508.34)
+        };
+        $scope.map = new OpenLayers.Map($element.attr('id'),options);
     };
 
     $scope.addLayer = function(type,id) {
@@ -55,6 +62,22 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         $scope.layerAdder[type].call(this,id,url,marker,toggled);
     };
 
+    $scope.flyToOwnLoc = function() {
+        function fly(geopos) {
+            var coords = geopos.coords;
+            var lonLat = new OpenLayers.LonLat(coords.longitude,coords.latitude);
+
+            var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+            var toProjection   = $scope.map.getProjection();
+            var tgtPos       = lonLat.transform( fromProjection, toProjection);
+
+            var acc = 5;
+            var lvl = $scope.map.numZoomLevels/acc*(acc-1);
+            $scope.map.setCenter(tgtPos, lvl);
+        }
+        navigator.geolocation.getCurrentPosition(fly);
+    };
+
     $scope.$on('handleBroadcast', function(evt,msg,obj) {
         switch(msg) {
             case 'base-layer-changed':
@@ -64,12 +87,16 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 var toggled = obj['toggled'], layer = obj['layer'];
                 $scope.toggleLayer('wfs',layer, toggled);
                 break;
-            case 'tool-changed':
+            case 'tool-clicked':
                 if( obj.id == 'zoom') {
                     $scope.flyToOwnLoc();
-                } else
+                }
+                break;
+            case 'tool-changed':
                 if( obj.id == 'pick' ) {
-                    $scope.pickBillboard();
+                } else
+                if( obj.id == 'zoom') {
+
                 }
                 break;
         }
