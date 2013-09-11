@@ -1,0 +1,5 @@
+[
+    { "id" : "layer_1", "key" : "Bing Maps Road", "class" : "OpenLayers.Layer.Bing", "type": "Road", "label" : "Bing Maps Roads", "active" : "selected", "type" : "base"},
+    { "id" : "layer_2", "key" : "Bing Maps Aerial Labels", "class" : "OpenLayers.Layer.Bing", "type": "AerialWithLabels", "label" : "Bing Maps Aerial with Labels", "type" : "base"},
+    { "id" : "layer_3", "key" : "Bing Maps Aerial", "class" : "OpenLayers.Layer.Bing", "type": "Aerial", "label" : "Bing Maps Aerial", "active" : "selected", "type" : "base"}
+]

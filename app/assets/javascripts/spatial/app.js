@@ -2,8 +2,9 @@
 
 /* App Module */
 
-var layerAppDir = angular.module('layerAppDirectives', []);
-layerAppDir.directive('addBootstrapRadioSwitches', function($timeout)  {
+var layerApp = angular.module('layerApp', []);
+
+layerApp.directive('addBootstrapRadioSwitches', function($timeout)  {
     return function(scope, element, attrs) {
         $timeout(function() {
             element.bootstrapSwitch();
@@ -24,7 +25,7 @@ layerAppDir.directive('addBootstrapRadioSwitches', function($timeout)  {
         }, 1000);
     }
 });
-layerAppDir.directive('addBootstrapCheckboxSwitches', function($timeout,sharedService) {
+layerApp.directive('addBootstrapCheckboxSwitches', function($timeout,sharedService) {
     return function(scope,element, attrs) {
         $timeout(function() {
             element.bootstrapSwitch();
@@ -33,11 +34,16 @@ layerAppDir.directive('addBootstrapCheckboxSwitches', function($timeout,sharedSe
             });
         }, 1000);
     }
-})
+});
+
 
 angular.module('httpServices', ['ngResource']).
     factory('Layer', function($resource){
         return $resource('/assets/:layerId.json', {}, {
-            query: {method:'GET', params:{layerId:'layers'}, isArray:true}
+            query: {method:'GET', params:{layerId:'ol_layers'}, isArray:true}
         });
     });
+
+var mapApp = angular.module('mapApp',[]);
+
+var toolsApp = angular.module('toolsApp', []);

@@ -1,9 +1,7 @@
 'use strict';
 
-/* Services */
-
 /* for communication among the controllers; independent from the particular application */
-angular.module('test-service', []).service('sharedService', function($rootScope, $window) {
+angular.module('globalBroadcastServices', []).service('sharedService', function($rootScope, $window) {
     $window.rootScopes = $window.rootScopes || [];
     $window.rootScopes.push($rootScope);
 

@@ -1,0 +1,22 @@
+'use strict';
+
+layerApp.controller('LayerListCtrl', ['$scope', 'Layer', 'sharedService', function($scope, Layer, sharedService) {
+    $scope.layers = Layer.query();
+    $scope.myBaseLayer = null;
+
+    $scope.filterBase = function(layer) {
+        return (layer.type == 'base');
+    };
+
+    $scope.filterWFS = function(layer) {
+        return (layer.type == 'wfs');
+    };
+
+    $scope.$watch('myBaseLayer', function(newValue, oldValue) {
+        sharedService.setMessage('base-layer-changed', newValue);
+    },true);
+
+    $scope.init = function() {
+        sharedService.setMessage('layers-loaded', $scope.layers);
+    };
+}]);
