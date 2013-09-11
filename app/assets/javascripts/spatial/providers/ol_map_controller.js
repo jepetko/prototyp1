@@ -5,6 +5,15 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         }
     };
 
+    $scope.projection = {
+        projection: new OpenLayers.Projection("EPSG:102113"),
+        units: "m",
+        numZoomLevels: 18,
+        maxResolution: 156543.0339,
+        maxExtent: new OpenLayers.Bounds(   -20037508, -20037508,
+            20037508, 20037508.34)
+    };
+
     $scope.map = null;
 
     $scope.layerAdder = {
@@ -38,7 +47,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                     return; //TODO: throw Exception?
                 }
                 olLayer = new clazz(layer.name, {
-                    projection: $scope.map.getProjection(),
+                    projection: "EPSG:4326", //$scope.map.getProjection(),
                     strategies: [new OpenLayers.Strategy.Fixed()],
                     protocol: new OpenLayers.Protocol.HTTP({
                         url: url,
@@ -64,15 +73,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     };
 
     $scope.init = function() {
-        var options = {
-            projection: new OpenLayers.Projection("EPSG:102113"),
-            units: "m",
-            numZoomLevels: 18,
-            maxResolution: 156543.0339,
-            maxExtent: new OpenLayers.Bounds(-20037508, -20037508,
-                20037508, 20037508.34)
-        };
-        $scope.map = new OpenLayers.Map($element.attr('id'),options);
+        $scope.map = new OpenLayers.Map($element.attr('id'),this.options);
     };
 
     $scope.addLayer = function(type,layer) {
