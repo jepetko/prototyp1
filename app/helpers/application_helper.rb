@@ -17,16 +17,20 @@ module ApplicationHelper
   end
 
   def controller_specific_includes(params)
+    ##TODO: should that be configurable somewhere??
     if params[:controller] == 'customers' && params[:action] == 'map'
       javascript_include_tag 'spatial'
     end
   end
 
+  def fill_any_template(text)
+
+  end
+
+
   #deprecated
   def get_current_route
-
     url_for(:only_path => false, :overwrite_params=>nil).gsub(/http[s]?\:\/\/[\w]+[\:]?[\d]+/,'')
-
   end
 
   #deprecated

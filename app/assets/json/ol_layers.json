@@ -4,7 +4,7 @@
         "key": "ArZbMKQ6_og3-twbH84sWXKVK4THYUy-DsGm60O2d_Ojd1DGyUcKt-VN230bO0fv",
         "clazz" : "Bing",
         "clazz-type": "Road",
-        "label" : "Bing Maps Roads",
+        "label" : "{views.map.layer_bing_1}",
         "type" : "base"},
 
     {   "id" : "layer_2",
@@ -12,7 +12,7 @@
         "key": "ArZbMKQ6_og3-twbH84sWXKVK4THYUy-DsGm60O2d_Ojd1DGyUcKt-VN230bO0fv",
         "clazz" : "Bing",
         "clazz_type": "AerialWithLabels",
-        "label" : "Bing Maps Aerial with Labels",
+        "label" : "{views.map.layer_bing_2}",
         "type" : "base"},
 
     {   "id" : "layer_3",
@@ -20,13 +20,13 @@
         "key": "ArZbMKQ6_og3-twbH84sWXKVK4THYUy-DsGm60O2d_Ojd1DGyUcKt-VN230bO0fv",
         "clazz" : "Bing",
         "clazz_type": "Aerial",
-        "label" : "Bing Maps Aerial",
+        "label" : "{views.map.layer_bing_3}",
         "type" : "base"},
 
     {   "id" : "layer_4",
         "name" : "Customers",
         "clazz" : "Vector",
-        "label" : "Customers",
+        "label" : "{views.map.customers}",
         "type" : "wfs",
         "url" : "/customers.geojson",
         "use_proxy" : false }

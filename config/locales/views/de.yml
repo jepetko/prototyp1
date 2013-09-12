@@ -16,6 +16,11 @@ de:
         admin: Administratorenbereich
         sign_up: Registrieren
         search: Kundensuche
+    map:
+      layer_bing_1: Bing Maps Straßenansicht
+      layer_bing_2: Bing Maps Luftbild inkl. Beschriftung
+      layer_bing_3: Bing Maps Luftbild
+      layer_customers: Kunden
     company_avatar:
       flash_messages:
         created_successfully: Firmenlogo wurde erfolgreich erstellt.
