@@ -3,6 +3,8 @@ en:
   views:
     home:
       title: Have a look at these awesome demo presentations.
+      slide_1: Asynchronous Javascript and integration of any 3rd party libraries.
+      slide_2: Social Network integration und a better user experience.
     layout:
       nav:
         new_customer: New customer

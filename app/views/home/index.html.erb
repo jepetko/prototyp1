@@ -1,5 +1,16 @@
-<%= t 'views.home.title' %>
+<div class="well"><%= t 'views.home.title' %></div>
 
-<h1 class="jumbotron">
-TODO: Galerie mit allen Demo-Funktionen etc.
-</h1>
+<div id="myCarousel" class="carousel slide">
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+  </ol>
+  <!-- Carousel items -->
+  <div class="carousel-inner">
+    <div class="active item"><div><h3><%= t 'views.home.slide_1' %></h3></div><div><img src="/assets/gallery/slide_1.png" alt="map_and_contacts"></div></div>
+    <div class="item"><div><h3><%= t 'views.home.slide_2' %></h3></div><div><img src="/assets/gallery/slide_2.png" alt="social_and_avatar"></div></div>
+  </div>
+  <!-- Carousel nav -->
+  <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+  <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>

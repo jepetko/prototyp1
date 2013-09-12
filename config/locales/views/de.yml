@@ -3,7 +3,9 @@
 de:
   views:
     home:
-      title: Hier finden Sie folgende Demo-Präsentationen.
+      title: Loggen Sie sich ein, um alle Funktionen testen zu können.
+      slide_1: Asynchrones Javascript und Integration von beliebigen 3rd party Bibliotheken machen.
+      slide_2: Social Network Integration und benutzerfreundliche Bedienung.
     layout:
       nav:
         new_customer: Neuer Kunde
