@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def map_capable_actions
+    [:map, :new]
+  end
+
   def display_base_errors(resource)
     return '' if (resource.errors.empty?) or (resource.errors[:base].empty?)
     messages = resource.errors[:base].map { |msg| content_tag(:p, msg) }.join
@@ -18,7 +22,7 @@ module ApplicationHelper
 
   def controller_specific_includes(params)
     ##TODO: should that be configurable somewhere??
-    if params[:controller] == 'customers' && params[:action] == 'map'
+    if params[:controller] == 'customers' && map_capable_actions.include?(params[:action].to_sym)
       javascript_include_tag 'spatial'
     end
   end
