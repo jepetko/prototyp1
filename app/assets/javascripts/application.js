@@ -19,10 +19,8 @@
 var ProtoSupport = (function() {
     return {
         addCompanyAvatarFileUploadSupport : function() {
-            $(function () {
-                // Initialize the jQuery File Upload widget:
-                $('#fileupload').fileupload({maxNumberOfFiles : 1});
-            });
+            // Initialize the jQuery File Upload widget:
+            $('#fileupload').fileupload({maxNumberOfFiles : 1});
         },
         setCompanyAvatarOnCustomer : function(val) {
             $('#customer_company_avatar').val(val);
@@ -35,8 +33,10 @@ var ProtoSupport = (function() {
             $.getJSON( action, function(files) {
                 if(!files) return;
                 var filesArr = files['files'];
+
                 var fu = $('#fileupload').data('blueimp-fileupload')
-                        || $('#fileupload').data('fileupload');
+                    || $('#fileupload').data('fileupload');
+
                 var template;
                 fu._adjustMaxNumberOfFiles(-filesArr.length);
                 template = fu._renderDownload(filesArr)

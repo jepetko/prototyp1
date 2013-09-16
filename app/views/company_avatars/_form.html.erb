@@ -81,6 +81,7 @@
     {% } else { %}
     {%
         ProtoSupport.setCompanyAvatarOnCustomer(file.id);
+    console.log(file.id);
     %}
     <td class="preview">{% if (file.thumbnail_url) { %}
       <img src="{%=file.thumbnail_url%}">
@@ -104,12 +105,14 @@
 </script>
 
 <script type="text/javascript">
-    ProtoSupport.addCompanyAvatarFileUploadSupport();
-    <%
-    company_avatar_id = flash[:upload] || company_avatar.id
-    if company_avatar_id
-    %>
-        ProtoSupport.setCompanyAvatarOnCustomer( <%=company_avatar_id%> );
-        ProtoSupport.listExistingUpload( <%=company_avatar_id%> );
-    <% end %>
+    $(function() {
+        ProtoSupport.addCompanyAvatarFileUploadSupport();
+        <%
+        company_avatar_id = flash[:upload] || company_avatar.id
+        if company_avatar_id
+        %>
+            ProtoSupport.setCompanyAvatarOnCustomer( <%=company_avatar_id%> );
+            ProtoSupport.listExistingUpload( <%=company_avatar_id%> );
+        <% end %>
+    });
 </script>

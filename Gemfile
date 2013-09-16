@@ -72,7 +72,7 @@ gem "paperclip", "~> 3.0"
 
 # To use Jbuilder templates for JSON
 gem 'jbuilder'
-gem "jquery-fileupload-rails"
+gem "jquery-fileupload-rails", "0.4.1"
 
 # for paginate
 gem "will_paginate-bootstrap"

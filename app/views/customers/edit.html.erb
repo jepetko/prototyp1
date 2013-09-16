@@ -37,8 +37,10 @@
       <button class="btn btn-contact-form">New contact</button>
       <div class="contact-form-wrapper">
       </div>
-      <%= javascript_tag "ProtoSupport.executeScript('#{edit_all_customer_contacts_path(@customer)}');" %>
-      <%= javascript_tag "ProtoSupport.addNewContactSupport('#{@customer.id}');" %>
+      <%= javascript_tag "$(function() {"\
+                            "ProtoSupport.executeScript('#{edit_all_customer_contacts_path(@customer)}');"\
+                            "ProtoSupport.addNewContactSupport('#{@customer.id}');"\
+                            "});" %>
     </div>
   </div>
 </div>

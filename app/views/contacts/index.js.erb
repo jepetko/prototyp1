@@ -1,3 +1,5 @@
-var html = '<%= escape_javascript render :partial => "contacts/pageable_contacts", :locals => { :contacts => @contacts, :editable => false }%>';
-$('#contacts').html(html);
-ProtoSupport.addAsyncPagination();
+$(function() {
+    var html = '<%= escape_javascript render :partial => "contacts/pageable_contacts", :locals => { :contacts => @contacts, :editable => false }%>';
+    $('#contacts').html(html);
+    ProtoSupport.addAsyncPagination();
+});

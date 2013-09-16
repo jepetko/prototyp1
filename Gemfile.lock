@@ -310,7 +310,7 @@ DEPENDENCIES
   htmlentities
   hub (>= 1.10.2)
   jbuilder
-  jquery-fileupload-rails
+  jquery-fileupload-rails (= 0.4.1)
   jquery-rails
   launchy (>= 2.2.0)
   libv8 (>= 3.11.8)

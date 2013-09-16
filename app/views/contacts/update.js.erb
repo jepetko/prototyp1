@@ -1,6 +1,7 @@
-<%if not @contact.errors.empty? %>
+$(function() {
+    <%if not @contact.errors.empty? %>
     ProtoSupport.showValidationErrors('contact',<%= raw @contact.errors.to_json%>);
-<%else%>
+    <%else%>
     ProtoSupport.showValidationErrors('contact',null);
     ProtoSupport.clearForm('contact-form');
 
@@ -9,4 +10,5 @@
     $('#contacts').html(html);
     ProtoSupport.addAsyncPagination();
     ProtoSupport.addEditContactSupport("<%=params[:customer_id]%>");
-<%end%>
+    <%end%>
+});

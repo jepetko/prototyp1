@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def map_capable_actions
-    [:map, :new, :edit]
+    [:map, :new, :edit, :create]
   end
 
   def display_base_errors(resource)
