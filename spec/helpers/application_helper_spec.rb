@@ -34,19 +34,20 @@ describe ApplicationHelper do
         '"use_proxy" : false }'\
     ']'
 
-    @last_hash = { id: 'layer_4', name: 'Customers', clazz: 'Vector',
-                   label: '{views.map.customers}', type: 'wfs', url: '/customers.geojson', use_proxy: false}
+    @localizations = [ t('views.map.layer_bing_1'), t('views.map.layer_bing_2'),
+                       t('views.map.layer_bing_3'), t('views.map.customers') ]
   end
 
-  it 'can deserialize the template to an object' do
-    obj = ActiveSupport::JSON.decode(@tpl)
-    obj.count.should be(4)
+  it 'can deserialize the template and find matches' do
+    filled_tpl = localize_json_template @tpl
 
-    @last_hash.each do |key,val|
-      key_str = key.to_s
-      obj.last.should have_key(key_str)
-      obj.last[key_str].should eq(val)
+    result = ActiveSupport::JSON.decode(filled_tpl)
+    loops = 0
+    result.each_with_index do |element,idx|
+      element['label'].should eq(@localizations[idx])
+      loops += 1
     end
+    loops.should be(4)
   end
 
 end

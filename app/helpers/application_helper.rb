@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def map_capable_actions
-    [:map, :new]
+    [:map, :new, :edit]
   end
 
   def display_base_errors(resource)
@@ -27,8 +27,18 @@ module ApplicationHelper
     end
   end
 
-  def fill_any_template(text)
-
+  def localize_json_template(template)
+    obj = ActiveSupport::JSON.decode(template)
+    regexp = /^\{(.*)\}$/
+    obj.each do |element|
+      continue if element['label'].nil?
+      regexp.match(element['label']) { |result|
+        if result.length > 1
+          element['label'] = t(result[1])
+        end
+      }
+    end
+    ActiveSupport::JSON.encode(obj)
   end
 
 
