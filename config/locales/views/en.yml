@@ -18,7 +18,7 @@ en:
       layer_bing_1: Bing Maps Road
       layer_bing_2: Bing Maps Aerial with Labels
       layer_bing_3: Bing Maps Aerial
-      layer_customers: Customers
+      customers: Customers
     customer:
       flash_messages:
         created_successfully: Customer has been created successfully.

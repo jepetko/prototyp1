@@ -27,21 +27,6 @@ module ApplicationHelper
     end
   end
 
-  def localize_json_template(template)
-    obj = ActiveSupport::JSON.decode(template)
-    regexp = /^\{(.*)\}$/
-    obj.each do |element|
-      continue if element['label'].nil?
-      regexp.match(element['label']) { |result|
-        if result.length > 1
-          element['label'] = t(result[1])
-        end
-      }
-    end
-    ActiveSupport::JSON.encode(obj)
-  end
-
-
   #deprecated
   def get_current_route
     url_for(:only_path => false, :overwrite_params=>nil).gsub(/http[s]?\:\/\/[\w]+[\:]?[\d]+/,'')

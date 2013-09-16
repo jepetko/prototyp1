@@ -41,8 +41,8 @@ layerApp.directive('addBootstrapCheckboxSwitches', function($timeout,sharedServi
 
 angular.module('httpServices', ['ngResource']).
     factory('Layer', function($resource){
-        return $resource('/assets/:layerId.json', {}, {
-            query: {method:'GET', params:{layerId:'ol_layers'}, isArray:true}
+        return $resource('/layers', {}, {
+            query: {method:'GET', params:{}, isArray:true}
         });
     });
 

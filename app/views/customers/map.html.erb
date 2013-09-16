@@ -1,17 +1,17 @@
 <div id="map-tools">
   <div id="tools-app">
-    <div ng-controller="ToolsCtrl">
-      <button ng-repeat="tool in tools | filter:standalone" type="button" class="btn btn-primary" ng-click="toolClicked()">
+    <div data-ng-controller="ToolsCtrl">
+      <button data-ng-repeat="tool in tools | filter:standalone" type="button" class="btn btn-primary" data-ng-click="toolClicked()">
         <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
       </button>
       <div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox">
-          <button ng-repeat="tool in tools | filter:group" type="button" class="btn btn-primary {{tool.active}}" ng-click="toolPicked()">
+          <button data-ng-repeat="tool in tools | filter:group" type="button" class="btn btn-primary {{tool.active}}" data-ng-click="toolPicked()">
             <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
           </button>
       </div>
     </div>
   </div>
-  <div id="layers-app" class="accordion" ng-controller="LayerListCtrl" ng-init="init()">
+  <div id="layers-app" class="accordion" data-ng-controller="LayerListCtrl" data-ng-init="init()">
     <div class="accordion-group">
       <div class="accordion-heading">
         <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#base-layers">
@@ -20,7 +20,7 @@
       </div>
       <div id="base-layers" class="accordion-body collapse in">
         <div class="accordion-inner">
-          <div ng-repeat="layer in layers | filter:filterBase">
+          <div data-ng-repeat="layer in layers | filter:filterBase">
             <div class="base-layer switch-mini" data-on="success" data-off="danger" add-bootstrap-radio-switches>
               <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.name}}">
             </div>{{layer.label}}<br>
@@ -36,7 +36,7 @@
       </div>
       <div id="wfs-layers" class="accordion-body collapse in">
         <div class="accordion-inner">
-          <div ng-repeat="layer in layers | filter:filterWFS">
+          <div data-ng-repeat="layer in layers | filter:filterWFS">
             <div class="wfs-layer switch-mini" data-on="success" data-off="danger" add-bootstrap-checkbox-switches>
               <input id="{{layer.id}}" type="checkbox" name="wfs-layer" value="{{layer.name}}">
             </div>{{layer.label}}<br>
@@ -46,5 +46,5 @@
     </div>
   </div>
 </div>
-<div id="map-app" ng-controller="OLMapCtrl" ng-init="init()">
+<div id="map-app" data-ng-controller="OLMapCtrl" data-ng-init="init()">
 </div>

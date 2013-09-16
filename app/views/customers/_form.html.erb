@@ -7,7 +7,7 @@
     <%= f.input :zip %>
     <%= f.input :city %>
     <%= f.input :country %>
-    <%= f.input :latlon, :as => :latlon, :value => @customer.latlon.to_s %>
+    <%= f.input :latlon, :as => :latlon, :value => @customer.latlon.to_s, :name => 'customer_latlon' %>
     <%= f.hidden_field :company_avatar %>
   </div>
 

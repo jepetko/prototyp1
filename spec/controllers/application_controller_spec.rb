@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ApplicationHelper do
+describe ApplicationController do
 
   before(:all) do
     @tpl = '['\
@@ -34,12 +34,14 @@ describe ApplicationHelper do
         '"use_proxy" : false }'\
     ']'
 
-    @localizations = [ t('views.map.layer_bing_1'), t('views.map.layer_bing_2'),
-                       t('views.map.layer_bing_3'), t('views.map.customers') ]
+    @localizations = [ I18n.t('views.map.layer_bing_1'), I18n.t('views.map.layer_bing_2'),
+                       I18n.t('views.map.layer_bing_3'), I18n.t('views.map.customers') ]
+
+    @controller = ApplicationController.new
   end
 
   it 'can deserialize the template and find matches' do
-    filled_tpl = localize_json_template @tpl
+    filled_tpl = @controller.localize_json_template @tpl
 
     result = ActiveSupport::JSON.decode(filled_tpl)
     loops = 0
