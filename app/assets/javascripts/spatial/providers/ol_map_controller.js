@@ -26,21 +26,28 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 info += name + ': ' + value + '<br>';
             }
 
-            var popup = new OpenLayers.Popup("popup",
+            var content =   '<div class="map-bubble-root">\
+                            <div><div class="popover fade right in map-bubble" style="display: block;">\
+                            <h3 class="popover-title">Popover on top</h3>\
+                            <div class="popover-content">\
+                            </div>';
+            content += info;
+            content += '</div></div>';
+
+            var clazz = OpenLayers.Class( OpenLayers.Popup.Anchored, {'autoSize': true});
+
+            var svgObj = $('#' + feature.geometry.id);
+            var dim = svgObj[0].getBoundingClientRect();
+
+            var popup = new clazz("popup",
                 OpenLayers.LonLat.fromString(feature.geometry.toShortString()),
-                null,
-                '<div class="popover fade right in map-bubble-right" style="display: block;">\
-                <h3 class="popover-title">Popover on top</h3>\
-                <div class="popover-content">Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</div>\
-                </div>',
-                false,
-                function(evt) {
-                    console.log(evt);
-                }
+                new OpenLayers.Size(400,400),
+                content,
+                { size : new OpenLayers.Size(0,0), offset : new OpenLayers.Pixel(5,5) },
+                false
             );
             feature.popup = popup;
             $scope.map.addPopup(popup);
-            $(popup.div).popover('show');
         },
         'featureunselected': function (evt) {
             var feature = evt.feature;
