@@ -33,7 +33,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
             $scope.map.setBaseLayer(olLayer);
             olLayer.setVisibility(true);
         },
-        wfs : function(layer) {
+        wfs : function(layer,toggled) {
 
             var name = layer.name;
             var url = layer['url'];
@@ -58,7 +58,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
             } else {
                 olLayer = olLayer[0];
             }
-            olLayer.setVisibility(true);
+            olLayer.setVisibility(toggled);
         }
     };
 
