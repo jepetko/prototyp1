@@ -23,7 +23,7 @@
         <div class="accordion-inner">
           <div data-ng-repeat="layer in layers | filter:filterBase">
             <div class="base-layer switch-mini" data-on="success" data-off="danger" data-add-bootstrap-radio-switches>
-              <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.name}}">
+              <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.name}}" checked="{{layer.checked}}">
             </div>{{layer.label}}<br>
           </div>
         </div>

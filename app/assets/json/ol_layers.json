@@ -5,6 +5,7 @@
         "clazz" : "Bing",
         "clazz-type": "Road",
         "label" : "{views.map.layer_bing_1}",
+        "checked" : "checked",
         "type" : "base"},
 
     {   "id" : "layer_2",
@@ -29,5 +30,6 @@
         "label" : "{views.map.customers}",
         "type" : "wfs",
         "url" : "/customers.geojson",
+        "checked" : "checked",
         "use_proxy" : false }
 ]

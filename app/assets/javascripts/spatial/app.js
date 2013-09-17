@@ -11,6 +11,7 @@ layerApp.directive('addBootstrapRadioSwitches', function($timeout)  {
             var countRendered = $('.has-switch').length;
             var baseLayers = $('.base-layer');
             var countBase = baseLayers.length;
+
             if( countRendered == countBase ) {
                 baseLayers.on('switch-change', function (e,data) {
                     var value = data.value;
@@ -21,7 +22,16 @@ layerApp.directive('addBootstrapRadioSwitches', function($timeout)  {
                     }
                     baseLayers.bootstrapSwitch('toggleRadioState');
                 });
+
+                //notification to update the activity state, its executed just once
+                $.each(scope.$parent.layers, function(idx, layer) {
+                    if( !scope.$parent.filterBase(layer)) return;
+                    if( layer.checked === 'checked' ) {
+                        scope.$parent.myBaseLayer = layer;
+                    }
+                });
             }
+
         }, 1000);
     }
 });
