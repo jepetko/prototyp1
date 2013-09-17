@@ -16,6 +16,40 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
 
     $scope.map = null;
 
+    $scope.wfsEventHandlers = {
+        'featureselected': function (evt) {
+            var feature = evt.feature;
+
+            var info = '';
+            for(var name in feature.attributes) {
+                var value = feature.attributes[name];
+                info += name + ': ' + value + '<br>';
+            }
+
+            var popup = new OpenLayers.Popup("popup",
+                OpenLayers.LonLat.fromString(feature.geometry.toShortString()),
+                null,
+                '<div class="popover fade right in map-bubble-right" style="display: block;">\
+                <h3 class="popover-title">Popover on top</h3>\
+                <div class="popover-content">Vivamus sagittis lacus vel augue laoreet rutrum faucibus.</div>\
+                </div>',
+                false,
+                function(evt) {
+                    console.log(evt);
+                }
+            );
+            feature.popup = popup;
+            $scope.map.addPopup(popup);
+            $(popup.div).popover('show');
+        },
+        'featureunselected': function (evt) {
+            var feature = evt.feature;
+            $scope.map.removePopup(feature.popup);
+            feature.popup.destroy();
+            feature.popup = null;
+        }
+    };
+
     $scope.layerAdder = {
         base : function(layer) {
             var name = layer.name;
@@ -52,9 +86,14 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                     protocol: new OpenLayers.Protocol.HTTP({
                         url: url,
                         format: new OpenLayers.Format.GeoJSON()
-                    })
+                    }),
+                    eventListeners : $scope.wfsEventHandlers
                 });
                 $scope.map.addLayer(olLayer);
+                var selectFeatureControl = new OpenLayers.Control.SelectFeature(olLayer,{
+                    autoActivate:true
+                });
+                $scope.map.addControl(selectFeatureControl);
             } else {
                 olLayer = olLayer[0];
             }

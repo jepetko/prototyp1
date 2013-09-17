@@ -1,0 +1,22 @@
+@import "common";
+
+.map-bubble-right {
+  @include vendor-prefix('border-top-left-radius', '0px');
+  margin-left: 0px !important;
+
+  .popover-title {
+    @include vendor-prefix('border-top-left-radius', '0px 5px 0px 0px');
+  }
+}
+
+.olPopup {
+  background-color: transparent !important;
+}
+
+.olPopup > div {
+  background-color: transparent;
+
+  .olPopupContent {
+    backgrond-color: transparent;
+  }
+}
