@@ -13,9 +13,9 @@ class CustomersController < ApplicationController
   def index
     keyword = params[:keyword]
     if keyword.nil?
-      @customers = Customer.all
+      @customers = Customer.includes(:company_avatar)
     else
-      @customers = Customer.where("name LIKE '%#{keyword}%'")
+      @customers = Customer.where("name LIKE '%#{keyword}%'").includes(:company_avatar)
     end
 
     respond_to do |format|
