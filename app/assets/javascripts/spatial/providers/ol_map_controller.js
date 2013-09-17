@@ -26,22 +26,35 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 info += name + ': ' + value + '<br>';
             }
 
+            var clazz = OpenLayers.Class( OpenLayers.Popup.Anchored, {'autoSize': true});
+            clazz.prototype.calculateRelativePosition = function(px) {
+                var lonlat = this.map.getLonLatFromLayerPx(px);
+
+                var extent = this.map.getExtent();
+                var quadrant = extent.determineQuadrant(lonlat);
+
+                var str = OpenLayers.Bounds.oppositeQuadrant(quadrant);
+
+                var popover = $(this.div).find('.popover');
+                popover.addClass('map-bubble-' + str);
+
+                return str;
+            };
+
             var content =   '<div class="map-bubble-root">\
-                            <div><div class="popover fade right in map-bubble" style="display: block;">\
+                            <div><div class="popover fade in" style="display: block;">\
                             <h3 class="popover-title">Popover on top</h3>\
                             <div class="popover-content">\
                             </div>';
             content += info;
             content += '</div></div>';
 
-            var clazz = OpenLayers.Class( OpenLayers.Popup.Anchored, {'autoSize': true});
-
             var svgObj = $('#' + feature.geometry.id);
             var dim = svgObj[0].getBoundingClientRect();
 
             var popup = new clazz("popup",
                 OpenLayers.LonLat.fromString(feature.geometry.toShortString()),
-                new OpenLayers.Size(400,400),
+                new OpenLayers.Size(400,400), //note: this will be affected by autoSize = true
                 content,
                 { size : new OpenLayers.Size(0,0), offset : new OpenLayers.Pixel(5,5) },
                 false

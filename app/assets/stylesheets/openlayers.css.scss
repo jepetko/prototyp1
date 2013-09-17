@@ -1,20 +1,38 @@
 @import "common";
 
-.right.map-bubble {
-  @include vendor-prefix('border-top-left-radius', '0px');
-  margin-left: 0px !important;
-
-  .popover-title {
-    @include vendor-prefix('border-top-left-radius', '0px 5px 0px 0px');
-  }
-}
-
-.left.map-bubble {
+.map-bubble-bl {
   @include vendor-prefix('border-top-right-radius', '0px');
   margin-right: 0px !important;
 
   .popover-title {
-    @include vendor-prefix('border-top-right-radius', '0px 0px 0px 5px');
+    @include vendor-prefix('border-radius', '0px 0px 0px 5px');
+  }
+}
+
+.map-bubble-br {
+  @include vendor-prefix('border-top-left-radius', '0px');
+  margin-left: 0px !important;
+
+  .popover-title {
+    @include vendor-prefix('border-radius', '0px 5px 0px 0px');
+  }
+}
+
+.map-bubble-tl {
+  @include vendor-prefix('border-bottom-right-radius', '0px');
+  margin-right: 0px !important;
+
+  .popover-title {
+    @include vendor-prefix('border-radius', '0px 0px 0px 5px');
+  }
+}
+
+.map-bubble-tr {
+  @include vendor-prefix('border-bottom-left-radius', '0px');
+  margin-left: 0px !important;
+
+  .popover-title {
+    @include vendor-prefix('border-radius', '0px 5px 0px 0px');
   }
 }
 
