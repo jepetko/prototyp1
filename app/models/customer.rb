@@ -13,8 +13,6 @@ class Customer < ActiveRecord::Base
   validates :latlon, :presence => true
 
   has_one :company_avatar, :dependent => :destroy, :autosave => true
-  accepts_nested_attributes_for :company_avatar
-
   has_many :contacts, :dependent => :destroy, :autosave => true
 
 end
