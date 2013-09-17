@@ -7,6 +7,7 @@ class CustomersController < ApplicationController
   before_filter :remember_avatar, :only => [:create, :update]
   after_filter :consume_avatar, :only => [:create]
 
+
   # GET /customers
   # GET /customers.json
   def index
@@ -120,9 +121,11 @@ class CustomersController < ApplicationController
 
     @company_avatar = CompanyAvatar.find_by_id( company_avatar_id.to_i )
     if not @company_avatar.nil?
+      params[:customer][:company_avatar] = @company_avatar
       remember_temp_upload company_avatar_id.to_i     ## remember; maybe some validations will fail
+    else
+      params[:customer][:company_avatar] = nil
     end
-    params[:customer][:company_avatar] = nil
   end
 
   def consume_avatar

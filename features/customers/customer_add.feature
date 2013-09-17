@@ -14,7 +14,7 @@ Feature: Create customer
     Examples:
       | name      | street      | zip           | city                | country         | latlon          |
       | ABC       | Funstreet   | 1010          | Vienna              | Austria         | POINT(1 1)      |
-      | DEF       | Crystreet   | 1020          | Vienna              | Austria         | POINT(2 2)      |
-      | GHI       | Laughplace  | 1030          | Vienna              | Austria         | POINT(3 3)      |
+      #| DEF       | Crystreet   | 1020          | Vienna              | Austria         | POINT(2 2)      |
+      #| GHI       | Laughplace  | 1030          | Vienna              | Austria         | POINT(3 3)      |
 
 
