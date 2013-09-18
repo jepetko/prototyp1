@@ -16,6 +16,22 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
 
     $scope.map = null;
 
+    $scope.DRAW_EXTENT_LAYER_NAME = 'drawExtent';
+
+    $scope.drawExtentHandlers = {
+        'deactivate' : function() {
+            this.layer.destroyFeatures();
+        }
+    };
+
+    $scope.selectFeatureHandlers = {
+        'deactivate' : function() {
+            while( $scope.map.popups.length > 0 ) {
+                $scope.map.removePopup($scope.map.popups[0]);
+            }
+        }
+    };
+
     $scope.wfsEventHandlers = {
         'featureselected': function (evt) {
             var feature = evt.feature;
@@ -37,7 +53,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
 
                 var str = OpenLayers.Bounds.oppositeQuadrant(quadrant);
 
-                //custome code
+                //custom code
                 var popover = $(this.div).find('.popover');
                 popover.addClass('map-bubble-' + str);
 
@@ -109,10 +125,6 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                     eventListeners : $scope.wfsEventHandlers
                 });
                 $scope.map.addLayer(olLayer);
-                var selectFeatureControl = new OpenLayers.Control.SelectFeature(olLayer,{
-                    autoActivate:true
-                });
-                $scope.map.addControl(selectFeatureControl);
             } else {
                 olLayer = olLayer[0];
             }
@@ -120,14 +132,71 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         }
     };
 
-    $scope.layerFactory = function() {
-        var id = arguments[0], params = Array.prototype.slice.call(arguments,1);
+    $scope.toolAdder = {
+        'selectFeature' : function() {
+            var olLayers = $scope.map.getLayersBy('CLASS_NAME', 'OpenLayers.Layer.Vector');
 
-        var f = this.layerFactoryCfg[id];
-        if( typeof f == 'function') {
-            return f.apply(this,params);
+            console.log('layers selected for selectFeatre:');
+            console.log(olLayers);
+
+            $.each(olLayers, function($idx,olLayer) {
+
+                if( $scope.isDrawLayer(olLayer)) return;
+
+                var controls = $scope.getToolsBy('layer', olLayer);
+
+                console.log('controls: ');
+                console.log( controls );
+
+                if( controls.length == 0 ) {
+                    var control = new OpenLayers.Control.SelectFeature(olLayer,{
+                        autoActivate: true,
+                        eventListeners : $scope.selectFeatureHandlers
+                    });
+                    $scope.map.addControl(control);
+                } else {
+                    $.each(controls, function(idx,control) {
+                        control.activate();
+                    });
+                }
+            });
+        },
+        'drawExtent' : function() {
+            var name = $scope.DRAW_EXTENT_LAYER_NAME;
+            var olLayer = $scope.map.getLayersByName(name);
+
+            console.log('layers selected for drawExtent');
+            console.log(olLayer);
+
+            if( olLayer.length == 0 ) {
+                olLayer = new OpenLayers.Layer.Vector(name);
+                olLayer.preFeatureInsert = function() {
+                    this.destroyFeatures();
+                };
+                $scope.map.addLayer(olLayer);
+            } else {
+                olLayer = olLayer[0];
+            }
+
+            var controls = $scope.getToolsBy('layer', olLayer);
+
+            console.log('controls: ');
+            console.log( controls );
+
+            if( controls.length == 0) {
+                var control = new OpenLayers.Control.DrawFeature(olLayer,
+                    OpenLayers.Handler.RegularPolygon,
+                    { handlerOptions: {sides:4, irregular: true},
+                      autoActivate: true,
+                      eventListeners : $scope.drawExtentHandlers
+                    });
+                $scope.map.addControl(control);
+            } else {
+                $.each(controls, function(idx,control) {
+                    control.activate();
+                });
+            }
         }
-        return f;
     };
 
     $scope.init = function() {
@@ -135,11 +204,51 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     };
 
     $scope.addLayer = function(type,layer) {
-        $scope.layerAdder[type].call(this,layer);
+        var adder = $scope.layerAdder[type];
+        if(!adder) return;
+        adder.call(this,layer);
     };
 
     $scope.toggleLayer = function(type,layer,toggled) {
-        $scope.layerAdder[type].call(this,layer,toggled);
+        var adder = $scope.layerAdder[type];
+        if(!adder) return;
+        adder.call(this,layer,toggled);
+    };
+
+    $scope.changeTool = function(tool) {
+        $scope.deactivateTools();
+        if( tool ) {
+            var adder = $scope.toolAdder[tool.type];
+            if(!adder) return;
+            adder.call(this,tool);
+        }
+    };
+
+    $scope.deactivateTools = function() {
+        var arr = ['SelectFeature', 'DrawFeature'];
+        var controls = $scope.map.controls;
+        $.each(controls, function(idx,control) {
+            var pos = control.CLASS_NAME.lastIndexOf('.');
+            var subClazzName = control.CLASS_NAME.substr(pos+1);
+            if($.inArray(subClazzName, arr) != -1 ) {
+                control.deactivate();
+            }
+        });
+    };
+
+    $scope.getToolsBy = function(propertyName, value) {
+        var controls = $scope.map.controls;
+        var result = [];
+        $.each(controls, function(idx,control) {
+            if( control[propertyName] === value) {
+                result.push(control);
+            }
+        });
+        return result;
+    };
+
+    $scope.isDrawLayer = function(olLayer) {
+        return $.inArray( olLayer.name, [$scope.DRAW_EXTENT_LAYER_NAME] ) != -1;
     };
 
     $scope.flyToOwnLoc = function() {
@@ -173,11 +282,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 }
                 break;
             case 'tool-changed':
-                if( obj.id == 'pick' ) {
-                } else
-                if( obj.id == 'zoom') {
-
-                }
+                $scope.changeTool(obj);
                 break;
         }
     });

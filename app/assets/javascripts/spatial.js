@@ -13,7 +13,7 @@
 //= require angularjs/angular
 //= require angularjs/angular-resource
 //= require bootstrap-switch/bootstrap-switch.min
-//= require OpenLayers-2.13.1/lib/OpenLayers
+//= require OpenLayers-2.13.1/OpenLayers
 //= require spatial/app
 //= require spatial/layers_controller
 //= require spatial/tools_controller
