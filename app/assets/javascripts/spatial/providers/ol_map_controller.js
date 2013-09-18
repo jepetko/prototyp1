@@ -26,6 +26,8 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 info += name + ': ' + value + '<br>';
             }
 
+            // create own class which is autoSized per default and
+            // defines a specific css class
             var clazz = OpenLayers.Class( OpenLayers.Popup.Anchored, {'autoSize': true});
             clazz.prototype.calculateRelativePosition = function(px) {
                 var lonlat = this.map.getLonLatFromLayerPx(px);
@@ -35,6 +37,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
 
                 var str = OpenLayers.Bounds.oppositeQuadrant(quadrant);
 
+                //custome code
                 var popover = $(this.div).find('.popover');
                 popover.addClass('map-bubble-' + str);
 
@@ -42,21 +45,17 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
             };
 
             var content =   '<div class="map-bubble-root">\
-                            <div><div class="popover fade in" style="display: block;">\
-                            <h3 class="popover-title">Popover on top</h3>\
-                            <div class="popover-content">\
-                            </div>';
+                            <div class="popover fade in" style="display: block;">\
+                            <h3 class="popover-title">Info</h3>\
+                            <div class="popover-content">';
             content += info;
-            content += '</div></div>';
-
-            var svgObj = $('#' + feature.geometry.id);
-            var dim = svgObj[0].getBoundingClientRect();
+            content += '</div></div></div>';
 
             var popup = new clazz("popup",
                 OpenLayers.LonLat.fromString(feature.geometry.toShortString()),
-                new OpenLayers.Size(400,400), //note: this will be affected by autoSize = true
+                new OpenLayers.Size(400,200), //note: this will be affected by autoSize = true
                 content,
-                { size : new OpenLayers.Size(0,0), offset : new OpenLayers.Pixel(5,5) },
+                { size : new OpenLayers.Size(0,0), offset : new OpenLayers.Pixel(0,0) },
                 false
             );
             feature.popup = popup;

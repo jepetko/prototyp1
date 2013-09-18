@@ -19,7 +19,7 @@ module CustomersHelper
       str << "\"id\": #{customer.id},"
       str << "\"geometry\": #{RGeo::GeoJSON.encode(customer.latlon).to_json},"
       str << '"geometry_name" : "SHAPE",'
-      str << "\"properties\" : #{customer.to_json(:except => [:id, :latlon])}"
+      str << "\"properties\" : #{customer.to_json(:except => [:id, :latlon, :updated_at, :created_at])}"
       str << '}'
     end
     '{"type":"FeatureCollection","features":[' + str + ']}'

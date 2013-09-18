@@ -1,38 +1,43 @@
 @import "common";
 
-.map-bubble-bl {
-  @include vendor-prefix('border-top-right-radius', '0px');
-  margin-right: 0px !important;
 
-  .popover-title {
-    @include vendor-prefix('border-radius', '0px 0px 0px 5px');
+$positions: 'bl', 'br', 'tl', 'tr';
+@for $i from 1 through 4 {
+  $val: nth($positions, $i);
+  $margin: '';
+  $position: '';
+  $popover_border_radius: '';
+  @if $val == 'bl' {
+    $position: 'top';
+    $margin: 'right';
+    $popover_border_radius: '0px 0px 0px 5px';
+  } @else if $val == 'br' {
+    $position: 'top';
+    $margin: 'left';
+    $popover_border_radius: '0px 5px 0px 0px';
+  } @else if $val == 'tl' {
+    $position: 'bottom';
+    $margin: 'right';
+    $popover_border_radius: '0px 0px 0px 5px';
+  } @else if $val == 'tr' {
+    $position: 'bottom';
+    $margin: 'left';
+    $popover_border_radius: '0px 5px 0px 0px';
   }
-}
+  $zero_radius: 'border-#{$position}-#{$margin}-radius';
 
-.map-bubble-br {
-  @include vendor-prefix('border-top-left-radius', '0px');
-  margin-left: 0px !important;
-
-  .popover-title {
-    @include vendor-prefix('border-radius', '0px 5px 0px 0px');
-  }
-}
-
-.map-bubble-tl {
-  @include vendor-prefix('border-bottom-right-radius', '0px');
-  margin-right: 0px !important;
-
-  .popover-title {
-    @include vendor-prefix('border-radius', '0px 0px 0px 5px');
-  }
-}
-
-.map-bubble-tr {
-  @include vendor-prefix('border-bottom-left-radius', '0px');
-  margin-left: 0px !important;
-
-  .popover-title {
-    @include vendor-prefix('border-radius', '0px 5px 0px 0px');
+  .map-bubble-#{$val} {
+    @include vendor-prefix(#{$zero_radius}, '0px');
+    margin-#{$margin}: 0px !important;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    .popover-title {
+      @include vendor-prefix('border-radius', #{$popover_border_radius});
+    }
   }
 }
 
@@ -51,6 +56,8 @@
 .map-bubble-root {
   position: relative;
   width: 100%;
-  min-width: 200px;
+  min-width: 240px;
+  max-width: 276px; /* must have this value because twitter bootstrap defines max-width for the embedded popover*/
+  min-height: 200px;
   height: 100%;
 }
