@@ -16,6 +16,7 @@
 //= require OpenLayers-2.13.1/OpenLayers
 //= require spatial/app
 //= require spatial/layers_controller
+//= require spatial/expanders_controller
 //= require spatial/tools_controller
 //= require spatial/providers/ol_map_controller
 //= require shared/services
@@ -23,3 +24,4 @@
 angular.bootstrap($('#layers-app'), ['layerApp', 'globalBroadcastServices', 'httpServices']);
 angular.bootstrap($('#map-app'),    ['mapApp',   'globalBroadcastServices']);
 angular.bootstrap($('#tools-app'),  ['toolsApp', 'globalBroadcastServices', 'httpServices']);
+angular.bootstrap($('#expanders-app'), ['expandersApp', 'globalBroadcastServices'])

@@ -4,11 +4,11 @@
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 1000;
+  z-index: 998;
   background-color: #fff;
   opacity: .95;
   padding: 10px;
-  @include vendor-prefix(border-bottom-right-radius,5px);
+  @include vendor-prefix(border-bottom-left-radius,5px);
 
   #tools-app {
     float: left;
@@ -20,6 +20,17 @@
     float: left;
     width: 80%;
   }
+}
+
+#expanders-app {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 999;
+}
+
+#expanders-app span {
+  display: block;
 }
 
 div.olMap {

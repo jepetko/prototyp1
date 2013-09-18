@@ -1,6 +1,11 @@
 <% if local_assigns.has_key? :options %>
     <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" value="<%=options[:value]%>" style="display:none;">
 <% end %>
+<div id="expanders-app" data-ng-controller="ExpandersCtrl">
+  <button type="button" class="btn {{state}}" data-ng-click="btnClicked()">
+    <span class="icon-list"></span>
+  </button>
+</div>
 <div id="map-tools">
   <div id="tools-app">
     <div data-ng-controller="ToolsCtrl">

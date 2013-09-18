@@ -63,3 +63,4 @@ httpServices.factory('Tool', function($resource) {
 var mapApp = angular.module('mapApp',[]);
 
 var toolsApp = angular.module('toolsApp', []);
+var expandersApp = angular.module('expandersApp', []);
