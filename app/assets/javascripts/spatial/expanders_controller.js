@@ -8,6 +8,6 @@ expandersApp.controller('ExpandersCtrl', ['$scope', 'sharedService', function($s
         } else {
             $scope.state = 'collapsed';
         }
-        sharedService.setMessage('collapse-status-changed', $scope.state);
+        $('#map-tools').addClass('expanded');
     };
 }]);

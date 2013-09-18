@@ -22,6 +22,15 @@
   }
 }
 
+.expanded {
+  @include vendor-prefix(animation, 'hehe 5s');
+}
+
+@include keyframes('hehe') {
+  from {background: white;}
+  to {background: black;}
+}
+
 #expanders-app {
   position: absolute;
   top: 0;
