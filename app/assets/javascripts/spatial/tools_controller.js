@@ -1,10 +1,7 @@
 'use strict';
 
-toolsApp.controller('ToolsCtrl', ['$scope', '$element', '$attrs', 'sharedService', function($scope, $element, $attrs, sharedService) {
-    $scope.tools = [ { id : 'zoom', label : 'Zoom', icon : 'icon-zoom-in'},
-        { id : 'pick', label : 'Pick', icon : 'icon-map-marker', group : 1, type : 'selectFeature'},
-        { id : 'extent', label : 'Draw Extent', icon : 'icon-retweet', group : 1, type : 'drawExtent'} ];
-
+toolsApp.controller('ToolsCtrl', ['$scope', 'Tool', 'sharedService', function($scope, Tool, sharedService) {
+    $scope.tools = Tool.query();
     $scope.lastActiveTool = null;
 
     $scope.group = function(tool) {
@@ -17,6 +14,7 @@ toolsApp.controller('ToolsCtrl', ['$scope', '$element', '$attrs', 'sharedService
 
     $scope.toolPicked = function() {
         var self = this;
+        //note: noToolActive takes care about the situation that a tool is deactivated and from now on no tool is active
         var noToolActive = true;
         $scope.tools.forEach( function(tool) {
             tool.active = (self.tool == tool && tool !== $scope.lastActiveTool);

@@ -3,7 +3,14 @@ Prototyp1::Application.routes.draw do
   match '/customers/map' => 'customers#map', :via => :get, :as => 'show_all_customers_in_map'
 
   resources :customers
-  resources :layers, :only => [:index]
+
+  #resources :layers, :only => [:index]
+
+  scope module: 'maps' do
+    resources :layers, :only => [:index]
+    resources :tools, :only => [:index]
+  end
+
   resources :company_avatars, :only => [:create,:show,:destroy]  #show, destroy
 
   resources :customers do

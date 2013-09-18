@@ -5,6 +5,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         }
     };
 
+    /* projection is webmercator */
     $scope.projection = {
         projection: new OpenLayers.Projection("EPSG:102113"),
         units: "m",

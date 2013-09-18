@@ -19,6 +19,10 @@ en:
       layer_bing_2: Bing Maps Aerial with Labels
       layer_bing_3: Bing Maps Aerial
       customers: Customers
+      tools:
+        zoom_to_own_location: Zoom to the own location
+        pick: Pick an object from the map
+        draw_extent: Draw Extent and select features
     customer:
       flash_messages:
         created_successfully: Customer has been created successfully.

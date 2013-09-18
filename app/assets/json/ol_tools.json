@@ -1,0 +1,21 @@
+[
+    {
+        "id": "zoom",
+        "label": "{views.map.tools.zoom_to_own_location}",
+        "icon": "icon-zoom-in"
+    },
+    {
+        "id": "pick",
+        "label": "{views.map.tools.pick}",
+        "icon": "icon-map-marker",
+        "group": 1,
+        "type": "selectFeature"
+    },
+    {
+        "id": "extent",
+        "label": "{views.map.tools.draw_extent}",
+        "icon": "icon-retweet",
+        "group": 1,
+        "type": "drawExtent"
+    }
+]
