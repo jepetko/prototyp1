@@ -19,16 +19,24 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     $scope.DRAW_EXTENT_LAYER_NAME = 'drawExtent';
 
     $scope.drawExtentHandlers = {
+        /**
+         * remove all rectangles from the layer when the control is deactivated
+         */
         'deactivate' : function() {
             this.layer.destroyFeatures();
         }
     };
 
     $scope.selectFeatureHandlers = {
+        /**
+         * remove all bubbles (popups) from the map AND also unselect all features from the layer when
+         * the layer is deactivated
+         */
         'deactivate' : function() {
             while( $scope.map.popups.length > 0 ) {
                 $scope.map.removePopup($scope.map.popups[0]);
             }
+            this.unselectAll();
         }
     };
 
