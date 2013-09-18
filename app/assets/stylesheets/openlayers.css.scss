@@ -1,5 +1,34 @@
 @import "common";
 
+#map-tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #fff;
+  opacity: .95;
+  padding: 10px;
+  @include vendor-prefix(border-bottom-right-radius,5px);
+
+  #tools-app {
+    float: left;
+    min-width: 60px;
+    width: 60px;
+  }
+
+  #layers-app {
+    float: left;
+    width: 80%;
+  }
+}
+
+div.olMap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
 
 $positions: 'bl', 'br', 'tl', 'tr';
 @for $i from 1 through 4 {
