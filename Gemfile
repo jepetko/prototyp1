@@ -76,9 +76,11 @@ gem "jquery-fileupload-rails", "0.4.1"
 
 # for paginate
 gem "will_paginate-bootstrap"
-
-gem 'rgeo'
-gem 'activerecord-postgis-adapter'
 gem "rack-reverse-proxy", :require => "rack/reverse_proxy"
 gem 'htmlentities'
+
+# for spatial dimension
+gem 'rgeo'
+gem 'activerecord-postgis-adapter'
 gem 'rgeo-geojson'
+gem 'geocoder'

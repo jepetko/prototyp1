@@ -11,6 +11,8 @@ Prototyp1::Application.routes.draw do
     resources :tools, :only => [:index]
   end
 
+  match '/locations/find' => 'locations#find', :via => :get
+
   resources :company_avatars, :only => [:create,:show,:destroy]  #show, destroy
 
   resources :customers do
