@@ -9,6 +9,7 @@
   opacity: .95;
   padding: 10px;
   @include vendor-prefix(border-bottom-left-radius,5px);
+  @include vendor-prefix(animation-fill-mode, 'forwards');
 
   #tools-app {
     float: left;
@@ -23,12 +24,16 @@
 }
 
 .expanded {
-  @include vendor-prefix(animation, 'hehe 5s');
+  @include vendor-prefix(animation, 'hehe 2s');
 }
 
 @include keyframes('hehe') {
-  from {background: white;}
-  to {background: black;}
+  from {
+    background: white;
+  }
+  to {
+    background: black;
+  }
 }
 
 #expanders-app {
