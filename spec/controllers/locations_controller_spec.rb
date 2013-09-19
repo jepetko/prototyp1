@@ -5,7 +5,7 @@ describe LocationsController do
   render_views
 
   before(:all) do
-    @inputs = [ {street: 'Siebenbrunnengasse', no: 44, city: 'Wien', zip: 1050, country: 'Austria'} ]
+    @inputs = [ {street: 'Siebenbrunnengasse 44', city: 'Wien', zip: 1050, country: 'Austria'} ]
     @geocode_to_submit_strings = ['Siebenbrunnengasse 44, 1050 Wien, Austria']
   end
 

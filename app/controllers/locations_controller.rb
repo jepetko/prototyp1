@@ -22,7 +22,7 @@ class LocationsController < ApplicationController
   def build_address_str(params)
     return '' if params.nil?
     str = ''
-    [[:street, :no],[:zip, :city]].each do |component|
+    [[:street],[:zip, :city]].each do |component|
       component.each do |sub_component|
         if params[sub_component]
           str << params[sub_component].to_s
