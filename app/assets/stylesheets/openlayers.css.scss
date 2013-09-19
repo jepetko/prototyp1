@@ -11,6 +11,7 @@
     background-color: #fff;
     opacity: .95;
     padding: 10px;
+    outline: 1px solid transparent;
 
     @include vendor-prefix(border-bottom-left-radius,5px);
     @include vendor-prefix(animation-fill-mode, 'forwards');
@@ -37,10 +38,12 @@
 
 @include keyframes('expand-anim') {
   from {
-    @include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');
+    /*@include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');*/
+    @include vendor-prefix(transform, 'rotateY(0deg)');
   }
   to {
-    @include vendor-prefix(transform, "rotate3d(0,1,0,-180deg)");
+    /*@include vendor-prefix(transform, "rotate3d(0,1,0,-180deg)");*/
+    @include vendor-prefix(transform, "rotateY(-180deg)");
   }
 }
 
@@ -50,10 +53,12 @@
 
 @include keyframes('collapse-anim') {
   from {
-    @include vendor-prefix(transform, "rotate3d(0,1,0,-180deg)");
+    /*@include vendor-prefix(transform, "rotate3d(0,1,0,-180deg)");*/
+    @include vendor-prefix(transform, "rotateY(-180deg)");
   }
   to {
-    @include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');
+    /*@include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');*/
+    @include vendor-prefix(transform, 'rotateY(0deg)');
   }
 }
 
