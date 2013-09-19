@@ -24,10 +24,10 @@
 }
 
 .expanded {
-  @include vendor-prefix(animation, 'hehe 2s');
+  @include vendor-prefix(animation, 'expand-anim 2s');
 }
 
-@include keyframes('hehe') {
+@include keyframes('expand-anim') {
   from {
     background: white;
   }
@@ -35,6 +35,20 @@
     background: black;
   }
 }
+
+.collapsed {
+  @include vendor-prefix(animation, 'collapse-anim 2s');
+}
+
+@include keyframes('collapse-anim') {
+  from {
+    background: black;
+  }
+  to {
+    background: white;
+  }
+}
+
 
 #expanders-app {
   position: absolute;
