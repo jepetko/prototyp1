@@ -11,8 +11,6 @@ Prototyp1::Application.routes.draw do
     resources :tools, :only => [:index]
   end
 
-  match '/locations/find' => 'locations#find', :via => :get
-
   resources :company_avatars, :only => [:create,:show,:destroy]  #show, destroy
 
   resources :customers do
@@ -23,6 +21,7 @@ Prototyp1::Application.routes.draw do
   match '/customers/:customer_id/edit/contacts' => 'contacts#edit_all', :via => :get, :as => 'edit_all_customer_contacts'
 
   match '/customers/:customer_id/contacts/:id/form' => 'contacts#form', :via => :get, :as => 'form_customer_contact'
+  match '/locations/find' => 'locations#find', :via => :get
 
   authenticated :user do
     root :to => 'home#index'
