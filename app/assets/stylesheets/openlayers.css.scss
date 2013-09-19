@@ -14,6 +14,7 @@
 
     @include vendor-prefix(border-bottom-left-radius,5px);
     @include vendor-prefix(animation-fill-mode, 'forwards');
+    @include vendor-prefix(transform-origin,'right');
 
     #map-tools-inner {
       #tools-app {
@@ -30,7 +31,7 @@
   }
 }
 
-.expanded {
+.map-tools-expanded {
   @include vendor-prefix(animation, 'expand-anim 2s');
 }
 
@@ -39,23 +40,22 @@
     @include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');
   }
   to {
-    @include vendor-prefix(transform, 'rotate3d(0,1,0,-180deg)');
+    @include vendor-prefix(transform, "rotate3d(0,1,0,-180deg)");
   }
 }
 
-.collapsed {
+.map-tools-collapsed {
   @include vendor-prefix(animation, 'collapse-anim 2s');
 }
 
 @include keyframes('collapse-anim') {
   from {
-    @include vendor-prefix(transform, 'rotate3d(0,1,0,-180deg)');
+    @include vendor-prefix(transform, "rotate3d(0,1,0,-180deg)");
   }
   to {
     @include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');
   }
 }
-
 
 #expanders-app {
   position: absolute;

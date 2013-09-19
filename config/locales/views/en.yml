@@ -15,6 +15,8 @@ en:
         admin: Administrator area
         sign_up: Sign up
     map:
+      vector_layers: vector layers
+      base_layers: base layers
       layer_bing_1: Bing Maps Road
       layer_bing_2: Bing Maps Aerial with Labels
       layer_bing_3: Bing Maps Aerial
