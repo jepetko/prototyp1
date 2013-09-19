@@ -23,6 +23,10 @@
   }
 }
 
+div #map-tools:parent {
+  perspective: 400px;
+}
+
 .expanded {
   @include vendor-prefix(animation, 'expand-anim 2s');
 }
@@ -30,9 +34,12 @@
 @include keyframes('expand-anim') {
   from {
     background: white;
+    @include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');
+
   }
   to {
     background: black;
+    @include vendor-prefix(transform, 'rotate3d(0,1,0,-180deg)');
   }
 }
 
