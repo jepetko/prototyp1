@@ -38,6 +38,7 @@ describe Maps::LayersController do
     it 'returns filtered number of layers when passing type=base' do
       get :index, :type => 'base'
       arr = parse_response_body response
+      arr.length.should be(3)
       arr.each do |layer|
         layer['type'].should eq('base')
       end

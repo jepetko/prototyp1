@@ -21,6 +21,10 @@ module Maps::Actions
 
   module Maps::Features
 
+    def get_relevant_params
+      params.select {|key,val| (key != 'controller' && key != 'action' && key != 'format')}
+    end
+
     def filter_template
       @tpl = File.read self.get_index_tpl_path
       apply_filters
@@ -33,10 +37,27 @@ module Maps::Actions
       @tpl = ActiveSupport::JSON.encode(filtered_arr)
     end
 
-    ## this method is overridden by layers_controller and tools_controller to specify the particular
-    ## filtering method
+
+    ## this defines the filter blocks but this method could be overridden by some implementing classes (e.g. LayersController)
     def get_filter_features_block
-      raise Error, "method get_filter_features_block not implemented by a subclass. Please check the implementation of #{self.class}"
+      relevant_params = get_relevant_params
+      return nil if relevant_params.size == 0
+
+      keys = relevant_params.keys
+      return Proc.new do |element|
+        if keys.include?('type') && relevant_params['type'] == 'all'
+          true
+        elsif keys.include?('type') && relevant_params['type'] == 'none'
+          false
+        else
+          str_to_eval = ''
+          relevant_params.each do |key,val|
+            str_to_eval << ' && ' if str_to_eval.length > 0
+            str_to_eval << "element['#{key}'] == '#{val}'"
+          end
+          eval str_to_eval
+        end
+      end
     end
   end
 end

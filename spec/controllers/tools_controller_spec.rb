@@ -27,6 +27,7 @@ describe Maps::ToolsController do
       b.should end_with(']')
       obj = ActiveSupport::JSON.decode(b)
       obj.should be_a(Array)
+      obj.length.should be(3)
       first = obj[0]
       first.should be_a(Hash)
       @keys_should.each do |key|
@@ -36,6 +37,10 @@ describe Maps::ToolsController do
 
     it 'returns filtered tools with id=zoom' do
       get :index, :id => 'zoom'
+      obj = parse_response_body response
+      obj.should be_a(Array)
+      obj.length.should be(1)
+      obj[0]['id'].should eq('zoom')
     end
   end
 
