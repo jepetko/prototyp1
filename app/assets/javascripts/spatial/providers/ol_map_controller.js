@@ -19,7 +19,16 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
 
     $scope.DRAW_EXTENT_LAYER_NAME = 'drawExtent';
 
+    /**
+     *
+     * @type {OpenLayers.LatLng}
+     */
     $scope.currentLatLng = null;
+    /**
+     * POINT( 1.0 1.0 )
+     * @type {String}
+     */
+    $scope.currentLatLngAsString = null;
 
     $scope.drawExtentHandlers = {
         /**
@@ -251,9 +260,11 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     };
 
     $scope.toWebMercator = function(lonLat) {
+        if(!lonLat) return null;
+        var webMercatorLonLat = lonLat.clone();  //otherwise watcher will complain
         var from = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
         var to   = $scope.map.getProjection(); //... to the current map projection
-        return lonLat.transform( from, to);
+        return webMercatorLonLat.transform( from, to);
     };
 
     $scope.zoomTo = function(tgtPos) {
@@ -273,9 +284,10 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     };
 
     $scope.$watch('currentLatLng', function(newValue, oldValue) {
-        if(newValue === oldValue) return;
-        newValue = $scope.toWebMercator(newValue);
-        $scope.zoomTo(newValue);
+        var coords = $scope.toWebMercator(newValue);
+        if( coords ) {
+            $scope.zoomTo(coords);
+        }
     },true);
 
     $scope.$on('handleBroadcast', function(evt,msg,obj) {

@@ -1,6 +1,3 @@
-<% if local_assigns.has_key? :options %>
-    <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" value="<%=options[:value]%>" style="display:none;">
-<% end %>
 <div id="expanders-app" data-ng-controller="ExpandersCtrl">
   <button type="button" class="btn {{state}}" data-ng-click="btnClicked()">
     <span class="icon-list"></span>
@@ -8,6 +5,9 @@
 </div>
 
 <div id="map-app" data-ng-controller="OLMapCtrl" data-ng-init="init()">
+  <% if local_assigns.has_key? :options %>
+      <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" data-ng-model="currentLatLngAsString" value="<%=options[:value]%>" style="display:none;">
+  <% end %>
 </div>
 <div id="map-tools-perspective">
   <div id="map-tools">
