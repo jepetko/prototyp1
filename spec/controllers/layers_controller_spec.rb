@@ -14,19 +14,35 @@ describe Maps::LayersController do
     end
   end
 
-  it 'should return bunch of layers' do
-    request.env['HTTP_ACCEPT'] = 'application/json'
-    get :index
-    b = response.body
-    b.should start_with('[')
-    b.should end_with(']')
-    obj = ActiveSupport::JSON.decode(b)
-    obj.should be_a(Array)
-    first = obj[0]
-    first.should be_a(Hash)
-    @keys_should.each do |key|
-      first.should have_key(key.to_s)
+  describe 'returned json' do
+
+    before(:each) do
+      request.env['HTTP_ACCEPT'] = 'application/json'
     end
+
+    it 'returns array of layers' do
+      get :index
+      b = response.body
+      b.should start_with('[')
+      b.should end_with(']')
+      arr = ActiveSupport::JSON.decode(b)
+      arr.should be_a(Array)
+      first = arr[0]
+      first.should be_a(Hash)
+      @keys_should.each do |key|
+        first.should have_key(key.to_s)
+      end
+    end
+
+    it 'returns filtered number of layers when passing lvl=base' do
+      get :index, :type => 'base'
+      b = response.body
+      arr = ActiveSupport::JSON.decode(b)
+      arr.each do |layer|
+        layer['type'].should eq('base')
+      end
+    end
+
   end
 
 end

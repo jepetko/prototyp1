@@ -8,4 +8,12 @@ class Maps::LayersController < ApplicationController
     "#{Rails.root}/app/assets/json/ol_layers.json"
   end
 
+  def get_filter_features_block
+    return nil if !params.keys.include?('type')   #currently filters can handle types only
+    type = params[:type]
+    return Proc.new do |layer|
+      layer['type'] == type
+    end
+  end
+
 end
