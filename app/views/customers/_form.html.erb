@@ -1,4 +1,4 @@
-<%= simple_form_for(@customer) do |f| %>
+<%= simple_form_for(@customer, :html => {:class => 'customer-form'} ) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -15,4 +15,5 @@
   <div class="form-actions">
     <%= f.button :submit %>
   </div>
+  <%=javascript_tag 'ProtoSupport.addGeocodeSupport(".customer-form");'%>
 <% end %>

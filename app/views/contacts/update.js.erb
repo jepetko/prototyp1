@@ -3,7 +3,7 @@ $(function() {
     ProtoSupport.showValidationErrors('contact',<%= raw @contact.errors.to_json%>);
     <%else%>
     ProtoSupport.showValidationErrors('contact',null);
-    ProtoSupport.clearForm('contact-form');
+    ProtoSupport.clearForm('.contact-form');
 
     $('.contact-form-wrapper').prepend(html);
     var html = '<%= escape_javascript render :partial => "contacts/pageable_contacts", :locals => { :contacts => @contacts, :editable => true }%>';

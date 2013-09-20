@@ -19,6 +19,8 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
 
     $scope.DRAW_EXTENT_LAYER_NAME = 'drawExtent';
 
+    $scope.currentLatLng = null;
+
     $scope.drawExtentHandlers = {
         /**
          * remove all rectangles from the layer when the control is deactivated
@@ -248,21 +250,33 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         return $.inArray( olLayer.name, [$scope.DRAW_EXTENT_LAYER_NAME] ) != -1;
     };
 
+    $scope.toWebMercator = function(lonLat) {
+        var from = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
+        var to   = $scope.map.getProjection(); //... to the current map projection
+        return lonLat.transform( from, to);
+    };
+
+    $scope.zoomTo = function(tgtPos) {
+        var acc = 5;
+        var lvl = $scope.map.numZoomLevels/acc*(acc-1);
+        $scope.map.setCenter(tgtPos, lvl);
+    };
+
     $scope.flyToOwnLoc = function() {
         function fly(geopos) {
             var coords = geopos.coords;
             var lonLat = new OpenLayers.LonLat(coords.longitude,coords.latitude);
-
-            var fromProjection = new OpenLayers.Projection("EPSG:4326");   // Transform from WGS 1984
-            var toProjection   = $scope.map.getProjection();
-            var tgtPos       = lonLat.transform( fromProjection, toProjection);
-
-            var acc = 5;
-            var lvl = $scope.map.numZoomLevels/acc*(acc-1);
-            $scope.map.setCenter(tgtPos, lvl);
+            var tgtPos = $scope.toWebMercator(lonLat);
+            $scope.zoomTo(tgtPos);
         }
         navigator.geolocation.getCurrentPosition(fly);
     };
+
+    $scope.$watch('currentLatLng', function(newValue, oldValue) {
+        if(newValue === oldValue) return;
+        newValue = $scope.toWebMercator(newValue);
+        $scope.zoomTo(newValue);
+    },true);
 
     $scope.$on('handleBroadcast', function(evt,msg,obj) {
         switch(msg) {

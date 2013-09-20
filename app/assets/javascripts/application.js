@@ -112,15 +112,47 @@ var ProtoSupport = (function() {
                     $(val).attr('error-message','').removeClass('label-visible');
                 })
             }
-
         },
         clearForm : function(cssClass) {
-            var form = $('.' + cssClass);
+            var form = $(cssClass);
             $.each(['text','color','date','datetime','datetime-local','email','month','number','range','search',
             'tel','time','url','week'], function(idx,val) {
                 form.find('input[type='+val+']').val('');
             });
             form.find('textarea, select').val('');
+        },
+        addGeocodeSupport : function(cssClass) {
+            var form = $(cssClass);
+            var inputs = form.find('input[type="text"], select');
+            inputs.on('blur', (function(formClass) {
+                return function() {
+                    ProtoSupport.doGeocode(formClass);
+                };
+            })(cssClass))
+        },
+        doGeocode : function(cssClass) {
+            var form = $(cssClass);
+            var inputs = form.find('input[type="text"], select');
+            var params = {};
+            var whiteList = ['street', 'zip', 'city', 'country'];
+            inputs.each( function(idx,input) {
+                var lastPos = input.id.lastIndexOf('_');
+                if( lastPos !== -1) {
+                    var name = input.id.substr(lastPos+1);
+                    if($.inArray(name, whiteList) >= 0) {
+                        params[name] = input.value;
+                    }
+                }
+            });
+            $.ajax({ url : '/locations/find.json', data : params })
+                .done(function(response) {
+                    if(!response) return;
+                    if(response.length == 0) return;
+                    var result = response[0];
+                    var $scope = angular.element($('#map-app')[0]).scope();
+                    $scope.currentLatLng = new OpenLayers.LonLat(result['lon'],result['lat']);
+                    $scope.$apply();
+                });
         }
     };
 })();
