@@ -6,6 +6,7 @@ describe Maps::LayersController do
 
   before(:all) do
     @keys_should = [:id, :name, :clazz, :label, :type]
+    @total_length = 4
   end
 
   describe 'routing' do
@@ -34,15 +35,25 @@ describe Maps::LayersController do
       end
     end
 
-    it 'returns filtered number of layers when passing lvl=base' do
+    it 'returns filtered number of layers when passing type=base' do
       get :index, :type => 'base'
-      b = response.body
-      arr = ActiveSupport::JSON.decode(b)
+      arr = parse_response_body response
       arr.each do |layer|
         layer['type'].should eq('base')
       end
     end
 
+    it 'returns empty array when passing type=none' do
+      get :index, :type => 'none'
+      arr = parse_response_body response
+      arr.should be_empty
+    end
+
+    it 'returns all values when passing type=all' do
+      get :index, :type => 'all'
+      arr = parse_response_body response
+      arr.length.should be(@total_length)
+    end
   end
 
 end

@@ -12,7 +12,13 @@ class Maps::LayersController < ApplicationController
     return nil if !params.keys.include?('type')   #currently filters can handle types only
     type = params[:type]
     return Proc.new do |layer|
-      layer['type'] == type
+      if type == 'all'
+        true
+      elsif type == 'none'
+        false
+      else
+        layer['type'] == type
+      end
     end
   end
 

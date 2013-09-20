@@ -2,7 +2,8 @@
     {
         "id": "zoom",
         "label": "{views.map.tools.zoom_to_own_location}",
-        "icon": "icon-home"
+        "icon": "icon-home",
+        "type": "geoLocation"
     },
     {
         "id": "pick",
