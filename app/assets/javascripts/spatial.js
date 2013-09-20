@@ -24,4 +24,4 @@
 angular.bootstrap($('#layers-app'), ['layerApp', 'globalBroadcastServices', 'httpServices']);
 angular.bootstrap($('#map-app'),    ['mapApp',   'globalBroadcastServices']);
 angular.bootstrap($('#tools-app'),  ['toolsApp', 'globalBroadcastServices', 'httpServices']);
-angular.bootstrap($('#expanders-app'), ['expandersApp', 'globalBroadcastServices'])
+angular.bootstrap($('#expanders-app'), ['expandersApp', 'globalBroadcastServices']);

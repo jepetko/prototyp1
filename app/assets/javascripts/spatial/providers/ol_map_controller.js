@@ -1,4 +1,5 @@
-mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService', function($scope, $element, $attrs, sharedService) {
+mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService', '$window', '$timeout',
+                                function($scope, $element, $attrs, sharedService, $window, $timeout) {
     $scope.proxy =  {
         getURL : function(url) {
             return '/proxy?url=' + encodeURIComponent(url);
@@ -11,19 +12,13 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         units: "m",
         numZoomLevels: 18,
         maxResolution: 156543.0339,
-        maxExtent: new OpenLayers.Bounds(   -20037508, -20037508,
-            20037508, 20037508.34)
+        maxExtent: new OpenLayers.Bounds(-20037508, -20037508, 20037508, 20037508.34)
     };
 
     $scope.map = null;
 
     $scope.DRAW_EXTENT_LAYER_NAME = 'drawExtent';
 
-    /**
-     *
-     * @type {OpenLayers.LatLng}
-     */
-    $scope.currentLatLng = null;
     /**
      * POINT( 1.0 1.0 )
      * @type {String}
@@ -283,8 +278,11 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         navigator.geolocation.getCurrentPosition(fly);
     };
 
-    $scope.$watch('currentLatLng', function(newValue, oldValue) {
-        var coords = $scope.toWebMercator(newValue);
+    $scope.$watch('currentLatLngAsString', function(newValue, oldValue) {
+        if(!newValue) return;
+        var pieces = newValue.replace(/^POINT(\s*)\(/g,'').replace(/\)$/g,'').split(' ');
+        if(pieces.length !== 2) return;
+        var coords = $scope.toWebMercator(new OpenLayers.LonLat(parseFloat(pieces[0]), parseFloat(pieces[1])));
         if( coords ) {
             $scope.zoomTo(coords);
         }
@@ -309,4 +307,12 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 break;
         }
     });
+
+   $timeout( (function(scope,w) {
+       return function() {
+           if(w.currentPoint) {
+                scope.currentLatLngAsString = w.currentPoint;
+           }
+       }
+   })($scope, $window), 2000);
 }]);

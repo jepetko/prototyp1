@@ -150,7 +150,6 @@ var ProtoSupport = (function() {
                     if(response.length == 0) return;
                     var result = response[0];
                     var $scope = angular.element($('#map-app')[0]).scope();
-                    $scope.currentLatLng = new OpenLayers.LonLat(result['lon'],result['lat']);
                     $scope.currentLatLngAsString = 'POINT(' + result['lon'] + ' ' + result['lat'] + ')';
                     $scope.$apply();
                 });

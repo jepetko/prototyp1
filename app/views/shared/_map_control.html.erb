@@ -6,7 +6,7 @@
 
 <div id="map-app" data-ng-controller="OLMapCtrl" data-ng-init="init()">
   <% if local_assigns.has_key? :options %>
-      <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" data-ng-model="currentLatLngAsString" value="<%=options[:value]%>" style="display:none;">
+      <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" data-ng-model="currentLatLngAsString" style="display:block;">
   <% end %>
 </div>
 <div id="map-tools-perspective">
@@ -63,3 +63,4 @@
     </div>
   </div>
 </div>
+<%= javascript_tag "var currentPoint = '#{options[:value]}';"%>
