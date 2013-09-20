@@ -48,15 +48,30 @@ layerApp.directive('addBootstrapCheckboxSwitches', function($timeout,sharedServi
     }
 });
 
+layerApp.directive('hasVectorLayers', function($timeout) {
+    return function(scope,element, attrs) {
+        $timeout(function() {
+            var found = false;
+            $.each(scope.layers, function(idx,layer) {
+                if (found === true) return;
+                if( scope.filterWFS(layer)) {
+                    scope.hasVectorLayers = true;
+                    found = true;
+                }
+            });
+        }, 1000);
+    }
+});
+
 var httpServices = angular.module('httpServices', ['ngResource']);
 httpServices.factory('Layer', function($resource){
-    return $resource('/layers?lvl=:lvl', {lvl : 'full'}, {
-        query: {method:'GET', params:{ lvl : '' }, isArray:true}
+    return $resource('/layers.json?type=:type', {type:'@type'}, {
+        query: {method:'GET', params:{type: '@type'}, isArray:true}
     });
 });
 httpServices.factory('Tool', function($resource) {
-    return $resource('/tools', {}, {
-        query: {method:'GET', params:{}, isArray:true}
+    return $resource('/tools.json?group=:group', {group:'@group'}, {
+        query: {method:'GET', params:{group: '@group'}, isArray:true}
     });
 });
 

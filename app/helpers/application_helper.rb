@@ -27,6 +27,13 @@ module ApplicationHelper
     end
   end
 
+  def get_option(local_assigns, key)
+    return '' if !local_assigns.has_key? :options
+    options = local_assigns[:options]
+    return '' if options.nil?
+    options[key]
+  end
+
   #deprecated
   def get_current_route
     url_for(:only_path => false, :overwrite_params=>nil).gsub(/http[s]?\:\/\/[\w]+[\:]?[\d]+/,'')

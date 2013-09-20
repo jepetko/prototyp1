@@ -8,7 +8,8 @@
     <%= f.input :city %>
     <%= f.input :country %>
     <%= f.hidden_field :company_avatar %>
-    <%= f.input :latlon, :as => :latlon, :value => @customer.latlon.to_s, :name => 'customer_latlon', :label => false %>
+    <%= f.input :latlon, :as => :latlon, :value => @customer.latlon.to_s, :name => 'customer_latlon', :label => false,
+                :tools_filter => '{"group" : 0}', :layers_filter => '{"type" : "base"}' %>
   </div>
 
   <div class="form-actions">

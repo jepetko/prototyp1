@@ -42,6 +42,14 @@ describe Maps::ToolsController do
       obj.length.should be(1)
       obj[0]['id'].should eq('zoom')
     end
+
+    it 'returns filtered tools with group=0' do
+      get :index, :group => 0
+      obj = parse_response_body response
+      obj.should be_a(Array)
+      obj.length.should be(1)
+      obj[0]['group'].should eq(0)
+    end
   end
 
 end

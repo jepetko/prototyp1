@@ -53,7 +53,13 @@ describe Maps::LayersController do
     it 'returns all values when passing type=all' do
       get :index, :type => 'all'
       arr = parse_response_body response
-      arr.length.should be(@total_length)
+      arr.length.should eq(@total_length)
+    end
+
+    it 'returns all values when passing empty string for any parameter' do
+      get :index, :id => ''
+      arr = parse_response_body response
+      arr.length.should eq(@total_length)
     end
   end
 

@@ -51,11 +51,21 @@ module Maps::Actions
           false
         else
           str_to_eval = ''
+
           relevant_params.each do |key,val|
             str_to_eval << ' && ' if str_to_eval.length > 0
-            str_to_eval << "element['#{key}'] == '#{val}'"
+            next if val == ''
+            /[^\d]+/.match(val) do |match|
+              val = "'#{val}'"
+            end
+            str_to_eval << "element['#{key}'] == #{val}"
           end
-          eval str_to_eval
+
+          if str_to_eval == ''
+            true
+          else
+            eval str_to_eval
+          end
         end
       end
     end

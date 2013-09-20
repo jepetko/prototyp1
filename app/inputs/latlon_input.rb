@@ -26,7 +26,9 @@ class LatlonInput < SimpleForm::Inputs::Base
     id = "#{@builder.object_name}_#{attribute_name.to_s}"
     name = "#{@builder.object_name}[#{attribute_name.to_s}]"
     options =  input_html_options.merge(:value => @builder.object.latlon.to_s,
-                                        :id => id, :name => name)
+                                        :id => id, :name => name,
+                                        :tools_filter => @options[:tools_filter],
+                                        :layers_filter => @options[:layers_filter])
     @builder.latlon_control(attribute_name, options).html_safe
   end
 

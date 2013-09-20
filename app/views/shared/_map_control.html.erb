@@ -13,7 +13,7 @@
   <div id="map-tools">
     <div id="map-tools-inner">
       <div id="tools-app">
-        <div data-ng-controller="ToolsCtrl">
+        <div data-ng-controller="ToolsCtrl" data-filter="<%=get_option(local_assigns,:tools_filter) || '{}'%>">
           <button data-ng-repeat="tool in tools | filter:standalone" type="button" class="btn btn-primary" data-ng-click="toolClicked()">
             <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
           </button>
@@ -24,7 +24,7 @@
           </div>
         </div>
       </div>
-      <div id="layers-app" class="accordion" data-ng-controller="LayerListCtrl" data-ng-init="init()">
+      <div id="layers-app" class="accordion" data-ng-controller="LayerListCtrl" data-ng-init="init()" data-filter="<%=get_option(local_assigns,:layers_filter) || '{}'%>">
         <div class="accordion-group">
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#base-layers">
@@ -42,7 +42,7 @@
             </div>
           </div>
         </div>
-        <div class="accordion-group">
+        <div class="accordion-group" ng-show="hasVectorLayers" data-has-vector-layers>
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#wfs-layers">
               <%=t 'views.map.vector_layers'%>

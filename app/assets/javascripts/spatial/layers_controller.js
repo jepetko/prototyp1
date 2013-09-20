@@ -1,8 +1,16 @@
 'use strict';
 
-layerApp.controller('LayerListCtrl', ['$scope', 'Layer', 'sharedService', function($scope, Layer, sharedService) {
-    $scope.layers = Layer.query();
+layerApp.controller('LayerListCtrl', ['$scope', '$element', '$attrs', 'Layer', 'sharedService', function($scope, $element, $attrs, Layer, sharedService) {
+
+    var filter = {};
+    try {
+        filter = $attrs['filter'] ? JSON.parse($attrs['filter']) : {}
+    } catch(e) {
+        //probably wrong filter passed ; not parseable
+    }
+    $scope.layers = Layer.query( filter );
     $scope.myBaseLayer = null;
+    $scope.hasVectorLayers = false;
 
     $scope.filterBase = function(layer) {
         return (layer.type == 'base');

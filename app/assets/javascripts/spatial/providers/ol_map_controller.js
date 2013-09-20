@@ -145,17 +145,11 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         'selectFeature' : function() {
             var olLayers = $scope.map.getLayersBy('CLASS_NAME', 'OpenLayers.Layer.Vector');
 
-            console.log('layers selected for selectFeatre:');
-            console.log(olLayers);
-
             $.each(olLayers, function($idx,olLayer) {
 
                 if( $scope.isDrawLayer(olLayer)) return;
 
                 var controls = $scope.getToolsBy('layer', olLayer);
-
-                console.log('controls: ');
-                console.log( controls );
 
                 if( controls.length == 0 ) {
                     var control = new OpenLayers.Control.SelectFeature(olLayer,{
@@ -174,9 +168,6 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
             var name = $scope.DRAW_EXTENT_LAYER_NAME;
             var olLayer = $scope.map.getLayersByName(name);
 
-            console.log('layers selected for drawExtent');
-            console.log(olLayer);
-
             if( olLayer.length == 0 ) {
                 olLayer = new OpenLayers.Layer.Vector(name);
                 olLayer.preFeatureInsert = function() {
@@ -188,9 +179,6 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
             }
 
             var controls = $scope.getToolsBy('layer', olLayer);
-
-            console.log('controls: ');
-            console.log( controls );
 
             if( controls.length == 0) {
                 var control = new OpenLayers.Control.DrawFeature(olLayer,

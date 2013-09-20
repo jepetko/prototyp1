@@ -1,7 +1,15 @@
 'use strict';
 
-toolsApp.controller('ToolsCtrl', ['$scope', 'Tool', 'sharedService', function($scope, Tool, sharedService) {
-    $scope.tools = Tool.query();
+toolsApp.controller('ToolsCtrl', ['$scope', '$element', '$attrs', 'Tool', 'sharedService', function($scope, $element, $attrs, Tool, sharedService) {
+
+    var filter = {};
+    try {
+        filter = $attrs['filter'] ? JSON.parse($attrs['filter']) : {}
+    } catch(e) {
+        //probably wrong filter passed ; not parseable
+    }
+
+    $scope.tools = Tool.query(filter);
     $scope.lastActiveTool = null;
 
     $scope.group = function(tool) {
@@ -9,7 +17,7 @@ toolsApp.controller('ToolsCtrl', ['$scope', 'Tool', 'sharedService', function($s
     };
 
     $scope.standalone = function(tool) {
-        return !tool.group;
+        return !$scope.group(tool);
     };
 
     $scope.toolPicked = function() {
