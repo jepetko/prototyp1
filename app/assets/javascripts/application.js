@@ -128,7 +128,7 @@ var ProtoSupport = (function() {
                 return function() {
                     ProtoSupport.doGeocode(formClass);
                 };
-            })(cssClass))
+            })(cssClass));
         },
         getGeocodeParams : function(cssClass) {
             var form = $(cssClass);
@@ -159,7 +159,6 @@ var ProtoSupport = (function() {
         doGeocode : function(cssClass) {
             var params = ProtoSupport.getGeocodeParams(cssClass);
             var addressStr = ProtoSupport.buildAddress(params);
-            console.log(addressStr);
             $.ajax({ url : '/locations/find.json', data : params })
                 .done( (function(addressStr) {
                     return function(response) {
@@ -168,7 +167,6 @@ var ProtoSupport = (function() {
                         var result = response[0];
                         var $scope = angular.element($('#map-app')[0]).scope();
                         $scope.currentAddressAsString = addressStr;
-                        console.log( addressStr);
                         $scope.currentLatLngAsString = 'POINT(' + result['lon'] + ' ' + result['lat'] + ')';
                         $scope.$apply();
                     }

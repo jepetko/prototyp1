@@ -342,6 +342,8 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
        return function() {
            if(w.currentPoint) {
                 scope.currentLatLngAsString = w.currentPoint;
+           } else {
+               scope.flyToOwnLoc();
            }
        }
    })($scope, $window), 2000);

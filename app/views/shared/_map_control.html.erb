@@ -6,7 +6,7 @@
 
 <div id="map-app" data-ng-controller="OLMapCtrl" data-ng-init="init()">
   <% if has_local_assign(local_assigns,:options) %>
-      <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" data-ng-model="currentLatLngAsString" style="display:block;">
+      <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" data-ng-model="currentLatLngAsString" style="display:none;">
   <% end %>
 </div>
 <div id="map-tools-perspective">
