@@ -18,7 +18,7 @@
    end
 %>
 <% if contacts.empty? %>
-    No contacts. Edit record to add some of them.
+    <%=t 'views.contact.index.message_no_contacts'%>
 <% else %>
     <%= render(:partial => 'contacts/contacts', :locals => {:contacts => contacts, :editable => editable} )%>
     <%= will_paginate contacts, :params => { :controller => 'contacts', :action => paginate_action }, renderer: BootstrapPagination::Rails %>

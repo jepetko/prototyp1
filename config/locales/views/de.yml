@@ -40,6 +40,7 @@ de:
     contact:
       index:
         title: Kontakt-Liste
+        message_no_contacts: Keine Kontakte. Bitte, fügen Sie welche hinzu.
       flash_messages:
         created_successfully: Kontakt wurde erfolgreich erstellt.
         updated_successfully: Kontakt wurde aktualisiert.

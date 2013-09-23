@@ -30,20 +30,29 @@ Then(/^contact (.*), (.*), (.*) should appear in the table above$/) do |name, ph
 
   #TODO: count the rows (=number of contacts)
   #and compare the number with the new count
-  puts 'contact ...'
-=begin
   Watir::Wait.until {
-    @browser.form(:id,'new_contact').present?
+    @browser.table(:class,'contacts').present?
   }
-=end
-=begin
+
+  tr = @browser.tr(:xpath, '//table[@class="contacts"]/tbody/tr[last()]')
+  tr.should be_present
+
+  expect(tr.text).to include(name)
+  expect(tr.text).to include(phone)
+  expect(tr.text).to include(note)
+end
+
+Then(/^a warning appears above the phone input field$/) do
+  label = @browser.label(:class, 'tel')
+  expect(label).to be_present
+  label.attribute_value('error-message').should_not eq('')
+end
+
+When(/^the list of contacts is empty$/) do
+
+  table = @browser.div(:xpath, '//table[@class="contacts"]')
+  table.should_not be_present
+
   div = @browser.div(:id, 'contacts')
-  Watir::Wait.until {
-    c = @browser.div(:id, 'contacts')
-    c.present? && c.text.include?(name)
-  }
-  expect(div.text).to include(name)
-  expect(div.text).to include(phone)
-  expect(div.text).to include(note)
-=end
+  expect(div.text).to eq(I18n.t('views.contact.index.message_no_contacts'))
 end

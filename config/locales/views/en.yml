@@ -45,6 +45,7 @@ en:
     contact:
       index:
         title: Contacts
+        message_no_contacts: No contacts. Edit record to add some of them.
       flash_messages:
         created_successfully: Contact has been created successfully.
         updated_successfully: Contact has been updated.

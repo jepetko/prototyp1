@@ -1,5 +1,5 @@
 @browser
-Feature: Add contact to a customer
+Feature: Add valid contact to a customer
   As an authenticated user
   I am able to add a contact to a customer
 
@@ -24,5 +24,3 @@ Feature: Add contact to a customer
         | name                  | phone             | note              |
         | Mini Mouse            | 01/123456         | Nice Girl         |
         | Mickey Mouse          | 01/1239999956     | Very chatty       |
-        #| Tom                   |                   | Little bit stupid |
-        #| Jerry                 | °dflkdg^dlf       | Pretty smart guy  |
