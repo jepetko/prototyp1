@@ -27,6 +27,17 @@ de:
         zoom_to_own_location: Auf eigenen Standort zoomen
         pick: Information über Bubble anzeigen
         draw_extent: Mit Rechteck selektieren
+      location:
+        find: Adresse in der Karte anzeigen
+    customer:
+      flash_messages:
+        created_successfully: Kunde wurde erfolgreich gespeichert.
+        updated_successfully: Kunde wurde erfolgreich aktualisiert.
+      new:
+        save: Kunden speichern
+      edit:
+        new_contact: Neuer Kontakt
+        save_contact: Kontakt speichern
     company_avatar:
       flash_messages:
         created_successfully: Firmenlogo wurde erfolgreich erstellt.
@@ -44,6 +55,8 @@ de:
       flash_messages:
         created_successfully: Kontakt wurde erfolgreich erstellt.
         updated_successfully: Kontakt wurde aktualisiert.
+      new:
+        save: Kunden speichern
       edit:
         save: Kontakt speichern
     company:

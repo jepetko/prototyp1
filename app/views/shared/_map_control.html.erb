@@ -3,7 +3,6 @@
     <span class="icon-list"></span>
   </button>
 </div>
-
 <div id="map-app" data-ng-controller="OLMapCtrl" data-ng-init="init()">
   <% if has_local_assign(local_assigns,:options) %>
       <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" data-ng-model="currentLatLngAsString" style="display:none;">
@@ -58,6 +57,20 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div id="addressmask-app">
+        <div data-ng-controller="AddressMasksCtrl">
+          <%= simple_form_for(Location.new, :url => '#') do |f| %>
+              <%= f.input :street, input_html: { 'ng-model' => 'street' } %>
+              <%= f.input :zip %>
+              <%= f.input :city %>
+              <%= f.input :country, iso_codes: true %>
+              <div>{{street}}</div>
+              <%= button_tag(type: 'button', class: 'btn btn-primary') do %>
+                  <i class="icon-white"></i><%=I18n.t('views.map.location.find')%>
+              <% end %>
+          <% end %>
         </div>
       </div>
     </div>

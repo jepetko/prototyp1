@@ -165,10 +165,14 @@ var ProtoSupport = (function() {
                         if(!response) return;
                         if(response.length == 0) return;
                         var result = response[0];
+
+                        //we are outside the angularJS application. Therefore: we need a mechanism to tell AngularJS map application
+                        //to show the geocoded coordinates in the map
                         var $scope = angular.element($('#map-app')[0]).scope();
                         $scope.currentAddressAsString = addressStr;
                         $scope.currentLatLngAsString = 'POINT(' + result['lon'] + ' ' + result['lat'] + ')';
                         $scope.$apply();
+
                     }
                 })(addressStr));
         }

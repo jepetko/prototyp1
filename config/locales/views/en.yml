@@ -25,10 +25,14 @@ en:
         zoom_to_own_location: Zoom to the own location
         pick: Pick an object from the map
         draw_extent: Draw Extent and select features
+      location:
+        find: Show addres in the map
     customer:
       flash_messages:
         created_successfully: Customer has been created successfully.
         updated_successfully: Customer has been updated successfully.
+      new:
+        save: Save
       edit:
         new_contact: New contact
         save_contact: Save contact

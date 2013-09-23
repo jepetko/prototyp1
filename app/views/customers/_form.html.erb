@@ -1,19 +1,22 @@
-<%= simple_form_for(@customer, :html => {:class => 'customer-form'} ) do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for(@customer, :html => {:class => 'customer-form'}) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :street %>
-    <%= f.input :zip %>
-    <%= f.input :city %>
-    <%= f.input :country %>
-    <%= f.hidden_field :company_avatar %>
-    <%= f.input :latlon, :as => :latlon, :value => @customer.latlon.to_s, :name => 'customer_latlon', :label => false,
-                :tools_filter => '{"group" : 0}', :layers_filter => '{"type" : "base"}' %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-  <%=javascript_tag 'ProtoSupport.addGeocodeSupport(".customer-form");'%>
+    <div class="row form-inputs">
+      <div class="span4">
+        <%= f.input :name %>
+        <%= f.input :street %>
+        <%= f.input :zip %>
+        <%= f.input :city %>
+        <%= f.input :country, iso_codes: true %>
+        <%= f.hidden_field :company_avatar %>
+      </div>
+      <div class="span8">
+        <%= f.input :latlon, :as => :latlon, :value => @customer.latlon.to_s, :name => 'customer_latlon', :label => false,
+                    :tools_filter => '{"group" : 0}', :layers_filter => '{"type" : "base"}' %>
+      </div>
+    </div>
+    <div class="row form-actions">
+      <%= f.button :submit, :value => t('views.customer.new.save') %>
+    </div>
+    <%= javascript_tag 'ProtoSupport.addGeocodeSupport(".customer-form");' %>
 <% end %>
