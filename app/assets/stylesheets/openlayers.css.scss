@@ -1,12 +1,15 @@
 @import "common";
 
+$width: 400px;
+
 #map-tools-perspective {
-  @include vendor-prefix(perspective, '400px');
+  /*@include vendor-prefix(perspective, '400px');*/
 
   #map-tools {
     position: absolute;
     top: 0;
     right: 0;
+    width: $width;
     z-index: 998;
     background-color: #fff;
     opacity: .95;
@@ -38,12 +41,12 @@
 
 @include keyframes('expand-anim') {
   from {
-    /*@include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');*/
-    @include vendor-prefix(transform, 'rotateY(0deg)');
+    @include vendor-prefix(transform, 'translateX(0deg)');
+    @include vendor-prefix(opacity, 1.0);
   }
   to {
-    /*@include vendor-prefix(transform, "rotate3d(0,1,0,-180deg)");*/
-    @include vendor-prefix(transform, "rotateY(-180deg)");
+    @include vendor-prefix(transform, "translateX(#{$width})");
+    @include vendor-prefix(opacity, 0.0);
   }
 }
 
@@ -53,12 +56,12 @@
 
 @include keyframes('collapse-anim') {
   from {
-    /*@include vendor-prefix(transform, "rotate3d(0,1,0,-180deg)");*/
-    @include vendor-prefix(transform, "rotateY(-180deg)");
+    @include vendor-prefix(transform, "translateX(#{$width})");
+    @include vendor-prefix(opacity, 0.0);
   }
   to {
-    /*@include vendor-prefix(transform, 'rotate3d(0,1,0,0deg)');*/
-    @include vendor-prefix(transform, 'rotateY(0deg)');
+    @include vendor-prefix(transform, 'translateX(0deg)');
+    @include vendor-prefix(opacity, 1.0);
   }
 }
 
