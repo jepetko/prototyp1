@@ -15,7 +15,8 @@ class CustomersController < ApplicationController
     if keyword.nil?
       @customers = Customer.includes(:company_avatar)
     else
-      @customers = Customer.where("name LIKE '%#{keyword}%'").includes(:company_avatar)
+      #@customers = Customer.where("name LIKE '%#{keyword}%'").includes(:company_avatar)
+      @customers = Customer.where('name LIKE ?', "%#{keyword}%").includes(:company_avatar)
     end
 
     respond_to do |format|

@@ -82,6 +82,25 @@ describe CustomersController do
       end
     end
 
+    describe "get 'index'" do
+      before(:each) do
+        FactoryGirl.create(:customer, name: 'I am a new customer')
+      end
+
+      it 'is successful' do
+        get :index
+        response.should have_selector('div', :class => 'thumbnail customer', :count => Customer.all.length)
+      end
+
+      it 'is successful when passing a keyword' do
+        get :index, :keyword => 'customer'
+        response.should be_success
+        response.should have_selector('div', :class => 'thumbnail customer', :count => 1) do |div|
+          div.to_html.should =~ /I am a new customer/
+        end
+      end
+    end
+
     describe "get 'new'" do
       it 'is successful' do
         get :new
