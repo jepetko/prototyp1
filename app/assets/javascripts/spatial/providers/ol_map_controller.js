@@ -18,12 +18,15 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     $scope.map = null;
 
     $scope.DRAW_EXTENT_LAYER_NAME = 'drawExtent';
+    $scope.DRAW_MARKERS_LAYER_NAME = 'markers';
 
     /**
      * POINT( 1.0 1.0 )
      * @type {String}
      */
     $scope.currentLatLngAsString = null;
+
+    $scope.currentAddressAsString = '';
 
     $scope.drawExtentHandlers = {
         /**
@@ -204,6 +207,8 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
 
     $scope.init = function() {
         $scope.map = new OpenLayers.Map($element.attr('id'),this.options);
+        var markers = new OpenLayers.Layer.Markers( $scope.DRAW_MARKERS_LAYER_NAME );
+        $scope.map.addLayer(markers);
     };
 
     $scope.addLayer = function(type,layer) {
@@ -263,9 +268,33 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     };
 
     $scope.zoomTo = function(tgtPos) {
-        var acc = 5;
+        var acc = 10;
         var lvl = $scope.map.numZoomLevels/acc*(acc-1);
         $scope.map.setCenter(tgtPos, lvl);
+    };                                              new OpenLayers.Marker
+
+    $scope.setMarker = function(tgtPos, content) {
+        var size = new OpenLayers.Size(32,32);
+        var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
+        var icon = new OpenLayers.Icon('/assets/marker.png',size,offset);
+        var markers = this.map.getLayersBy('CLASS_NAME', 'OpenLayers.Layer.Markers');
+        if( markers.length == 0 ) return;
+        markers = markers[0];
+        markers.clearMarkers();
+        var marker = new OpenLayers.Marker(tgtPos,icon);
+
+        marker.events.register('mousedown', marker, (function(content) {
+                return function(evt) {
+                    var tgt = evt.target;
+                    var $tgt = $(tgt);
+                    $tgt.attr('data-content', content);
+                    $(tgt).popover();
+                    OpenLayers.Event.stop(evt);
+                }
+            })(content));
+
+        $(icon.imageDiv).css('cursor', 'pointer');
+        markers.addMarker(marker);
     };
 
     $scope.flyToOwnLoc = function() {
@@ -284,6 +313,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         if(pieces.length !== 2) return;
         var coords = $scope.toWebMercator(new OpenLayers.LonLat(parseFloat(pieces[0]), parseFloat(pieces[1])));
         if( coords ) {
+            $scope.setMarker(coords, $scope.currentAddressAsString);
             $scope.zoomTo(coords);
         }
     },true);

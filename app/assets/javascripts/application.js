@@ -130,7 +130,7 @@ var ProtoSupport = (function() {
                 };
             })(cssClass))
         },
-        doGeocode : function(cssClass) {
+        getGeocodeParams : function(cssClass) {
             var form = $(cssClass);
             var inputs = form.find('input[type="text"], select');
             var params = {};
@@ -144,15 +144,35 @@ var ProtoSupport = (function() {
                     }
                 }
             });
+            return params;
+        },
+        buildAddress : function(params) {
+            var str = '';
+            $.each( params, function(key,val) {
+                if(str.length > 0) {
+                    str += ' ';
+                }
+                str += val;
+            });
+            return str;
+        },
+        doGeocode : function(cssClass) {
+            var params = ProtoSupport.getGeocodeParams(cssClass);
+            var addressStr = ProtoSupport.buildAddress(params);
+            console.log(addressStr);
             $.ajax({ url : '/locations/find.json', data : params })
-                .done(function(response) {
-                    if(!response) return;
-                    if(response.length == 0) return;
-                    var result = response[0];
-                    var $scope = angular.element($('#map-app')[0]).scope();
-                    $scope.currentLatLngAsString = 'POINT(' + result['lon'] + ' ' + result['lat'] + ')';
-                    $scope.$apply();
-                });
+                .done( (function(addressStr) {
+                    return function(response) {
+                        if(!response) return;
+                        if(response.length == 0) return;
+                        var result = response[0];
+                        var $scope = angular.element($('#map-app')[0]).scope();
+                        $scope.currentAddressAsString = addressStr;
+                        console.log( addressStr);
+                        $scope.currentLatLngAsString = 'POINT(' + result['lon'] + ' ' + result['lat'] + ')';
+                        $scope.$apply();
+                    }
+                })(addressStr));
         }
     };
 })();
