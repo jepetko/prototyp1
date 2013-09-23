@@ -22,8 +22,6 @@ Then(/^the logo will appear in the page$/) do
 end
 
 Then(/^I can see the size of the image "(.*?)"$/) do |arg1|
-  span = @browser.tr(:class, 'template-download').td(:class, 'size').span do |s|
-    s.present?
-  end
+  span = @browser.tr(:class, 'template-download').td(:class, 'size').span
   expect(span.text).to eq('3.52 KB')
 end

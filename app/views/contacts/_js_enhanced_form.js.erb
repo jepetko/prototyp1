@@ -1,4 +1,4 @@
-var html = '<%= escape_javascript render :partial => "contacts/form.html", :locals => { :contact => @contact }%>';
+var html = '<%= escape_javascript render :partial => 'contacts/form', :locals => { :contact => @contact }%>';
 var contactForm = $('.contact-form');
 var parent = $('.contact-form-wrapper');
 contactForm.remove();
