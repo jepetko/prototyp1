@@ -27,6 +27,10 @@ module ApplicationHelper
     end
   end
 
+  def has_local_assign(local_assigns, name)
+    return local_assigns.has_key? name.to_sym
+  end
+
   def get_option(local_assigns, key)
     return '' if !local_assigns.has_key? :options
     options = local_assigns[:options]

@@ -5,7 +5,7 @@
 </div>
 
 <div id="map-app" data-ng-controller="OLMapCtrl" data-ng-init="init()">
-  <% if local_assigns.has_key? :options %>
+  <% if has_local_assign(local_assigns,:options) %>
       <input type="text" id="<%=options[:id]%>" name="<%=options[:name]%>" data-ng-model="currentLatLngAsString" style="display:block;">
   <% end %>
 </div>
@@ -63,4 +63,6 @@
     </div>
   </div>
 </div>
-<%= javascript_tag "var currentPoint = '#{options[:value]}';"%>
+<% if has_local_assign(local_assigns,:options) %>
+    <%= javascript_tag "var currentPoint = '#{options[:value]}';"%>
+<% end %>
