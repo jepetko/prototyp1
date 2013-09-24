@@ -59,13 +59,14 @@
           </div>
         </div>
       </div>
-      <div id="addressmask-app">
-        <div data-ng-controller="AddressMasksCtrl">
+      <div id="locationfinders-app">
+        <div data-ng-controller="LocationFindersCtrl" data-ng-init="init()">
           <%= simple_form_for(Location.new, :url => '#') do |f| %>
-              <%= f.input :street, input_html: { 'ng-model' => 'street' } %>
-              <%= f.input :zip %>
-              <%= f.input :city %>
-              <%= f.input :country, iso_codes: true %>
+              <% l = Location.name.downcase %>
+              <%= f.input :street, input_html: { 'ng-model' => "#{l}.street" } %>
+              <%= f.input :zip, input_html: { 'ng-model' => "#{l}.zip"}  %>
+              <%= f.input :city, input_html: { 'ng-model' => "#{l}.city"} %>
+              <%= f.input :country, iso_codes: true, input_html: {'ng-model' => "#{l}.country"} %>
               <div>{{street}}</div>
               <%= button_tag(type: 'button', class: 'btn btn-primary') do %>
                   <i class="icon-white"></i><%=I18n.t('views.map.location.find')%>

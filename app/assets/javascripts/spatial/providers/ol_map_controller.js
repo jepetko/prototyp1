@@ -308,8 +308,10 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     };
 
     $scope.$watch('currentLatLngAsString', function(newValue, oldValue) {
+        console.log('>>> WATCH called');
         if(!newValue) return;
         var pieces = newValue.replace(/^POINT(\s*)\(/g,'').replace(/\)$/g,'').split(' ');
+        console.log(pieces);
         if(pieces.length !== 2) return;
         var coords = $scope.toWebMercator(new OpenLayers.LonLat(parseFloat(pieces[0]), parseFloat(pieces[1])));
         if( coords ) {
@@ -334,6 +336,11 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 break;
             case 'tool-changed':
                 $scope.changeTool(obj);
+                break;
+            case 'location-changed':
+                console.log('>>> location changed!');
+                $scope.currentLatLngAsString = obj;
+                $scope.$apply();
                 break;
         }
     });

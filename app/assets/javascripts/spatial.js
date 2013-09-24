@@ -18,12 +18,14 @@
 //= require spatial/layers_controller
 //= require spatial/expanders_controller
 //= require spatial/tools_controller
-//= require spatial/addressmasks_controller
+//= require spatial/locationfinders_controller
 //= require spatial/providers/ol_map_controller
 //= require shared/services
 
-angular.bootstrap($('#layers-app'), ['layerApp', 'globalBroadcastServices', 'httpServices']);
-angular.bootstrap($('#map-app'),    ['mapApp',   'globalBroadcastServices']);
-angular.bootstrap($('#tools-app'),  ['toolsApp', 'globalBroadcastServices', 'httpServices']);
-angular.bootstrap($('#expanders-app'), ['expandersApp', 'globalBroadcastServices']);
-angular.bootstrap($('#addressmask-app'), ['addressmaskApp', 'globalBroadcastServices'] );
+angular.element(document).ready(function() {
+    angular.bootstrap($('#layers-app'), ['layerApp', 'globalBroadcastServices', 'httpServices']);
+    angular.bootstrap($('#map-app'),    ['mapApp',   'globalBroadcastServices']);
+    angular.bootstrap($('#tools-app'),  ['toolsApp', 'globalBroadcastServices', 'httpServices']);
+    angular.bootstrap($('#expanders-app'), ['expandersApp', 'globalBroadcastServices']);
+    angular.bootstrap($('#locationfinders-app'), ['locationFindersApp', 'globalBroadcastServices'] );
+});
