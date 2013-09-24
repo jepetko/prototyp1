@@ -15,12 +15,13 @@
 //= require bootstrap-switch/bootstrap-switch.min
 //= require OpenLayers-2.13.1/OpenLayers
 //= require spatial/app
+//= require spatial/directives
 //= require spatial/layers_controller
 //= require spatial/expanders_controller
 //= require spatial/tools_controller
 //= require spatial/locationfinders_controller
 //= require spatial/providers/ol_map_controller
-//= require shared/services
+//= require spatial/shared/services
 
 angular.element(document).ready(function() {
     angular.bootstrap($('#layers-app'), ['layerApp', 'globalBroadcastServices', 'httpServices']);
