@@ -280,7 +280,14 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         var markers = this.map.getLayersBy('CLASS_NAME', 'OpenLayers.Layer.Markers');
         if( markers.length == 0 ) return;
         markers = markers[0];
+        var list = markers.markers;
+        $.each(list, function(idx,element) {
+            if(element.icon.imageDiv) {
+                $(element.icon.imageDiv).popover('destroy');
+            }
+        })
         markers.clearMarkers();
+
         var marker = new OpenLayers.Marker(tgtPos,icon);
         markers.addMarker(marker);
 
@@ -306,8 +313,8 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         if(pieces.length !== 2) return;
         var coords = $scope.toWebMercator(new OpenLayers.LonLat(parseFloat(pieces[0]), parseFloat(pieces[1])));
         if( coords ) {
-            $scope.setMarker(coords, $scope.currentAddressAsString);
             $scope.zoomTo(coords);
+            $scope.setMarker(coords, $scope.currentAddressAsString);
         }
     },true);
 

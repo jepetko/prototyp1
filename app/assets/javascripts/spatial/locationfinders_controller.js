@@ -7,6 +7,7 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
     $scope.diff = 1000;
     $scope.running = false;
     $scope.lastLocationSent = null;
+    $scope.lastQualityClass = 'icon-thumbs-down';
 
     $scope.init = function() {
         this.lastUpdated = this.now();
@@ -37,9 +38,13 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
         $.ajax({ url : '/locations/find.json', data : this.location })
             .done( function(response) {
                     if(!response) return;
-                    if(response.length == 0) return;
+                    if(response.length == 0) {
+                        $scope.lastQualityClass = 'icon-thumbs-down';
+                        return;
+                    }
                     var result = response[0];
                     var point = 'POINT(' + result['lon'] + ' ' + result['lat'] + ')';
+                    $scope.lastQualityClass = (result['quality'] == 'high') ? 'icon-thumbs-up' : 'icon-hand-right';
                     sharedService.setMessage('location-changed', {address: result['address'], geom: point});
                 })
             .always( function() {

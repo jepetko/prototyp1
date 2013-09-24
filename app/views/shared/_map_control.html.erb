@@ -68,8 +68,8 @@
               <%= f.input :city, input_html: { 'ng-model' => "#{l}.city"} %>
               <%= f.input :country, iso_codes: true, input_html: {'ng-model' => "#{l}.country"} %>
               <div>{{street}}</div>
-              <%= button_tag(type: 'button', class: 'btn btn-primary') do %>
-                  <i class="icon-white"></i><%=I18n.t('views.map.location.find')%>
+              <%= button_tag(type: 'button', class: 'btn btn-primary', 'ng-click' => 'doFind();') do %>
+                  <i class="icon-white {{lastQualityClass}}"></i>&nbsp;<%=I18n.t('views.map.location.find')%>
               <% end %>
           <% end %>
         </div>
