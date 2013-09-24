@@ -282,19 +282,12 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         markers = markers[0];
         markers.clearMarkers();
         var marker = new OpenLayers.Marker(tgtPos,icon);
-
-        marker.events.register('mousedown', marker, (function(content) {
-                return function(evt) {
-                    var tgt = evt.target;
-                    var $tgt = $(tgt);
-                    $tgt.attr('data-content', content);
-                    $(tgt).popover();
-                    OpenLayers.Event.stop(evt);
-                }
-            })(content));
-
-        $(icon.imageDiv).css('cursor', 'pointer');
         markers.addMarker(marker);
+
+        var div = $(icon.imageDiv);
+        div.attr('data-content', content);
+        div.popover({trigger: 'click'}).popover('show');
+        div.css('cursor', 'pointer');
     };
 
     $scope.flyToOwnLoc = function() {
