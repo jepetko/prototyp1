@@ -18,13 +18,10 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
     $scope.locationPartChanged = function(newValue, oldValue) {
         $timeout( function timeoutedFind() {
             var flag = $scope.getPerformFindFlag();
-            console.log(flag);
             if( flag === 3 ) {
-                console.log('flag: 3 ==> doFind');
                 $scope.doFind();
             } else {
                 if( flag === 1 ) {
-                    console.log('flag: 1');
                     $timeout( timeoutedFind, $scope.diff );
                 }
             }
@@ -45,7 +42,6 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
                     sharedService.setMessage('location-changed', point);
                 })
             .always( function() {
-                console.log('always');
                 $scope.lastUpdated = $scope.now();
                 $scope.running = false;
             });
@@ -73,7 +69,6 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
 
     $scope.isInputGiven = function() {
         if( angular.equals(this.location, this.lastLocationSent)) {
-            console.log('Objekte sind gleich. Wozu geokodieren???');
             return false;
         }
         var bSuff = false;

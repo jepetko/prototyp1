@@ -7,6 +7,7 @@ describe LocationsController do
   before(:all) do
     @inputs = [ {street: 'Siebenbrunnengasse 44', city: 'Wien', zip: 1050, country: 'Austria'} ]
     @geocode_to_submit_strings = ['Siebenbrunnengasse 44, 1050 Wien, Austria']
+    @result = ['Siebenbrunnengasse 44, 1050 Vienna, Austria']  #TODO: howto configure geocoder
   end
 
   describe 'routing' do
@@ -36,6 +37,7 @@ describe LocationsController do
     end
 
     it 'finds address and returns results' do
+      i=0
       @inputs.each do |element|
         get :find, element
 
@@ -44,6 +46,9 @@ describe LocationsController do
         str.should end_with(']')
         obj = ActiveSupport::JSON.decode(str)
         obj.should be_a(Array)
+        obj.length.should be(1)
+        obj[0]['address'].should eq(@result[i])
+        i+=1
       end
     end
   end

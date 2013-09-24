@@ -9,7 +9,7 @@ class LocationsController < ApplicationController
       data = element.data
       geom = data['geometry']
       loc = geom['location']
-      result << { quality: get_quality(geom), lat: loc['lat'], lon: loc['lng'] }
+      result << { quality: get_quality(geom), lat: loc['lat'], lon: loc['lng'], address: data['formatted_address'] }
     end
 
     respond_to do |format|
