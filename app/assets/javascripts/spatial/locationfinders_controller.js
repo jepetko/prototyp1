@@ -16,6 +16,7 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
     };
 
     $scope.locationPartChanged = function(newValue, oldValue) {
+        console.log(newValue);
         $timeout( function timeoutedFind() {
             var flag = $scope.getPerformFindFlag();
             if( flag === 3 ) {
@@ -39,7 +40,7 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
                     if(response.length == 0) return;
                     var result = response[0];
                     var point = 'POINT(' + result['lon'] + ' ' + result['lat'] + ')';
-                    sharedService.setMessage('location-changed', point);
+                    sharedService.setMessage('location-changed', {address: result['address'], geom: point});
                 })
             .always( function() {
                 $scope.lastUpdated = $scope.now();

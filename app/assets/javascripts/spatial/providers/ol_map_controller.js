@@ -337,7 +337,8 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 break;
             case 'location-changed':
                 console.log('>>> location changed!');
-                $scope.currentLatLngAsString = obj;
+                $scope.currentAddressAsString = obj['address'];
+                $scope.currentLatLngAsString = obj['geom'];
                 $scope.$apply();
                 break;
         }
