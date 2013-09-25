@@ -8,7 +8,7 @@ describe CustomersController do
     @selector_for_blank_hint = '//*[text()="' + I18n.t('activerecord.errors.messages.blank') + '"]'
   end
 
-  describe "When user is not eligible to see any customers because he is not logged in" do
+  describe 'When user is not eligible to see any customers because he is not logged in' do
 
     before(:each) do
       login_set_user_seed([:customer,:company_avatar],true)
@@ -25,7 +25,7 @@ describe CustomersController do
     end
   end
 
-  describe "When user is logged in" do
+  describe 'When user is logged in' do
 
     before(:each) do
 
@@ -44,39 +44,39 @@ describe CustomersController do
       }
     end
 
-    describe "routing" do
+    describe 'routing' do
 
-      it "routes to #index" do
+      it 'routes to #index' do
         { :get => '/customers'}.should \
           route_to(:controller => 'customers', :action => 'index')
       end
 
-      it "routes to #new" do
-        { :get => "/customers/new" }.should \
+      it 'routes to #new' do
+        { :get => '/customers/new' }.should \
           route_to(:controller => 'customers', :action => 'new')
       end
 
-      it "routes to #create" do
-        { :post => "/customers"}.should \
+      it 'routes to #create' do
+        { :post => '/customers'}.should \
           route_to(:controller => 'customers', :action => 'create')
       end
 
-      it "routes to #show" do
+      it 'routes to #show' do
         { :get => "/customers/#{@test_customer.id}" }.should \
           route_to(:controller => 'customers', :action => 'show', :id => @test_customer.id.to_s)
       end
 
-      it "routes to #edit" do
+      it 'routes to #edit' do
         { :get => "/customers/#{@test_customer.id}/edit" }.should \
           route_to(:controller => 'customers', :action => 'edit', :id => @test_customer.id.to_s)
       end
 
-      it "routes to #update" do
+      it 'routes to #update' do
         { :put => "/customers/#{@test_customer.id}" }.should \
           route_to(:controller => 'customers', :action => 'update', :id => @test_customer.id.to_s)
       end
 
-      it "routes to #destroy" do
+      it 'routes to #destroy' do
         { :delete => "/customers/#{@test_customer.id}" }.should \
           route_to(:controller => 'customers', :action => 'destroy', :id => @test_customer.id.to_s)
       end
@@ -84,7 +84,8 @@ describe CustomersController do
 
     describe "get 'index'" do
       before(:each) do
-        FactoryGirl.create(:customer, name: 'I am a new customer')
+        FactoryGirl.create(:customer, name: 'I am a new customer', latlon: 'POINT(16.344 48.185)')
+        @geom = 'POLYGON((16.343390733776932 48.18425220210939,16.343390733776932 48.190861439574796,16.3574240513432 48.190861439574796,16.3574240513432 48.18425220210939,16.343390733776932 48.18425220210939))'
       end
 
       it 'is successful' do
@@ -94,6 +95,14 @@ describe CustomersController do
 
       it 'is successful when passing a keyword' do
         get :index, :keyword => 'customer'
+        response.should be_success
+        response.should have_selector('div', :class => 'thumbnail customer', :count => 1) do |div|
+          div.to_html.should =~ /I am a new customer/
+        end
+      end
+
+      it 'is successful when passing a geometry' do
+        get :index, :geom => @geom
         response.should be_success
         response.should have_selector('div', :class => 'thumbnail customer', :count => 1) do |div|
           div.to_html.should =~ /I am a new customer/
@@ -117,14 +126,14 @@ describe CustomersController do
 
     describe "post 'create'" do
 
-      it "is successful" do
+      it 'is successful' do
         expect {
           post :create, customer: @c_attr
           flash[:notice].should eq( I18n.t('views.company.flash_messages.created_successfully'))
         }.to change(Customer,:count).by(1)
       end
 
-      it "is failure" do
+      it 'is failure' do
         expect {
           post :create, customer: @c_attr_failure
           response.should render_template(:new)
@@ -137,7 +146,7 @@ describe CustomersController do
 
     describe "get 'edit'" do
 
-      it "is successful" do
+      it 'is successful' do
         get :edit, id: @test_customer.id
         response.should be_success
 
@@ -156,7 +165,7 @@ describe CustomersController do
         response.should contain('<tr class="template-download fade"')  #company avatar
       end
 
-      it "is failure" do
+      it 'is failure' do
         expect {
           get :edit, id: 1000
           response.should_not be_success
@@ -165,7 +174,7 @@ describe CustomersController do
 
     end
 
-    describe "put :update" do
+    describe 'put :update' do
 
       it "is successful when changing records' data" do
         #we change the city value
@@ -178,7 +187,7 @@ describe CustomersController do
         flash[:notice].should eq( I18n.t('views.company.flash_messages.updated_successfully') )
       end
 
-      it "is failure when passing invalid values" do
+      it 'is failure when passing invalid values' do
         #we change the city value (blank)
         new_customer = @test_customer.attributes.except('id','updated_at','created_at').merge('city' => '')
 
@@ -189,16 +198,16 @@ describe CustomersController do
 
     end
 
-    describe "delete :destroy" do
+    describe 'delete :destroy' do
 
-      it "is successful when passing existing customer" do
+      it 'is successful when passing existing customer' do
         expect {
           delete :destroy, :id => @test_customer.id
           response.should redirect_to( customers_path )
         }.to change(Customer,:count).by(-1)
       end
 
-      it "is failure when passing not existing customer" do
+      it 'is failure when passing not existing customer' do
         expect {
           delete :destroy, :id => 1000
         }.to raise_error ActiveRecord::RecordNotFound

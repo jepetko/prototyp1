@@ -11,12 +11,10 @@ class CustomersController < ApplicationController
   # GET /customers
   # GET /customers.json
   def index
-    keyword = params[:keyword]
-    if keyword.nil?
-      @customers = Customer.includes(:company_avatar)
-    else
-      #@customers = Customer.where("name LIKE '%#{keyword}%'").includes(:company_avatar)
-      @customers = Customer.where('name LIKE ?', "%#{keyword}%").includes(:company_avatar)
+    if !params[:keyword].nil?
+      @customers = Customer.find_by_keyword(params[:keyword])
+    elsif !params[:geom].nil?
+      @customers = Customer.find_by_geom(params[:geom])
     end
 
     respond_to do |format|
