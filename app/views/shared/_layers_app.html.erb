@@ -1,0 +1,36 @@
+<div id="layers-app" class="accordion" data-ng-controller="LayerListCtrl" data-ng-init="init()" data-filter="<%=get_option(local_assigns,:layers_filter) || '{}'%>">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#base-layers">
+        <%=t 'views.map.base_layers'%>
+      </a>
+    </div>
+    <div id="base-layers" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <div data-ng-repeat="layer in layers | filter:filterBase">
+          <div class="base-layer switch-mini" data-on="success" data-off="danger" data-add-bootstrap-radio-switches>
+            <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.name}}" data-ng-checked="layer.checked">
+          </div>
+          {{layer.label}}<br>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-group" data-ng-show="hasVectorLayers" data-has-vector-layers>
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#wfs-layers">
+        <%=t 'views.map.vector_layers'%>
+      </a>
+    </div>
+    <div id="wfs-layers" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <div data-ng-repeat="vectorLayer in layers | filter:filterWFS">
+          <div class="wfs-layer switch-mini" data-on="success" data-off="danger" data-add-bootstrap-checkbox-switches>
+            <input id="{{vectorLayer.id}}" type="checkbox" name="wfs-layer" value="{{vectorLayer.name}}">
+          </div>
+          {{vectorLayer.label}}<br>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

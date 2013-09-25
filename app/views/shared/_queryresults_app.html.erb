@@ -1,0 +1,17 @@
+<div id="queryresults-app" class="accordion" data-ng-controller="QueryResultsCtrl" data-ng-init="init()">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="queryresults-app" href="#query-results">
+        <%=t 'views.map.query_results'%>
+        <i class="icon-black" data-ng-class="{true: 'icon-repeat',false: ''}[running]"></i>
+      </a>
+    </div>
+    <div id="query-results" class="accordion-body collapse in">
+      <div class="accordion-inner">
+        <div data-ng-repeat="result in results">
+            {{result.name}}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

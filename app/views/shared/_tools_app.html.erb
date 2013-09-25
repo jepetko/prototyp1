@@ -1,0 +1,12 @@
+<div id="tools-app">
+  <div data-ng-controller="ToolsCtrl" data-filter="<%=get_option(local_assigns,:tools_filter) || '{}'%>">
+    <button data-ng-repeat="tool in tools | filter:standalone" type="button" class="btn btn-primary" data-ng-click="toolClicked()">
+      <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
+    </button>
+    <div class="btn-group btn-group" data-toggle="buttons-checkbox">
+      <button data-ng-repeat="tool in tools | filter:group" type="button" class="btn btn-primary {{tool.active}}" data-ng-click="toolPicked()">
+        <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
+      </button>
+    </div>
+  </div>
+</div>
