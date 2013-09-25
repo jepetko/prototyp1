@@ -1,6 +1,10 @@
 
 en:
   views:
+    street: street
+    city: city
+    zip: zip
+    country: country
     home:
       title: Have a look at these awesome demo presentations.
       slide_1: Asynchronous Javascript and integration of any 3rd party libraries.
@@ -22,6 +26,7 @@ en:
       layer_bing_3: Bing Maps Aerial
       customers: Customers
       find_location: Search address
+      choose_country: Choose a different country
       tools:
         zoom_to_own_location: Zoom to the own location
         pick: Pick an object from the map

@@ -72,10 +72,15 @@
               <div>
                 <%= simple_form_for(Location.new, :url => '#') do |f| %>
                     <% l = Location.name.downcase %>
-                    <%= f.input :street, input_html: { 'data-ng-model' => "#{l}.street" } %>
-                    <%= f.input :zip, input_html: { 'data-ng-model' => "#{l}.zip"}  %>
-                    <%= f.input :city, input_html: { 'data-ng-model' => "#{l}.city"} %>
-                    <%= f.input :country, priority: %w{Austria}, collection: { Austria: 'at', Germany: 'de'}, input_html: {'data-ng-model' => "#{l}.country"} %>
+                    <%= f.input :street, label: t('views.street'), input_html: { 'data-ng-model' => "#{l}.street" } %>
+                    <%= f.input :zip, label: t('views.zip'), input_html: { 'data-ng-model' => "#{l}.zip"}  %>
+                    <%= f.input :city, label: t('views.city'), input_html: { 'data-ng-model' => "#{l}.city"} %>
+                    <a data-toggle="collapse" data-target="#country">
+                      <%=t 'views.map.choose_country'%>
+                    </a>
+                    <div id="country" class="collapse">
+                        <%= f.input :country, priority: %w{Austria}, collection: { Austria: 'at', Germany: 'de'}, label: t('views.country'), input_html: {'data-ng-model' => "#{l}.country"} %>
+                    </div>
                     <div>{{street}}</div>
                     <%= button_tag(type: 'button', class: 'btn btn-primary', 'data-ng-click' => 'doFind();') do %>
                         <i class="icon-white {{lastQualityClass}}"></i>&nbsp;<%=I18n.t('views.map.location.find')%>

@@ -2,6 +2,10 @@
 
 de:
   views:
+    street: Straße
+    city: Ort
+    zip: PLZ
+    country: Land
     home:
       title: Loggen Sie sich ein, um alle Funktionen testen zu können.
       slide_1: Asynchrones Javascript und Integration von beliebigen 3rd party Bibliotheken machen.
@@ -24,6 +28,7 @@ de:
       layer_bing_3: Bing Maps Luftbild
       customers: Kunden
       find_location: Adresse finden
+      choose_country: Ein anderes Land auswählen
       tools:
         zoom_to_own_location: Auf eigenen Standort zoomen
         pick: Information über Bubble anzeigen
