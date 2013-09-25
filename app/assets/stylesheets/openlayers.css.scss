@@ -43,6 +43,15 @@ $width: 400px;
           /* more additional styling here*/
         }
       }
+
+      #queryresults-app {
+        float: left;
+        width:100%;
+
+        #query-results {
+          max-height: 300px;
+        }
+      }
     }
   }
 }

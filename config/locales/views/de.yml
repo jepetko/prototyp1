@@ -29,6 +29,9 @@ de:
       customers: Kunden
       find_location: Adresse finden
       choose_country: Ein anderes Land auswählen
+      no_results: Kein Ergebnis. Markieren Sie Datensätze durch das Aufziehen eines Rechtecks.
+      query_results: Geographisches Suchergebnis
+      found: Datensätze gefunden
       tools:
         zoom_to_own_location: Auf eigenen Standort zoomen
         pick: Information über Bubble anzeigen

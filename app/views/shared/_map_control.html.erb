@@ -16,9 +16,13 @@
       <!-- layers partial -->
       <%= render :partial => 'shared/layers_app', :locals => local_assigns%>
       <!-- location finders partial -->
-      <%= render :partial => 'shared/locationfinders_app', :locals => local_assigns%>
+      <% if get_option(local_assigns,:toggle_locationfinders) %>
+        <%= render :partial => 'shared/locationfinders_app', :locals => local_assigns%>
+      <% end %>
       <!-- result partial -->
-      <%= render :partial => 'shared/queryresults_app', :locals => local_assigns%>
+      <% if get_option(local_assigns,:toggle_queryresults) %>
+        <%= render :partial => 'shared/queryresults_app', :locals => local_assigns%>
+      <% end %>
     </div>
   </div>
 </div>

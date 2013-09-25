@@ -19,3 +19,21 @@ angular.module('globalBroadcastServices', []).service('sharedService', function(
     }
     return sharedService;
 });
+
+
+var httpServices = angular.module('httpServices', ['ngResource']);
+httpServices.factory('Layer', function($resource){
+    return $resource('/layers.json?type=:type', {type:'@type'}, {
+        query: {method:'GET', params:{type: '@type'}, isArray:true}
+    });
+});
+httpServices.factory('Tool', function($resource) {
+    return $resource('/tools.json?group=:group', {group:'@group'}, {
+        query: {method:'GET', params:{group: '@group'}, isArray:true}
+    });
+});
+httpServices.factory('QueryResult', function($resource) {
+    return $resource('/customers.json?geom=:geom', {geom:'@geom'}, {
+        query: {method:'GET', params:{geom: '@geom'}, isArray:true}
+    });
+});

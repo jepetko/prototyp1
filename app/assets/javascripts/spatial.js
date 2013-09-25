@@ -13,6 +13,7 @@
 //= require angularjs/angular
 //= require angularjs/angular-resource
 //= require bootstrap-switch/bootstrap-switch.min
+//= require bootstrap-slimscroll/jquery.slimscroll.min
 //= require OpenLayers-2.13.1/OpenLayers
 //= require spatial/app
 //= require spatial/directives
@@ -20,6 +21,7 @@
 //= require spatial/expanders_controller
 //= require spatial/tools_controller
 //= require spatial/locationfinders_controller
+//= require spatial/queryresults_controller
 //= require spatial/providers/ol_map_controller
 //= require spatial/shared/services
 
@@ -29,4 +31,5 @@ angular.element(document).ready(function() {
     angular.bootstrap($('#tools-app'),  ['toolsApp', 'globalBroadcastServices', 'httpServices']);
     angular.bootstrap($('#expanders-app'), ['expandersApp', 'globalBroadcastServices']);
     angular.bootstrap($('#locationfinders-app'), ['locationFindersApp', 'globalBroadcastServices'] );
+    angular.bootstrap($('#queryresults-app'), ['queryResultsApp', 'globalBroadcastServices', 'httpServices'])
 });

@@ -27,6 +27,9 @@ en:
       customers: Customers
       find_location: Search address
       choose_country: Choose a different country
+      no_results: No results so far. Please, select records by rectangle.
+      query_results: Spatial search result
+      found: records found
       tools:
         zoom_to_own_location: Zoom to the own location
         pick: Pick an object from the map

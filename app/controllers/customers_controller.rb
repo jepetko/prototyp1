@@ -15,6 +15,8 @@ class CustomersController < ApplicationController
       @customers = Customer.find_by_keyword(params[:keyword])
     elsif !params[:geom].nil?
       @customers = Customer.find_by_geom(params[:geom])
+    else
+      @customers = Customer.all
     end
 
     respond_to do |format|

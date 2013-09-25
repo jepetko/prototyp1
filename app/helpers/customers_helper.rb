@@ -11,16 +11,18 @@ module CustomersHelper
 
   def to_geojson(customers)
     str = ''
-    customers.each do |customer|
-      if str != ''
-        str << ','
+    if !customers.nil?
+      customers.each do |customer|
+        if str != ''
+          str << ','
+        end
+        str << '{"type" : "Feature",'
+        str << "\"id\": #{customer.id},"
+        str << "\"geometry\": #{RGeo::GeoJSON.encode(customer.latlon).to_json},"
+        str << '"geometry_name" : "SHAPE",'
+        str << "\"properties\" : #{customer.to_json(:except => [:id, :latlon, :updated_at, :created_at])}"
+        str << '}'
       end
-      str << '{"type" : "Feature",'
-      str << "\"id\": #{customer.id},"
-      str << "\"geometry\": #{RGeo::GeoJSON.encode(customer.latlon).to_json},"
-      str << '"geometry_name" : "SHAPE",'
-      str << "\"properties\" : #{customer.to_json(:except => [:id, :latlon, :updated_at, :created_at])}"
-      str << '}'
     end
     '{"type":"FeatureCollection","features":[' + str + ']}'
   end

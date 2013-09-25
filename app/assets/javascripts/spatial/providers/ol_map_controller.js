@@ -162,6 +162,12 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                     eventListeners : $scope.wfsEventHandlers
                 });
                 $scope.map.addLayer(olLayer);
+
+                //raise the markers layer
+                var markers = $scope.map.getLayersByName($scope.DRAW_MARKERS_LAYER_NAME);
+                if( markers.length > 0 ) {
+                    $scope.map.setLayerIndex(markers[0], $scope.map.layers.length-1);
+                }
             } else {
                 olLayer = olLayer[0];
             }

@@ -58,3 +58,15 @@ layerApp.directive('hasVectorLayers', function($timeout) {
         }, 1000);
     }
 });
+
+queryResultsApp.directive('addSlimScroll', function($timeout) {
+    return function(scope,element,attrs) {
+        $timeout(function() {
+            element.slimScroll({
+                color: '#006ccc',
+                size: '10px',
+                height: '200px'
+            });
+        });
+    }
+});
