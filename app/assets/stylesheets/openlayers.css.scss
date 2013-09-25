@@ -20,16 +20,28 @@ $width: 400px;
     @include vendor-prefix(animation-fill-mode, 'forwards');
     @include vendor-prefix(transform-origin,'right');
 
+    .accordion {
+      margin-bottom: 0px;
+    }
+
     #map-tools-inner {
       #tools-app {
         float: left;
-        min-width: 60px;
-        width: 60px;
+        width: 100%;
       }
 
       #layers-app {
         float: left;
-        width: 80%;
+        width: 100%;
+      }
+
+      #locationfinders-app {
+        float: left;
+        width: 100%;
+
+        .loading {
+          /* more additional styling here*/
+        }
       }
     }
   }

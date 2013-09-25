@@ -23,6 +23,7 @@ de:
       layer_bing_2: Bing Maps Luftbild inkl. Beschriftung
       layer_bing_3: Bing Maps Luftbild
       customers: Kunden
+      find_location: Adresse finden
       tools:
         zoom_to_own_location: Auf eigenen Standort zoomen
         pick: Information über Bubble anzeigen

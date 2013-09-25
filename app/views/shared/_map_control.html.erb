@@ -16,7 +16,7 @@
           <button data-ng-repeat="tool in tools | filter:standalone" type="button" class="btn btn-primary" data-ng-click="toolClicked()">
             <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
           </button>
-          <div class="btn-group btn-group-vertical" data-toggle="buttons-checkbox">
+          <div class="btn-group btn-group" data-toggle="buttons-checkbox">
             <button data-ng-repeat="tool in tools | filter:group" type="button" class="btn btn-primary {{tool.active}}" data-ng-click="toolPicked()">
               <i class="{{tool.icon}} icon-white" title="{{tool.label}}"></i>
             </button>
@@ -34,14 +34,14 @@
             <div class="accordion-inner">
               <div data-ng-repeat="layer in layers | filter:filterBase">
                 <div class="base-layer switch-mini" data-on="success" data-off="danger" data-add-bootstrap-radio-switches>
-                  <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.name}}" checked="{{layer.checked}}">
+                  <input id="{{layer.id}}" type="radio" name="base-layer" value="{{layer.name}}" data-ng-checked="layer.checked">
                 </div>
                 {{layer.label}}<br>
               </div>
             </div>
           </div>
         </div>
-        <div class="accordion-group" ng-show="hasVectorLayers" data-has-vector-layers>
+        <div class="accordion-group" data-ng-show="hasVectorLayers" data-has-vector-layers>
           <div class="accordion-heading">
             <a class="accordion-toggle" data-toggle="collapse" data-parent="layer-app" href="#wfs-layers">
               <%=t 'views.map.vector_layers'%>
@@ -59,19 +59,31 @@
           </div>
         </div>
       </div>
-      <div id="locationfinders-app">
-        <div data-ng-controller="LocationFindersCtrl" data-ng-init="init()">
-          <%= simple_form_for(Location.new, :url => '#') do |f| %>
-              <% l = Location.name.downcase %>
-              <%= f.input :street, input_html: { 'ng-model' => "#{l}.street" } %>
-              <%= f.input :zip, input_html: { 'ng-model' => "#{l}.zip"}  %>
-              <%= f.input :city, input_html: { 'ng-model' => "#{l}.city"} %>
-              <%= f.input :country, iso_codes: true, input_html: {'ng-model' => "#{l}.country"} %>
-              <div>{{street}}</div>
-              <%= button_tag(type: 'button', class: 'btn btn-primary', 'ng-click' => 'doFind();') do %>
-                  <i class="icon-white {{lastQualityClass}}"></i>&nbsp;<%=I18n.t('views.map.location.find')%>
-              <% end %>
-          <% end %>
+      <div id="locationfinders-app" class="accordion" data-ng-controller="LocationFindersCtrl" data-ng-init="init()">
+        <div class="accordion-group">
+          <div class="accordion-heading" data-ng-class="{true: 'loading', false:'loading'}[running]">
+            <a class="accordion-toggle" data-toggle="collapse" data-parent="locationfinders-app" href="#find-location">
+              <%=t 'views.map.find_location'%>
+              <i class="icon-black" data-ng-class="{true: 'icon-repeat',false: ''}[running]"></i>
+            </a>
+          </div>
+          <div id="find-location" class="accordion-body collapse in">
+            <div class="accordion-inner">
+              <div>
+                <%= simple_form_for(Location.new, :url => '#') do |f| %>
+                    <% l = Location.name.downcase %>
+                    <%= f.input :street, input_html: { 'data-ng-model' => "#{l}.street" } %>
+                    <%= f.input :zip, input_html: { 'data-ng-model' => "#{l}.zip"}  %>
+                    <%= f.input :city, input_html: { 'data-ng-model' => "#{l}.city"} %>
+                    <%= f.input :country, priority: %w{Austria}, collection: { Austria: 'at', Germany: 'de'}, input_html: {'data-ng-model' => "#{l}.country"} %>
+                    <div>{{street}}</div>
+                    <%= button_tag(type: 'button', class: 'btn btn-primary', 'data-ng-click' => 'doFind();') do %>
+                        <i class="icon-white {{lastQualityClass}}"></i>&nbsp;<%=I18n.t('views.map.location.find')%>
+                    <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

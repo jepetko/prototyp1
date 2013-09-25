@@ -21,6 +21,7 @@ en:
       layer_bing_2: Bing Maps Aerial with Labels
       layer_bing_3: Bing Maps Aerial
       customers: Customers
+      find_location: Search address
       tools:
         zoom_to_own_location: Zoom to the own location
         pick: Pick an object from the map

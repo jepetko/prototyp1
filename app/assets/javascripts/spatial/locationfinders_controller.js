@@ -17,7 +17,7 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
     };
 
     $scope.locationPartChanged = function(newValue, oldValue) {
-        console.log(newValue);
+        $scope.lastUpdated = $scope.now();
         $timeout( function timeoutedFind() {
             var flag = $scope.getPerformFindFlag();
             if( flag === 3 ) {
@@ -50,6 +50,7 @@ locationFindersApp.controller('LocationFindersCtrl', ['$scope', '$element', '$at
             .always( function() {
                 $scope.lastUpdated = $scope.now();
                 $scope.running = false;
+                $scope.$apply();
             });
         this.running = true;
         this.lastLocationSent = angular.copy(this.location,{});

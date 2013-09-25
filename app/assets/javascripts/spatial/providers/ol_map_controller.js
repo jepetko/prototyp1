@@ -28,6 +28,17 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
 
     $scope.currentAddressAsString = '';
 
+
+    $scope.mapEvents = {
+        'moveend' : function() {
+            var markers = $scope.map.getLayersBy('CLASS_NAME', 'OpenLayers.Layer.Markers');
+            if( markers.length > 0 ) {
+                $scope.hideMarkers(markers[0]);
+            }
+            return true;
+        }
+    };
+
     $scope.drawExtentHandlers = {
         /**
          * remove all rectangles from the layer when the control is deactivated
@@ -206,7 +217,8 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
     };
 
     $scope.init = function() {
-        $scope.map = new OpenLayers.Map($element.attr('id'),this.options);
+        var options = {eventListeners: $scope.mapEvents};
+        $scope.map = new OpenLayers.Map($element.attr('id'), options);
         var markers = new OpenLayers.Layer.Markers( $scope.DRAW_MARKERS_LAYER_NAME );
         $scope.map.addLayer(markers);
     };
@@ -271,7 +283,28 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         var acc = 10;
         var lvl = $scope.map.numZoomLevels/acc*(acc-1);
         $scope.map.setCenter(tgtPos, lvl);
-    };                                              new OpenLayers.Marker
+    };
+
+    $scope.destroyMarkers = function(markers) {
+        if(!markers) return;
+        var list = markers.markers;
+        $.each(list, function(idx,element) {
+            if(element.icon.imageDiv) {
+                $(element.icon.imageDiv).popover('destroy');
+            }
+        })
+        markers.clearMarkers();
+    };
+
+    $scope.hideMarkers = function(markers) {
+        if(!markers) return;
+        var list = markers.markers;
+        $.each(list, function(idx,element) {
+            if(element.icon.imageDiv) {
+                $(element.icon.imageDiv).popover('hide');
+            }
+        })
+    };
 
     $scope.setMarker = function(tgtPos, content) {
         var size = new OpenLayers.Size(32,32);
@@ -280,13 +313,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
         var markers = this.map.getLayersBy('CLASS_NAME', 'OpenLayers.Layer.Markers');
         if( markers.length == 0 ) return;
         markers = markers[0];
-        var list = markers.markers;
-        $.each(list, function(idx,element) {
-            if(element.icon.imageDiv) {
-                $(element.icon.imageDiv).popover('destroy');
-            }
-        })
-        markers.clearMarkers();
+        this.destroyMarkers(markers);
 
         var marker = new OpenLayers.Marker(tgtPos,icon);
         markers.addMarker(marker);
