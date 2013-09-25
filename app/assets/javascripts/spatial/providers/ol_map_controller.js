@@ -45,6 +45,14 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
          */
         'deactivate' : function() {
             this.layer.destroyFeatures();
+        },
+        'featureadded' : function(evt) {
+            var wkt = new OpenLayers.Format.WKT();
+            wkt.internalProjection = $scope.projection.projection;
+            wkt.externalProjection = new OpenLayers.Projection('EPSG:4326');
+
+            var result = wkt.write(evt.feature);
+            sharedService.setMessage('feature-added', result);
         }
     };
 
@@ -363,7 +371,6 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
                 $scope.changeTool(obj);
                 break;
             case 'location-changed':
-                console.log('>>> location changed!');
                 $scope.currentAddressAsString = obj['address'];
                 $scope.currentLatLngAsString = obj['geom'];
                 $scope.$apply();
