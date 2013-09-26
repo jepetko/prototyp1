@@ -10,3 +10,13 @@
     <li><%= link_to t('views.layout.nav.all_customers'), customers_path%></li>
   </ul>
 </li>
+<li>
+  <form class="navbar-search pull-left" method="GET" action="<%= customers_path%>">
+    <input type="text" name="keyword" class="search-query" placeholder="<%=t('views.layout.nav.search')%>">
+  </form>
+</li>
+<li>
+  <%= link_to show_all_customers_in_map_path do %>
+    <i class="icon-globe"></i>&nbsp;<%=t('views.map.map')%>
+  <% end %>
+</li>

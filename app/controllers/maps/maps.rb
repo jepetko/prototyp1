@@ -38,7 +38,8 @@ module Maps::Actions
     end
 
 
-    ## this defines the filter blocks but this method could be overridden by some implementing classes (e.g. LayersController)
+    ## this defines the filter block which will be evaluated in context of each array element
+
     def get_filter_features_block
       relevant_params = get_relevant_params
       return nil if relevant_params.size == 0

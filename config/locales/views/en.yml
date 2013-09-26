@@ -36,6 +36,7 @@ en:
         draw_extent: Draw Extent and select features
       location:
         find: Show addres in the map
+      map: Map
     customer:
       flash_messages:
         created_successfully: Customer has been created successfully.

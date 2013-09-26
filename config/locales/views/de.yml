@@ -38,6 +38,7 @@ de:
         draw_extent: Mit Rechteck selektieren
       location:
         find: Adresse in der Karte anzeigen
+      map: Karte
     customer:
       flash_messages:
         created_successfully: Kunde wurde erfolgreich gespeichert.
