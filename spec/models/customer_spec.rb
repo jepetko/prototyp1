@@ -20,8 +20,8 @@ describe Customer do
 
     customer.should respond_to(:company_avatar)
     customer.should respond_to(:contacts)
-    Customer.should respond_to(:find_by_keyword)
-    Customer.should respond_to(:find_by_geom)
+    Customer.should respond_to(:with_name)
+    Customer.should respond_to(:intersecting_geom)
   end
 
   it 'stores valid record' do
@@ -51,10 +51,22 @@ describe Customer do
     }.to raise_error ActiveRecord::RecordInvalid
   end
 
-  it 'returns customers intersecting the passed polygon' do
-    customer = Customer.create!(@attr)
-    customers = Customer.find_by_geom(@polygon)
-    customers.should include(customer)
+  describe 'when trying to query the customers' do
+
+    before(:each) do
+      @customer = Customer.create!(@attr)
+    end
+
+    it 'returns customers according to the passed name' do
+      customers = Customer.with_name('any')
+      customers.should include(@customer)
+    end
+
+    it 'returns customers intersecting the passed polygon' do
+      customers = Customer.intersecting_geom(@polygon)
+      customers.should include(@customer)
+    end
+
   end
 
 end

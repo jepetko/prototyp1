@@ -18,6 +18,7 @@ en:
         edit_account: Edit account
         admin: Administrator area
         sign_up: Sign up
+        search: Customer search
     map:
       vector_layers: vector layers
       base_layers: base layers

@@ -18,11 +18,9 @@ class Customer < ActiveRecord::Base
   has_one :company_avatar, :dependent => :destroy, :autosave => true
   has_many :contacts, :dependent => :destroy, :autosave => true
 
-  def self.find_by_keyword(keyword)
-    Customer.where('name LIKE ?', "%#{keyword}%").includes(:company_avatar)
-  end
+  scope :with_name, lambda { |name| where('name LIKE ?', "%#{name}%")}
 
-  def self.find_by_geom(geom)
+  def self.intersecting_geom(geom)
     parser = RGeo::WKRep::WKTParser.new(nil, :support_ewkt => true)
     polygon = parser.parse(geom)
     Customer.where{st_intersects(:latlon, polygon)}

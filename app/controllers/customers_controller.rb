@@ -12,9 +12,9 @@ class CustomersController < ApplicationController
   # GET /customers.json
   def index
     if !params[:keyword].nil?
-      @customers = Customer.find_by_keyword(params[:keyword])
+      @customers = Customer.with_name(params[:keyword])
     elsif !params[:geom].nil?
-      @customers = Customer.find_by_geom(params[:geom])
+      @customers = Customer.intersecting_geom(params[:geom])
     else
       @customers = Customer.all
     end
