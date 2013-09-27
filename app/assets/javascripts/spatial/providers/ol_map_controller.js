@@ -105,7 +105,7 @@ mapApp.controller('OLMapCtrl', ['$scope', '$element', '$attrs', 'sharedService',
             content += '</div></div></div>';
 
             var popup = new clazz("popup",
-                OpenLayers.LonLat.fromString(feature.geometry.toShortString()),
+                feature.geometry.getBounds().getCenterLonLat(),
                 new OpenLayers.Size(400,200), //note: this will be affected by autoSize = true
                 content,
                 { size : new OpenLayers.Size(0,0), offset : new OpenLayers.Pixel(0,0) },

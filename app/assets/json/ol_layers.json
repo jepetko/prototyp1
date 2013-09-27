@@ -31,5 +31,33 @@
         "type" : "wfs",
         "url" : "/customers.geojson",
         "checked" : "checked",
-        "use_proxy" : false }
+        "use_proxy" : false
+    },
+    {   "id" : "layer_5",
+        "name" : "DogPlaces",
+        "clazz" : "Vector",
+        "label" : "{views.map.dog_places}",
+        "type" : "wfs",
+        "url" : "http://data.wien.gv.at/daten/geoserver/ows?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:HUNDEZONEOGD&srsName=EPSG:4326&outputFormat=json",
+        "checked" : "checked",
+        "use_proxy" : true
+    },
+    {   "id" : "layer_6",
+        "name" : "HikingRoutes",
+        "clazz" : "Vector",
+        "label" : "{views.map.hiking_routes}",
+        "type" : "wfs",
+        "url" : "http://data.wien.gv.at/daten/geoserver/ows?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:WANDERWEGEOGD&srsName=EPSG:4326&outputFormat=json",
+        "checked" : "checked",
+        "use_proxy" : true
+    },
+    {   "id" : "layer_7",
+        "name" : "DanubeIsland",
+        "clazz" : "Vector",
+        "label" : "{views.map.danube_island}",
+        "type" : "wfs",
+        "url" : "http://data.wien.gv.at/daten/geoserver/ows?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:DONAUINSFLOGD,ogdwien:DONAUINSPKTOGD&srsName=EPSG:4326&outputFormat=json",
+        "checked" : "checked",
+        "use_proxy" : true
+    }
 ]

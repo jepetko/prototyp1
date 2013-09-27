@@ -25,6 +25,9 @@ en:
       layer_bing_2: Bing Maps Aerial with Labels
       layer_bing_3: Bing Maps Aerial
       customers: Customers
+      dog_places: Dog places
+      hiking_routes: Hiking routes
+      danube_island: Donau-Insel
       find_location: Search address
       choose_country: Choose a different country
       no_results: No results so far. Please, select records by rectangle.

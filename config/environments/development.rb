@@ -53,6 +53,6 @@ Prototyp1::Application.configure do
   config.assets.debug = true
 
   config.i18n.available_locales = [:en, :de]
-  config.i18n.default_locale = :de
+  config.i18n.default_locale = :en
 
 end
